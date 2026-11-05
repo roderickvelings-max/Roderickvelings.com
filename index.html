@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Roderick Vélings, chanteur de jazz et coach vocal en Belgique. Cours de chant, concerts et blog de technique vocale.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Roderick Vélings</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a jazz lead sheet — sections open with boxed rehearsal marks (A, B, C…), one narrow reading column, a breath line under the name */
+:root {
+  --bg: #eef0f3;
+  --surface: #f8f9fb;
+  --ink: #14213d;
+  --muted: #56607a;
+  --line: #cdd3de;
+  --brass: #9a6a1f;
+  --todo-bg: #fbecc8;
+  --todo-fg: #6b4a10;
+  --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1424; --surface: #151d31; --ink: #e5e8ee; --muted: #98a1b4;
+    --line: #273149; --brass: #d9a64c; --todo-bg: #3a2c10; --todo-fg: #f1cf8a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1424; --surface: #151d31; --ink: #e5e8ee; --muted: #98a1b4;
+  --line: #273149; --brass: #d9a64c; --todo-bg: #3a2c10; --todo-fg: #f1cf8a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.6;
+}
+.wrap {
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; text-decoration-color: var(--brass); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 2px; }
+
+/* Nav */
+nav { border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: baseline; padding-block: 14px; }
+nav .brand { font-family: var(--f-display); font-style: italic; font-size: 1.15rem; margin-right: auto; text-decoration: none; }
+nav ul { display: flex; flex-wrap: wrap; gap: 4px 18px; list-style: none; margin: 0; padding: 0; font-size: 0.9rem; }
+nav ul a { text-decoration: none; color: var(--muted); }
+nav ul a:hover { color: var(--ink); }
+
+/* Hero */
+header.hero .wrap { padding-block: 64px 40px; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); margin: 0 0 14px; }
+h1 {
+  font-family: var(--f-display); font-weight: 500; font-style: italic;
+  font-size: clamp(3rem, 11vw, 5.6rem); line-height: 0.95; margin: 0;
+  letter-spacing: -0.01em; text-wrap: balance;
+}
+.hero .roles { font-size: 1.15rem; color: var(--muted); margin: 18px 0 0; max-width: 34ch; }
+.breath { display: block; width: 100%; height: 56px; margin-top: 28px; }
+.breath path { fill: none; stroke: var(--brass); stroke-width: 1.5; stroke-linecap: round; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-block; font-weight: 500; text-decoration: none; padding: 10px 18px;
+  border: 1px solid var(--ink); border-radius: 2px; font-size: 0.95rem;
+}
+.btn.primary { background: var(--ink); color: var(--bg); }
+
+/* Sections */
+section { border-top: 1px solid var(--line); }
+section .wrap { padding-block: 56px; }
+.mark-row { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.mark {
+  font-family: var(--f-mono); font-size: 0.95rem; width: 34px; height: 34px;
+  display: grid; place-items: center; border: 1.5px solid var(--ink); flex: none;
+}
+h2 { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.25rem; margin: 0 0 6px; }
+p { margin: 0 0 1em; max-width: 65ch; }
+.lede { font-size: 1.1rem; }
+.muted { color: var(--muted); }
+
+.todo {
+  background: var(--todo-bg); color: var(--todo-fg); font-family: var(--f-mono);
+  font-size: 0.8em; padding: 1px 6px; border-radius: 2px; white-space: nowrap;
+}
+
+/* Timeline */
+.timeline { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 18px; }
+.timeline li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 16px; }
+.timeline .when { font-family: var(--f-mono); font-size: 0.8rem; color: var(--brass); padding-top: 4px; }
+.timeline .what { min-width: 0; }
+@media (max-width: 480px) { .timeline li { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Lessons */
+.offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 28px; }
+.offer { background: var(--surface); border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.offer .price { margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--line); font-variant-numeric: tabular-nums; }
+
+/* Agenda */
+.empty { border: 1px dashed var(--line); padding: 22px; margin-top: 24px; }
+.past { margin-top: 28px; }
+.past h3 { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.gig { display: grid; grid-template-columns: 7.5rem 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.gig .when { font-family: var(--f-mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) { .gig { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Media */
+.media { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+.slot { aspect-ratio: 16 / 10; max-width: 100%; border: 1px dashed var(--line); display: grid; place-items: center; text-align: center; padding: 14px; color: var(--muted); font-size: 0.9rem; }
+
+/* Blog */
+.posts { list-style: none; margin: 24px 0 0; padding: 0; }
+.posts li { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.posts li:first-child { border-top: 1px solid var(--line); }
+.posts .meta { font-family: var(--f-mono); font-size: 0.75rem; color: var(--brass); letter-spacing: 0.06em; }
+
+/* Contact */
+.contact dl { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 20px 0 0; }
+.contact dt { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); padding-top: 3px; }
+.contact dd { margin: 0; min-width: 0; }
+
+footer .wrap { padding-block: 28px; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Roderick Vélings</a>
+    <ul>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#cours">Cours</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#ecouter">Écouter</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Chant jazz · Coaching vocal</p>
+    <h1>Roderick<br>Vélings</h1>
+    <p class="roles">Chanteur de jazz et coach vocal. J'aide chaque voix à trouver un son libre, solide et personnel.</p>
+    <svg class="breath" viewBox="0 0 700 56" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 28 C 40 28, 60 26, 90 24 S 150 10, 190 14 S 250 44, 300 40 S 360 6, 410 10 S 480 50, 530 44 S 600 22, 640 26 S 680 28, 700 28"/>
+    </svg>
+    <div class="ctas">
+      <a class="btn primary" href="#cours">Prendre un cours</a>
+      <a class="btn" href="#ecouter">Écouter</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="parcours">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">A</span><h2>Parcours</h2></div>
+      <p class="lede">La musique est revenue par la voix. Après la trompette enfant, j'ai découvert le chant à 20 ans par le blues et la comédie musicale, puis je m'y suis consacré entièrement.</p>
+      <ol class="timeline">
+        <li><span class="when">Enfance</span><div class="what">Trompette, de 6 à 12 ans. Premier contact avec le souffle et la musique d'ensemble.</div></li>
+        <li><span class="when">À 20 ans</span><div class="what">Découverte du chant par le blues, notamment à l'École du Blues au Blues Sphère à Liège.</div></li>
+        <li><span class="when">Scène</span><div class="what">Comédies musicales : <em>Terre de Feu</em> avec la troupe Enchanté, et <em>Robin des Bois</em>, spectacle équestre.</div></li>
+        <li><span class="when">Depuis 2023</span><div class="what">Chef de chœur adjoint et coach vocal de la chorale gospel Bloom For Love à Namur, invitée chaque année au Dinant Jazz Festival.</div></li>
+        <li><span class="when">Depuis 2023</span><div class="what">Animateur musical pour enfants aux Jeunesses Musicales de Liège.</div></li>
+        <li><span class="when">Formation</span><div class="what">Stage intensif avec Le Chanteur Moderne, et recherche continue sur la physiologie et la pédagogie de la voix.</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="cours">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">B</span><h2>Cours &amp; tarifs</h2></div>
+      <p class="lede">Une technique claire, sans jargon ni images floues. On travaille l'appui du souffle, la liberté du larynx et la couleur du son, au service du style que vous aimez : jazz, blues, gospel, pop ou comédie musicale.</p>
+      <p class="muted">Débutants bienvenus. En présentiel ou en ligne.</p>
+      <div class="offers">
+        <article class="offer">
+          <h3>Cours individuel</h3>
+          <p class="muted">Un bilan de votre voix, puis un travail sur mesure : technique, répertoire, préparation d'audition.</p>
+          <div class="price">Tarif sur demande</div>
+        </article>
+        <article class="offer">
+          <h3>Cours en petit groupe</h3>
+          <p class="muted">Chanter ensemble, apprendre à s'écouter, poser sa voix dans l'harmonie.</p>
+          <div class="price">Tarif sur demande</div>
+        </article>
+        <article class="offer">
+          <h3>Chorales &amp; ateliers</h3>
+          <p class="muted">Coaching vocal pour chœurs, échauffements et ateliers ponctuels.</p>
+          <div class="price">Sur devis</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">C</span><h2>Agenda</h2></div>
+      <div class="empty">
+        <p style="margin:0"><strong>Les prochaines dates arrivent bientôt.</strong></p>
+        <p class="muted" style="margin:6px 0 0">Concerts piano-voix et sets jazz annoncés ici dès qu'ils sont confirmés.</p>
+      </div>
+      <div class="past">
+        <h3>Dernièrement</h3>
+        <div class="gig"><span class="when">2023 – 2026</span><span>Dinant Jazz Festival, avec la chorale gospel Bloom For Love</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ecouter">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">D</span><h2>Écouter &amp; voir</h2></div>
+      <p>Extraits live, standards de jazz et compositions, dont <em>Make It Right</em>.</p>
+      <div class="empty">
+        <p style="margin:0"><strong>Les premiers extraits arrivent bientôt.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">E</span><h2>Blog technique vocale</h2></div>
+      <p>Des articles courts et précis pour comprendre ce qui se passe quand on chante.</p>
+      <ul class="posts">
+        <li>
+          <div class="meta">À paraître · Résonance</div>
+          <h3>Pourquoi je n'utilise pas « chanter dans le masque »</h3>
+          <p class="muted" style="margin:0">Une image très répandue, mais qui décrit mal ce qui se passe réellement. Ce que je propose à la place.</p>
+        </li>
+        <li>
+          <div class="meta">À paraître · Timbre</div>
+          <h3>La couleur de la voix se joue à la bouche</h3>
+          <p class="muted" style="margin:0">Lèvres arrondies ou étirées, bouche plus ou moins ouverte : comment éclaircir ou assombrir le son.</p>
+        </li>
+        <li>
+          <div class="meta">À paraître · Souffle</div>
+          <h3>L'appui, sans forcer</h3>
+          <p class="muted" style="margin:0">Côtes flottantes, ouverture dorsale et retour naturel du corps : soutenir le son sans se crisper.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="mark-row"><span class="mark">F</span><h2>Contact</h2></div>
+      <p>Pour un cours, un concert ou un atelier, écrivez-moi.</p>
+      <dl>
+        <dt>E-mail</dt><dd><a href="mailto:contact@roderickvelings.com">contact@roderickvelings.com</a></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Roderick Vélings</div>
+</footer>
+
+</body>
+</html>
