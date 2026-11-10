@@ -1,1 +1,4 @@
 wrangler.jsonc
+.assetsignore
+.git
+README.md

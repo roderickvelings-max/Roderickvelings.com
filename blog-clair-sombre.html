@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="true">
+<title>Clair ou sombre : votre bouche est un égaliseur · Roderick Vélings</title>
+<meta name="description" content="Sourire éclaircit le son, faire la moue l'assombrit. Un modèle interactif pour comprendre comment la forme de la bouche change le timbre de la voix.">
+<link rel="canonical" href="https://roderickvelings.com/blog-clair-sombre">
+<meta name="theme-color" content="#071c15">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:site_name" content="Roderick Vélings">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clair ou sombre : votre bouche est un égaliseur · Roderick Vélings">
+<meta property="og:description" content="Sourire éclaircit le son, faire la moue l'assombrit. Un modèle interactif pour comprendre comment la forme de la bouche change le timbre de la voix.">
+<meta property="og:url" content="https://roderickvelings.com/blog-clair-sombre">
+<meta property="og:image" content="https://roderickvelings.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Clair ou sombre : votre bouche est un égaliseur", "description": "Sourire éclaircit le son, faire la moue l'assombrit. Un modèle interactif pour comprendre comment la forme de la bouche change le timbre de la voix.", "inLanguage": "fr-BE", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "author": {"@id": "https://roderickvelings.com/#roderick", "@type": "Person", "name": "Roderick Vélings"}, "mainEntityOfPage": "https://roderickvelings.com/blog-clair-sombre", "image": "https://roderickvelings.com/og.png", "articleSection": "Timbre"}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#22488a"/><path d="M20 6C30 14 30 28 20 35C10 28 10 14 20 6Z" fill="none" stroke="#d8b46a" stroke-width="1.6"/><path d="M20 8V36" stroke="#d8b46a" stroke-width="1.2"/><ellipse cx="24" cy="20" rx="2.6" ry="3.6" fill="#3cc08d" stroke="#d8b46a" stroke-width="0.8" transform="rotate(-28 24 20)"/></svg><span>Roderick Vélings</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <ul class="nav" id="nav"><li><a href="/cours">Cours de chant</a></li><li><a href="/choeur">Chorale</a></li><li><a href="/agenda">Agenda</a></li><li><a href="/blog" aria-current="page">Blog</a></li><li><a href="/a-propos">À propos</a></li><li><a class="btn primary on-night" href="/cours#contact">Prendre un cours</a></li></ul>
+  </div>
+</header>
+<main>
+<section class="night page-hero">
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/blog">Blog</a> · Timbre · 3 min de lecture</p>
+    <h1>Clair ou sombre : votre bouche est un égaliseur</h1>
+    <p class="lede">Bougez le curseur, regardez les résonances se déplacer. Puis faites-le avec votre bouche.</p>
+  </div>
+</section>
+<article class="post">
+  <div class="wrap narrow">
+    
+<p class="lede">Sur une chaîne hi-fi, on tourne les boutons « grave » et « aigu ». Sur une voix, on change la <strong>forme du conduit vocal</strong>. Le plus simple de ces réglages se voit dans le miroir : les lèvres.</p>
+<p class="key">Tube court, son clair. Tube long, son sombre.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 400 250" role="img" aria-label="Modèle interactif : en allongeant ou raccourcissant le conduit vocal, les résonances se déplacent">
+  <text x="30" y="20" class="m d-muted" id="timbre-len">conduit ≈ 17,5 cm</text>
+  <rect x="30" y="30" width="245" height="26" rx="13" class="f-lap" opacity="0.3" id="timbre-tube"/>
+  <circle cx="30" cy="43" r="5" class="f-gold"/>
+  <line x1="30" y1="215" x2="385" y2="215" class="d-axis"/>
+  <g id="timbre-marks"></g>
+  <path id="timbre-curve" d="" fill="none" class="d-em" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="30" y="234" class="m d-muted">grave</text>
+  <text x="385" y="234" text-anchor="end" class="m d-muted">aigu · 5 000 Hz</text>
+  <text x="385" y="84" text-anchor="end" class="m f-gold">résonances du conduit</text>
+</svg>
+<div class="ctrl"><span>sourire</span><input type="range" id="timbre" min="0" max="100" value="50" aria-label="Du sourire à la moue"><span>moue</span></div>
+<p class="out" id="timbre-out" aria-live="polite"></p>
+<figcaption>Modèle simplifié : un tube fermé d'un côté résonne à des fréquences qui dépendent de sa longueur. Plus il est court, plus elles montent. C'est ce que fait un sourire.</figcaption>
+</figure>
+<h2>Pourquoi ça marche</h2>
+<p>Les cordes vocales produisent un son brut, riche en harmoniques. Le conduit vocal en renforce certains et en étouffe d'autres : ce sont ses résonances. Leur position dépend surtout de la longueur et de la forme du tube.</p>
+<ul>
+  <li><strong>Sourire</strong> : les lèvres reculent, le tube raccourcit, toutes les résonances montent. Le son s'éclaircit.</li>
+  <li><strong>Moue</strong> : les lèvres avancent, le tube s'allonge, les résonances descendent. Le son s'arrondit.</li>
+  <li><strong>Larynx plus bas</strong> : même effet que la moue, par l'autre bout du tube.</li>
+</ul>
+<h2>Ce que ça change pour vous</h2>
+<ul>
+  <li>Le timbre se choisit. Une voix n'est pas « claire » ou « sombre » une fois pour toutes.</li>
+  <li>Le style décide : un sourire franc pour du gospel qui pétille, des lèvres en avant pour une ballade de jazz feutrée.</li>
+  <li>Ce réglage est indépendant du volume et de la hauteur. On peut chanter doux et clair, ou fort et sombre.</li>
+</ul>
+<div class="try"><h3>À essayer</h3>
+<p>Tenez une note confortable sur « é ». Sans rien changer d'autre, passez lentement d'un grand sourire à une moue, puis revenez. Enregistrez-vous : la note n'a pas bougé, la couleur a changé du tout au tout.</p></div>
+
+    <div class="sources"><h2>Sources et lectures</h2><ul><li>Gunnar Fant, <em>Acoustic Theory of Speech Production</em>, Mouton, 1960.</li><li>Johan Sundberg, <em>The Science of the Singing Voice</em>, 1987.</li><li>Gillyanne Kayes, <em>Singing and the Actor</em>, 2004.</li><li>Notes de stage, Le Chanteur Moderne (Allan Wright).</li></ul></div>
+    <p class="mt"><a class="more" href="/blog-poitrine-tete-mixte">Article suivant : Poitrine, tête, mixte : deux mécanismes, pas trois voix →</a></p>
+  </div>
+</article>
+<section class="night cta" id="contact">
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="wrap reveal">
+    <p class="eyebrow">Contact</p>
+    <h2>Envie de le travailler sur votre voix ?</h2>
+    <p>Un article donne l'idée. Un cours vous donne le retour, tout de suite, sur votre propre son.</p>
+    <div class="ctas"><a class="btn primary" href="/cours">Prendre un cours de chant <span class="arr" aria-hidden="true">→</span></a><a class="btn" href="/blog">Tous les articles <span class="arr" aria-hidden="true">→</span></a></div>
+    <p class="mail">roderickvelings@gmail.com</p>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© 2026 Roderick Vélings · Braives, Belgique</span>
+    <a href="https://www.instagram.com/roderick.vibes/" rel="me noopener" target="_blank">Instagram @roderick.vibes</a>
+    <a href="https://www.tiktok.com/@roderick.sound" rel="me noopener" target="_blank">TikTok @roderick.sound</a>
+    <a href="mailto:roderickvelings@gmail.com">E-mail</a>
+  </div>
+</footer>
+<script src="/site.js" defer></script>
+</body>
+</html>
