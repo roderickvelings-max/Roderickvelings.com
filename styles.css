@@ -321,24 +321,55 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 .ripple path:nth-child(2) { animation-delay: 0.5s; }
 @keyframes ripple { 0%, 12%, 80%, 100% { transform: scaleX(0.85); opacity: 0.3; } 30%, 50%, 70% { transform: scaleX(1.1); opacity: 1; } 40%, 60% { transform: scaleX(0.95); opacity: 0.6; } }
 
-/* Chœur : les ondes se répandent (9 s), puis tout le bassin pulse et les ailes vibrent ensemble */
-.rp { transform-box: fill-box; transform-origin: 50% 50%; animation: onde 9s ease-out infinite; }
-.rp2 { animation-delay: 0.45s; } .rp3 { animation-delay: 0.9s; }
-@keyframes onde { 0% { transform: scale(0.25); stroke-opacity: 0; } 10% { stroke-opacity: 1; } 55% { transform: scale(1); stroke-opacity: 0.9; } 88% { transform: scale(1.06); stroke-opacity: 0.55; } 100% { transform: scale(1.1); stroke-opacity: 0; } }
-.choir-art { animation: pulser 9s ease-in-out infinite; }
-@keyframes pulser { 0%, 62%, 74%, 86%, 100% { transform: scale(1); filter: brightness(1); } 68% { transform: scale(1.045); filter: brightness(1.18); } 80% { transform: scale(1.03); filter: brightness(1.12); } }
-.choir-art .wl { animation: flutL 0.07s linear infinite alternate, choeurShow 9s linear infinite; }
-.choir-art .wr { animation: flutR 0.07s linear infinite alternate, choeurShow 9s linear infinite; }
-@keyframes choeurShow { 0%, 63%, 85%, 100% { opacity: 0; } 64%, 84% { opacity: 0.95; } }
-
 /* Notes de musique : ombres fugaces au fond de l'eau */
 .notes { fill: #06122e; stroke: #06122e; }
-.note { opacity: 0; animation: note 16s ease-in-out infinite; }
-.n2 { animation-delay: -2.7s; } .n3 { animation-delay: -5.4s; } .n4 { animation-delay: -8.1s; } .n5 { animation-delay: -10.8s; } .n6 { animation-delay: -13.5s; }
-@keyframes note { 0%, 4% { opacity: 0; transform: translate(-7px, 5px) rotate(-6deg); } 12% { opacity: 0.42; } 20% { opacity: 0.3; } 28%, 100% { opacity: 0; transform: translate(9px, -6px) rotate(7deg); } }
+.note { opacity: 0; animation: note 18s linear infinite; }
+.n2 { animation-delay: -3s; } .n3 { animation-delay: -6s; } .n4 { animation-delay: -9s; } .n5 { animation-delay: -12s; } .n6 { animation-delay: -15s; }
+@keyframes note { 0%, 3% { opacity: 0; transform: translate(-26px, 9px) rotate(-8deg); } 14% { opacity: 0.3; } 26% { opacity: 0.24; } 40%, 100% { opacity: 0; transform: translate(30px, -11px) rotate(9deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .wl, .wr, .note, .sway, .twinkle circle, .bob, .shimmer, .reflet, .chant circle, .ripple path, .rp, .choir-art,
-  .lesson-art .wl, .lesson-art .wr, .choir-art .wl, .choir-art .wr { animation: none; }
+  .wl, .wr, .note, .sway, .twinkle circle, .bob, .shimmer, .reflet, .chant circle, .ripple path, 
+  .lesson-art .wl, .lesson-art .wr { animation: none; }
   .shimmer { opacity: 0.62; }
 }
+
+/* Chœur : le chef chante, les quatre pupitres le rejoignent tour à tour, puis tout le bassin pulse (18s) */
+.pupitre { transform-origin: 200px 200px; opacity: 0; }
+.chef-onde { transform-box: fill-box; transform-origin: 50% 50%; animation: chefOnde 4s ease-out infinite; }
+.chef-onde.o2 { animation-delay: -2s; }
+@keyframes chefOnde { 0% { transform: scale(0.3); stroke-opacity: 0; } 15% { stroke-opacity: 0.9; } 100% { transform: scale(1); stroke-opacity: 0; } }
+.soleil { transform-box: fill-box; transform-origin: 50% 50%; animation: soleil 4s ease-in-out infinite; }
+@keyframes soleil { 0%, 100% { transform: scale(0.9); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
+.p-onde { transform-box: fill-box; transform-origin: 50% 50%; stroke-opacity: 0; }
+.p-onde.d1 { animation-delay: 0.35s; } .p-onde.d2 { animation-delay: 0.7s; }
+.p1 { animation: arrive1 18s ease-out infinite; }
+@keyframes arrive1 { 0%, 8.33% { opacity: 0; transform: scale(1.24); } 15.56%, 86.11% { opacity: 1; transform: scale(1); } 95.00%, 100% { opacity: 0; transform: scale(1.1); } }
+.p1 .wl { animation: flutL 0.07s linear infinite alternate, voix1 18s linear infinite; } .p1 .wr { animation: flutR 0.07s linear infinite alternate, voix1 18s linear infinite; }
+@keyframes voix1 { 0%, 15.00%, 85.56%, 100% { opacity: 0; } 15.56%, 85.00% { opacity: 0.95; } }
+.po1 { animation-name: pOnde1; animation-duration: 18s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+@keyframes pOnde1 { 0%, 11.67% { transform: scale(0.2); stroke-opacity: 0; } 13.89% { stroke-opacity: 0.9; } 30.56%, 80.56% { transform: scale(1); stroke-opacity: 0.3; } 90.56%, 100% { transform: scale(1.05); stroke-opacity: 0; } }
+.p2 { animation: arrive2 18s ease-out infinite; }
+@keyframes arrive2 { 0%, 22.22% { opacity: 0; transform: scale(1.24); } 29.44%, 86.11% { opacity: 1; transform: scale(1); } 95.00%, 100% { opacity: 0; transform: scale(1.1); } }
+.p2 .wl { animation: flutL 0.07s linear infinite alternate, voix2 18s linear infinite; } .p2 .wr { animation: flutR 0.07s linear infinite alternate, voix2 18s linear infinite; }
+@keyframes voix2 { 0%, 28.89%, 85.56%, 100% { opacity: 0; } 29.44%, 85.00% { opacity: 0.95; } }
+.po2 { animation-name: pOnde2; animation-duration: 18s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+@keyframes pOnde2 { 0%, 25.56% { transform: scale(0.2); stroke-opacity: 0; } 27.78% { stroke-opacity: 0.9; } 44.44%, 80.56% { transform: scale(1); stroke-opacity: 0.3; } 90.56%, 100% { transform: scale(1.05); stroke-opacity: 0; } }
+.p3 { animation: arrive3 18s ease-out infinite; }
+@keyframes arrive3 { 0%, 36.11% { opacity: 0; transform: scale(1.24); } 43.33%, 86.11% { opacity: 1; transform: scale(1); } 95.00%, 100% { opacity: 0; transform: scale(1.1); } }
+.p3 .wl { animation: flutL 0.07s linear infinite alternate, voix3 18s linear infinite; } .p3 .wr { animation: flutR 0.07s linear infinite alternate, voix3 18s linear infinite; }
+@keyframes voix3 { 0%, 42.78%, 85.56%, 100% { opacity: 0; } 43.33%, 85.00% { opacity: 0.95; } }
+.po3 { animation-name: pOnde3; animation-duration: 18s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+@keyframes pOnde3 { 0%, 39.44% { transform: scale(0.2); stroke-opacity: 0; } 41.67% { stroke-opacity: 0.9; } 58.33%, 80.56% { transform: scale(1); stroke-opacity: 0.3; } 90.56%, 100% { transform: scale(1.05); stroke-opacity: 0; } }
+.p4 { animation: arrive4 18s ease-out infinite; }
+@keyframes arrive4 { 0%, 50.00% { opacity: 0; transform: scale(1.24); } 57.22%, 86.11% { opacity: 1; transform: scale(1); } 95.00%, 100% { opacity: 0; transform: scale(1.1); } }
+.p4 .wl { animation: flutL 0.07s linear infinite alternate, voix4 18s linear infinite; } .p4 .wr { animation: flutR 0.07s linear infinite alternate, voix4 18s linear infinite; }
+@keyframes voix4 { 0%, 56.67%, 85.56%, 100% { opacity: 0; } 57.22%, 85.00% { opacity: 0.95; } }
+.po4 { animation-name: pOnde4; animation-duration: 18s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+@keyframes pOnde4 { 0%, 53.33% { transform: scale(0.2); stroke-opacity: 0; } 55.56% { stroke-opacity: 0.9; } 72.22%, 80.56% { transform: scale(1); stroke-opacity: 0.3; } 90.56%, 100% { transform: scale(1.05); stroke-opacity: 0; } }
+.chef .wl { animation: flutL 0.07s linear infinite alternate, voix0 18s linear infinite; } .chef .wr { animation: flutR 0.07s linear infinite alternate, voix0 18s linear infinite; }
+@keyframes voix0 { 0%, 2.78%, 85.56%, 100% { opacity: 0; } 3.33%, 85.00% { opacity: 0.95; } }
+.choir-art { animation: pulser 18s ease-in-out infinite; }
+@keyframes pulser { 0%, 61.11%, 67.78%, 74.44%, 81.11%, 100% { transform: scale(1); filter: brightness(1); } 63.89% { transform: scale(1.045); filter: brightness(1.2); } 70.56% { transform: scale(1.04); filter: brightness(1.16); } 77.22% { transform: scale(1.035); filter: brightness(1.12); } }
+.grand { transform-box: fill-box; transform-origin: 50% 50%; stroke-opacity: 0; animation: grand 18s ease-out infinite; } .grand.g2 { animation-delay: 1.2s; } .grand.g3 { animation-delay: 2.4s; }
+@keyframes grand { 0%, 61.11% { transform: scale(0.14); stroke-opacity: 0; } 62.50% { stroke-opacity: 0.85; } 70.00%, 100% { transform: scale(1); stroke-opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pupitre { opacity: 1; animation: none; } .choir-art, .chef-onde, .soleil, .p-onde, .grand, .pupitre .wl, .pupitre .wr, .chef .wl, .chef .wr { animation: none; } .p-onde { stroke-opacity: 0.3; } }
