@@ -1,0 +1,24 @@
+name: Prévenir les moteurs de recherche (IndexNow)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Attendre la mise en ligne
+        run: sleep 120
+      - name: Envoyer les adresses du site
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+          urls = re.findall(r"<loc>(.*?)</loc>", open("sitemap.xml").read())
+          body = json.dumps({"host": "roderickvelings.com", "key": "498cddc9c33c4701a1403ea68e971b8a",
+                             "keyLocation": "https://roderickvelings.com/498cddc9c33c4701a1403ea68e971b8a.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
+                                       headers={"Content-Type": "application/json; charset=utf-8"})
+          with urllib.request.urlopen(req) as r:
+              print("IndexNow :", r.status, len(urls), "adresses")
+          PY

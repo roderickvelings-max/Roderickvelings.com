@@ -1,4 +1,5 @@
 wrangler.jsonc
 .assetsignore
 .git
+.github
 README.md
