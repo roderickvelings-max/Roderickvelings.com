@@ -333,6 +333,11 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
   .shimmer { opacity: 0.62; }
 }
 
+/* Avis d'élèves */
+.avis { margin: 0; }
+.avis blockquote { margin: 0; font-family: var(--f-display); font-style: italic; font-size: 1.15rem; line-height: 1.4; color: var(--ink); }
+.avis figcaption { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--emerald); }
+
 /* Chœur : le chef chante, les quatre pupitres le rejoignent tour à tour, puis tout le bassin pulse (18s) */
 .pupitre { transform-origin: 200px 200px; opacity: 0; }
 .chef-onde { transform-box: fill-box; transform-origin: 50% 50%; animation: chefOnde 4s ease-out infinite; }
