@@ -331,8 +331,14 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 .choir-art .wr { animation: flutR 0.07s linear infinite alternate, choeurShow 9s linear infinite; }
 @keyframes choeurShow { 0%, 63%, 85%, 100% { opacity: 0; } 64%, 84% { opacity: 0.95; } }
 
+/* Notes de musique : ombres fugaces au fond de l'eau */
+.notes { fill: #06122e; stroke: #06122e; }
+.note { opacity: 0; animation: note 16s ease-in-out infinite; }
+.n2 { animation-delay: -2.7s; } .n3 { animation-delay: -5.4s; } .n4 { animation-delay: -8.1s; } .n5 { animation-delay: -10.8s; } .n6 { animation-delay: -13.5s; }
+@keyframes note { 0%, 4% { opacity: 0; transform: translate(-7px, 5px) rotate(-6deg); } 12% { opacity: 0.42; } 20% { opacity: 0.3; } 28%, 100% { opacity: 0; transform: translate(9px, -6px) rotate(7deg); } }
+
 @media (prefers-reduced-motion: reduce) {
-  .wl, .wr, .sway, .twinkle circle, .bob, .shimmer, .reflet, .chant circle, .ripple path, .rp, .choir-art,
+  .wl, .wr, .note, .sway, .twinkle circle, .bob, .shimmer, .reflet, .chant circle, .ripple path, .rp, .choir-art,
   .lesson-art .wl, .lesson-art .wr, .choir-art .wl, .choir-art .wr { animation: none; }
   .shimmer { opacity: 0.62; }
 }
