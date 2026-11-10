@@ -69,7 +69,7 @@
             <linearGradient id="lsLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34b585"/><stop offset="1" stop-color="#0c5a40"/></linearGradient>
             <clipPath id="lsBelow"><path d="M30 214 A170 170 0 0 0 370 214 Z"/></clipPath>
             <g id="lsBeetle">
-              <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M-6 -4 L-14 -10 L-17 -16"/><path d="M-7 2 L-16 2 L-20 -2"/><path d="M-6 8 L-14 14 L-17 20"/><path d="M6 -4 L14 -10 L17 -16"/><path d="M7 2 L16 2 L20 -2"/><path d="M6 8 L14 14 L17 20"/><path d="M-2 -16 Q-6 -23 -10 -25"/><path d="M2 -16 Q6 -23 10 -25"/></g>
+              <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M-6 -4 L-14 -10 L-17 -16"/><path d="M-7 2 L-16 2 L-20 -2"/><path d="M-6 8 L-14 14 L-17 20"/><path d="M6 -4 L14 -10 L17 -16"/><path d="M7 2 L16 2 L20 -2"/><path d="M6 8 L14 14 L17 20"/><path d="M-2 -16 Q-6 -23 -10 -25"/><path d="M2 -16 Q6 -23 10 -25"/></g><g class="wings"><ellipse class="wing wl" cx="-3" cy="6" rx="4.6" ry="11.5"/><ellipse class="wing wr" cx="3" cy="6" rx="4.6" ry="11.5"/></g>
               <circle cx="0" cy="-14.5" r="3.2" fill="#e7c77f"/>
               <ellipse cx="0" cy="-8" rx="6.2" ry="4.3" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
               <ellipse cx="0" cy="5" rx="8.5" ry="11.5" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
@@ -85,13 +85,26 @@
             </g>
           </defs>
           <path d="M30 214 A170 170 0 0 0 370 214 Z" fill="url(#lsLap)"/>
-          <g clip-path="url(#lsBelow)" opacity="0.62"><use href="#lsBeetle" transform="translate(200 296) scale(4.2 -4.2)"/></g>
+          <g clip-path="url(#lsBelow)" class="shimmer"><g transform="translate(200 296) scale(4.2 -4.2)" style="--d:-0.0s"><g class="bt">
+              <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M-6 -4 L-14 -10 L-17 -16"/><path d="M-7 2 L-16 2 L-20 -2"/><path d="M-6 8 L-14 14 L-17 20"/><path d="M6 -4 L14 -10 L17 -16"/><path d="M7 2 L16 2 L20 -2"/><path d="M6 8 L14 14 L17 20"/><path d="M-2 -16 Q-6 -23 -10 -25"/><path d="M2 -16 Q6 -23 10 -25"/></g><g class="wings"><ellipse class="wing wl" cx="-3" cy="6" rx="4.6" ry="11.5"/><ellipse class="wing wr" cx="3" cy="6" rx="4.6" ry="11.5"/></g>
+              <circle cx="0" cy="-14.5" r="3.2" fill="#e7c77f"/>
+              <ellipse cx="0" cy="-8" rx="6.2" ry="4.3" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
+              <ellipse cx="0" cy="5" rx="8.5" ry="11.5" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
+              <path d="M0 -6 L0 16.5" stroke="#8a6424" stroke-width="0.8"/>
+              <ellipse cx="-3.6" cy="1" rx="1.8" ry="5" fill="#ffffff" opacity="0.45"/>
+            </g></g></g>
           <path d="M30 214 L370 214" fill="none" stroke="#d8b46a" stroke-width="2" stroke-linecap="round"/>
-          <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" opacity="0.6"><path d="M96 226 Q 200 236 304 226"/><path d="M130 240 Q 200 248 270 240"/></g>
-          <g transform="translate(200 210) scale(0.6 0.15) rotate(90) translate(-200 -205)"><use href="#lsLeafTop"/></g>
-          <use href="#lsBeetle" transform="translate(200 186) scale(1.2)"/>
-        </svg>
-</div>
+          <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" class="ripple"><path d="M96 226 Q 200 236 304 226"/><path d="M130 240 Q 200 248 270 240"/></g>
+          <g class="bob"><g transform="translate(200 210) scale(0.6 0.15) rotate(90) translate(-200 -205)"><use href="#lsLeafTop"/></g>
+          <g transform="translate(200 186) scale(1.2)" style="--d:-0.0s"><g class="bt">
+              <g fill="none" stroke="#d8b46a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M-6 -4 L-14 -10 L-17 -16"/><path d="M-7 2 L-16 2 L-20 -2"/><path d="M-6 8 L-14 14 L-17 20"/><path d="M6 -4 L14 -10 L17 -16"/><path d="M7 2 L16 2 L20 -2"/><path d="M6 8 L14 14 L17 20"/><path d="M-2 -16 Q-6 -23 -10 -25"/><path d="M2 -16 Q6 -23 10 -25"/></g><g class="wings"><ellipse class="wing wl" cx="-3" cy="6" rx="4.6" ry="11.5"/><ellipse class="wing wr" cx="3" cy="6" rx="4.6" ry="11.5"/></g>
+              <circle cx="0" cy="-14.5" r="3.2" fill="#e7c77f"/>
+              <ellipse cx="0" cy="-8" rx="6.2" ry="4.3" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
+              <ellipse cx="0" cy="5" rx="8.5" ry="11.5" fill="url(#lsGold)" stroke="#f3dda3" stroke-width="0.8"/>
+              <path d="M0 -6 L0 16.5" stroke="#8a6424" stroke-width="0.8"/>
+              <ellipse cx="-3.6" cy="1" rx="1.8" ry="5" fill="#ffffff" opacity="0.45"/>
+            </g></g>
+        </g></svg></div>
   </div>
 </section>
 
