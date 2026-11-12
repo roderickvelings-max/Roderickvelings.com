@@ -366,6 +366,24 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 @media (max-width: 640px) { .bloom-band .photo.wide img { aspect-ratio: 4 / 3; } }
 .gallery .photo img { object-position: 50% 22%; }
 
+/* Illustrations du scarabée, en petit format */
+.art-md { width: 100%; max-width: 280px; }
+.art-sm { width: 100%; max-width: 190px; flex: none; }
+.art-md svg, .art-sm svg { display: block; width: 100%; max-width: none; height: auto; }
+.sig-band { display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.sig-band > * { min-width: 0; }
+.head-art { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-bottom: 30px; }
+.head-art > * { min-width: 0; }
+.hero-badge { width: 132px; }
+@media (max-width: 700px) {
+  .sig-band { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .sig-band .quote, .sig-band .muted { margin-inline: auto; }
+  .art-md { max-width: 200px; }
+  .head-art { flex-direction: column-reverse; align-items: flex-start; }
+  .art-sm { max-width: 140px; }
+  .hero-badge { width: 92px; }
+}
+
 /* Chœur : le chef chante, les quatre pupitres le rejoignent tour à tour, puis tout le bassin pulse (18s) */
 .pupitre { transform-origin: 200px 200px; opacity: 0; }
 .chef-onde { transform-box: fill-box; transform-origin: 50% 50%; animation: chefOnde 4s ease-out infinite; }
