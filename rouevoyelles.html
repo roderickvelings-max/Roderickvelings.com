@@ -25,7 +25,7 @@
   --bg:#0a1d16; --panel:#0f2a20; --ink:#e4eee8; --muted:#9db4a8; --line:#21433a;
   --spread:#d8b46a; --round:#8fb0ea; --zone:#b98a1c; --sel:#2f9c75; color-scheme:dark;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
 main{max-width:560px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
 h1{font-family:var(--display);font-size:1.7rem;line-height:1.1;margin:0;text-wrap:balance}
@@ -40,7 +40,8 @@ svg{display:block;max-width:100%}
 .sector{fill:var(--panel);stroke:var(--ink);stroke-width:1.5;cursor:pointer;transition:fill .15s}
 .sector.on{fill:var(--sel)}
 .sector.target{fill:var(--zone)}
-.sector:focus-visible{outline:3px solid var(--sel);outline-offset:-3px}
+.sector,.wk,.bk{-webkit-tap-highlight-color:transparent;outline:none}
+.sector:focus-visible{stroke:var(--sel);stroke-width:4}
 .sym{font-family:"IBM Plex Sans","Noto Sans",sans-serif;font-size:25px;font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;dominant-baseline:central}
 .sector.on + .sym{fill:#fff}
 .word{font-size:10.5px;fill:var(--muted);pointer-events:none;text-anchor:middle}
@@ -120,7 +121,6 @@ td.s{font-size:1.05rem}
   <section class="panel">
     <p class="note">Notes en notation française : do3 est le do du milieu du piano (262 Hz). Les repères varient un peu selon la voix et le style. Garde la modification aussi discrète que possible.</p>
     <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. « Son poitriné » applique un repère théorique, une octave plus bas, quand le deuxième harmonique rejoint la résonance de la voyelle. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
-    <p class="note">Sur iPhone, coupe le mode silencieux pour entendre le son.</p>
   </section>
 </main>
 
