@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roue des voyelles chantées</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=IBM+Plex+Sans:wght@400;500;600&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one column, wheel on top, then the answer line, then a scrolling piano. */
+:root{
+  --bg:#f3f6f2; --panel:#ffffff; --ink:#0f2a20; --muted:#4b6258; --line:#d2ded5;
+  --spread:#a87f2f; --round:#24508f; --zone:#f6c453; --sel:#17704f;
+  --display:"Bodoni Moda","Didot",Georgia,serif;
+  --body:"Karla","IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1d16; --panel:#0f2a20; --ink:#e4eee8; --muted:#9db4a8; --line:#21433a;
+    --spread:#d8b46a; --round:#8fb0ea; --zone:#b98a1c; --sel:#2f9c75; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1d16; --panel:#0f2a20; --ink:#e4eee8; --muted:#9db4a8; --line:#21433a;
+  --spread:#d8b46a; --round:#8fb0ea; --zone:#b98a1c; --sel:#2f9c75; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--display);font-size:1.7rem;line-height:1.1;margin:0;text-wrap:balance}
+.lede{margin:0;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.wheelwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sides{display:flex;justify-content:space-between;width:100%;max-width:330px;font-size:.82rem;font-weight:600}
+.sides .l{color:var(--spread)} .sides .r{color:var(--round)}
+.axis{font-size:.78rem;color:var(--muted);text-align:center}
+svg{display:block;max-width:100%}
+#wheel{width:330px;height:auto;touch-action:manipulation}
+.sector{fill:var(--panel);stroke:var(--ink);stroke-width:1.5;cursor:pointer;transition:fill .15s}
+.sector.on{fill:var(--sel)}
+.sector.target{fill:var(--zone)}
+.sector:focus-visible{outline:3px solid var(--sel);outline-offset:-3px}
+.sym{font-family:"IBM Plex Sans","Noto Sans",sans-serif;font-size:25px;font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.sector.on + .sym{fill:#fff}
+.word{font-size:10.5px;fill:var(--muted);pointer-events:none;text-anchor:middle}
+.sector.on ~ .word{fill:#fff}
+.answer{font-family:var(--display);font-size:1.15rem;line-height:1.25;margin:0;text-wrap:balance}
+.answer b{color:var(--sel)}
+.detail{margin:6px 0 0;color:var(--muted);font-size:.92rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-size:.9rem;padding:8px 14px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible, label:focus-within{outline:2px solid var(--sel);outline-offset:2px}
+label.chk{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;cursor:pointer}
+.pianoscroll{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--panel)}
+#piano{height:150px;touch-action:pan-x}
+.wk{fill:#fdfdfb;stroke:#4a5361;stroke-width:1;cursor:pointer}
+.wk.z1{fill:#fbe7b0} .wk.z2{fill:#f6c453} .wk.z3{fill:#ec9f3a}
+.bk{fill:#1c222c;stroke:#000;cursor:pointer}
+.bk.z1{fill:#7b6420} .bk.z2{fill:#93711a} .bk.z3{fill:#a8641a}
+.wk.play,.bk.play{fill:var(--sel)}
+.klab{font-size:10px;fill:#3d4653;text-anchor:middle;pointer-events:none}
+.kvow{font-family:"IBM Plex Sans","Noto Sans",sans-serif;font-size:13px;font-weight:600;fill:#16202e;text-anchor:middle;pointer-events:none}
+.thr{font-size:10px;font-weight:600;fill:#b3261e;text-anchor:middle;pointer-events:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid #4a5361;vertical-align:-1px;margin-right:5px}
+h2{font-family:var(--display);font-size:1.05rem;margin:0 0 6px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:500}
+td.s{font-size:1.05rem}
+.note{font-size:.85rem;color:var(--muted);margin:0}
+.note + .note{margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Roue des voyelles chantées</h1>
+    <p class="lede">Touche une voyelle pour l'entendre, puis une note du piano. Le clavier montre où la voyelle reste pure et où il faut l'ouvrir.</p>
+  </header>
+
+  <section class="panel wheelwrap" aria-label="Roue des voyelles">
+    <div class="axis">fermée · plus léger, plus proche de la tête</div>
+    <div class="sides"><span class="l">lèvres étirées</span><span class="r">lèvres arrondies</span></div>
+    <svg id="wheel" viewBox="0 0 330 330" role="group" aria-label="Voyelles"></svg>
+    <div class="axis">ouverte · plus lourd, plus proche de la poitrine</div>
+  </section>
+
+  <section class="panel" aria-live="polite">
+    <p class="answer" id="answer"></p>
+    <p class="detail" id="detail"></p>
+  </section>
+
+  <section class="controls">
+    <div class="seg" role="group" aria-label="Son joué sur le piano">
+      <button id="mMod" aria-pressed="true">Voyelle modifiée</button>
+      <button id="mPure" aria-pressed="false">Voyelle pure</button>
+    </div>
+    <label class="chk"><input type="checkbox" id="belt"> Son poitriné dans l'aigu</label>
+  </section>
+
+  <section>
+    <div class="pianoscroll" id="pscroll"><svg id="piano" role="group" aria-label="Piano, do2 à do5"></svg></div>
+    <div class="legend">
+      <span><i style="background:#fdfdfb"></i>voyelle pure</span>
+      <span><i style="background:#fbe7b0"></i>ouvrir d'un cran</span>
+      <span><i style="background:#f6c453"></i>de deux crans</span>
+      <span><i style="background:#ec9f3a"></i>de trois ou plus</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Quand changer, voyelle par voyelle</h2>
+    <table id="tbl"><thead><tr><th>Voyelle</th><th>Comme dans</th><th>Pure jusqu'à</th><th>Ensuite</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="panel">
+    <p class="note">Notes en notation française : do3 est le do du milieu du piano (262 Hz). Les repères varient un peu selon la voix et le style. Garde la modification aussi discrète que possible.</p>
+    <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. « Son poitriné » applique un repère théorique, une octave plus bas, quand le deuxième harmonique rejoint la résonance de la voyelle. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
+    <p class="note">Sur iPhone, coupe le mode silencieux pour entendre le son.</p>
+  </section>
+</main>
+
+<script>
+const N = m => 440 * Math.pow(2, (m - 69) / 12);
+const NAMES = ['do','do♯','ré','ré♯','mi','fa','fa♯','sol','sol♯','la','la♯','si'];
+const noteName = m => NAMES[m % 12] + (Math.floor(m / 12) - 2);
+const midiOf = f => Math.round(69 + 12 * Math.log2(f / 440));
+
+// f1 set on the reference notes: ré3, sol3, do4, fa4
+const V = {
+  i:{sym:'i', fr:'i',  word:'pile',  f:[N(62),2250,3000], side:'L', row:0, chain:['i','e','E','a']},
+  e:{sym:'e', fr:'é',  word:'blé',   f:[N(67),2100,2700], side:'L', row:1, chain:['e','E','a']},
+  E:{sym:'ɛ', fr:'è',  word:'bête',  f:[N(72),1850,2550], side:'L', row:2, chain:['E','a']},
+  a:{sym:'a', fr:'a',  word:'balle', f:[N(77),1350,2550], side:'L', row:3, chain:['a']},
+  u:{sym:'u', fr:'ou', word:'poule', f:[N(62),760,2300],  side:'R', row:0, chain:['u','o','O','A'], ext:true},
+  o:{sym:'o', fr:'ô',  word:'pôle',  f:[N(67),820,2400],  side:'R', row:1, chain:['o','O','A'], ext:true},
+  O:{sym:'ɔ', fr:'o ouvert', word:'port', f:[N(72),960,2450], side:'R', row:2, chain:['O','A'], ext:true},
+  A:{sym:'ɑ', fr:'â',  word:'pâte',  f:[N(77),1080,2500], side:'R', row:3, chain:['A'], ext:true},
+  schwa:{sym:'ə', fr:'e', word:'le', f:[N(71),1500,2500], side:'C', row:-1, chain:['schwa','a'], ext:true}
+};
+const ORDER = ['i','e','E','a','u','o','O','A','schwa'];
+let cur = 'i', lastMidi = null, mode = 'mod', belt = false;
+
+function eff(m){ return N(m) * (belt ? 2 : 1); }
+function target(v, m){
+  const fe = eff(m), ch = V[v].chain;
+  for (let k = 0; k < ch.length; k++) if (V[ch[k]].f[0] * 1.03 >= fe) return {v:ch[k], step:k, wide:false};
+  return {v:ch[ch.length-1], step:ch.length, wide:true};
+}
+function thrMidi(v){ return midiOf(V[v].f[0] / (belt ? 2 : 1)); }
+
+/* ---------- wheel ---------- */
+const SVG = 'http://www.w3.org/2000/svg';
+const el = (n, a, t) => { const e = document.createElementNS(SVG, n); for (const k in a) e.setAttribute(k, a[k]); if (t != null) e.textContent = t; return e; };
+const wheel = document.getElementById('wheel');
+const C = 165, RO = 150, RI = 52;
+const pt = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [C + r * Math.cos(a), C + r * Math.sin(a)]; };
+function sectorPath(a0, a1){
+  const [x0,y0] = pt(RO,a0), [x1,y1] = pt(RO,a1), [x2,y2] = pt(RI,a1), [x3,y3] = pt(RI,a0);
+  const sw = a1 > a0 ? 1 : 0;
+  return `M${x0},${y0}A${RO},${RO} 0 0 ${sw} ${x1},${y1}L${x2},${y2}A${RI},${RI} 0 0 ${1-sw} ${x3},${y3}Z`;
+}
+ORDER.forEach(k => {
+  const v = V[k], g = el('g', {});
+  let shape, cx, cy;
+  if (v.side === 'C'){ shape = el('circle', {cx:C, cy:C, r:RI}); cx = C; cy = C; }
+  else {
+    const s = v.side === 'R' ? 1 : -1, a0 = s * v.row * 45, a1 = s * (v.row + 1) * 45;
+    shape = el('path', {d:sectorPath(a0, a1)});
+    [cx, cy] = pt((RO + RI) / 2, (a0 + a1) / 2);
+  }
+  shape.setAttribute('class', 'sector'); shape.setAttribute('tabindex', '0'); shape.setAttribute('role', 'button');
+  shape.setAttribute('aria-label', `Voyelle ${v.fr}, comme dans ${v.word}`); shape.dataset.v = k;
+  g.appendChild(shape);
+  g.appendChild(el('text', {class:'sym', x:cx, y:cy - 5}, '[' + v.sym + ']'));
+  g.appendChild(el('text', {class:'word', x:cx, y:cy + 19}, v.word));
+  wheel.appendChild(g);
+  const go = () => { cur = k; lastMidi = null; render(); play(k, defaultMidi(k), false); centerPiano(); };
+  shape.addEventListener('click', go);
+  shape.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+});
+wheel.appendChild(el('line', {x1:C, y1:8, x2:C, y2:C-RI, stroke:'var(--ink)', 'stroke-width':3}));
+wheel.appendChild(el('line', {x1:C, y1:C+RI, x2:C, y2:322, stroke:'var(--ink)', 'stroke-width':3}));
+function defaultMidi(k){ return Math.min(thrMidi(k) - 5, 60); }
+
+/* ---------- piano ---------- */
+const piano = document.getElementById('piano');
+const LO = 48, HI = 84, WW = 32, WH = 150, BW = 20, BH = 92;
+const isBlack = m => [1,3,6,8,10].includes(m % 12);
+const whites = []; for (let m = LO; m <= HI; m++) if (!isBlack(m)) whites.push(m);
+piano.setAttribute('viewBox', `0 0 ${whites.length * WW} ${WH}`);
+piano.style.width = whites.length * WW + 'px';
+const keyEl = {}, vowEl = {}, xOf = {};
+whites.forEach((m, i) => {
+  const x = i * WW; xOf[m] = x + WW / 2;
+  const r = el('rect', {x, y:0, width:WW, height:WH, rx:3, class:'wk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
+  vowEl[m] = el('text', {class:'kvow', x:x + WW / 2, y:WH - 30}); piano.appendChild(vowEl[m]);
+  if (m % 12 === 0) piano.appendChild(el('text', {class:'klab', x:x + WW / 2, y:WH - 8}, noteName(m)));
+});
+for (let m = LO; m <= HI; m++) if (isBlack(m)){
+  const x = (whites.indexOf(m - 1) + 1) * WW - BW / 2; xOf[m] = x + BW / 2;
+  const r = el('rect', {x, y:0, width:BW, height:BH, rx:2, class:'bk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
+}
+const thrLab = el('text', {class:'thr', y:WH - 46}); piano.appendChild(thrLab);
+piano.addEventListener('click', e => {
+  const m = +e.target.dataset.m; if (!m) return;
+  lastMidi = m; render();
+  const t = target(cur, m);
+  play(mode === 'mod' ? t.v : cur, m, mode === 'mod' && t.wide);
+  keyEl[m].classList.add('play'); setTimeout(() => keyEl[m].classList.remove('play'), 900);
+});
+function centerPiano(){
+  const sc = document.getElementById('pscroll'), x = xOf[Math.max(LO, Math.min(HI, thrMidi(cur)))] || 0;
+  sc.scrollTo({left: Math.max(0, x - sc.clientWidth / 2), behavior:'smooth'});
+}
+
+/* ---------- text ---------- */
+function chainText(k){
+  const ch = V[k].chain.slice(1).map(c => '[' + V[c].sym + ']');
+  if (!ch.length) return 'ouvrir davantage la bouche';
+  return 'ouvrir vers ' + ch.join(', puis ');
+}
+function render(){
+  document.querySelectorAll('.sector').forEach(s => { s.classList.toggle('on', s.dataset.v === cur); s.classList.remove('target'); });
+  for (let m = LO; m <= HI; m++){
+    const t = target(cur, m), k = keyEl[m];
+    k.classList.remove('z1','z2','z3');
+    if (t.step > 0) k.classList.add('z' + Math.min(3, t.step));
+    if (vowEl[m]) vowEl[m].textContent = V[t.v].sym + (t.wide ? '+' : '');
+  }
+  const tm = thrMidi(cur);
+  if (tm >= LO && tm <= HI){ thrLab.setAttribute('x', xOf[tm]); thrLab.textContent = isBlack(tm) ? '' : '▼'; } else thrLab.textContent = '';
+  const v = V[cur], ans = document.getElementById('answer'), det = document.getElementById('detail');
+  if (lastMidi == null){
+    ans.innerHTML = `[${v.sym}] « ${v.fr} » de ${v.word} : pure jusqu'à environ <b>${noteName(tm)}</b>.`;
+    det.textContent = `Au-dessus, ${chainText(cur)}.` + (v.ext ? ' Repère déduit par symétrie.' : '');
+  } else {
+    const t = target(cur, lastMidi);
+    if (t.step === 0){
+      ans.innerHTML = `Sur <b>${noteName(lastMidi)}</b>, le [${v.sym}] reste pur.`;
+      det.textContent = `Il tient jusqu'à environ ${noteName(tm)}.`;
+    } else {
+      const tv = V[t.v];
+      ans.innerHTML = t.wide
+        ? `Sur <b>${noteName(lastMidi)}</b>, chante [${tv.sym}] et ouvre encore la bouche.`
+        : `Sur <b>${noteName(lastMidi)}</b>, pense [${v.sym}] mais chante vers <b>[${tv.sym}]</b>, comme dans ${tv.word}.`;
+      det.textContent = `Le [${v.sym}] pur s'arrête vers ${noteName(tm)}. Compare avec le bouton « Voyelle pure ».`;
+      if (t.v !== cur) { const s = document.querySelector(`.sector[data-v="${t.v}"]`); if (s) s.classList.add('target'); }
+    }
+  }
+}
+const tb = document.querySelector('#tbl tbody');
+function renderTable(){
+  tb.innerHTML = '';
+  ORDER.forEach(k => {
+    const v = V[k], tr = document.createElement('tr');
+    tr.innerHTML = `<td class="s">[${v.sym}] ${v.fr}</td><td>${v.word}</td><td>${noteName(thrMidi(k))}${v.ext ? ' *' : ''}</td><td>${v.chain.slice(1).map(c => '[' + V[c].sym + ']').join(' → ') || 'ouvrir plus'}</td>`;
+    tb.appendChild(tr);
+  });
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td colspan="4" style="border:0;color:var(--muted);font-size:.8rem">* repère déduit par symétrie</td>';
+  tb.appendChild(tr);
+}
+
+/* ---------- controls ---------- */
+const mMod = document.getElementById('mMod'), mPure = document.getElementById('mPure');
+function setMode(x){ mode = x; mMod.setAttribute('aria-pressed', x === 'mod'); mPure.setAttribute('aria-pressed', x === 'pure');
+  if (lastMidi != null){ const t = target(cur, lastMidi); play(x === 'mod' ? t.v : cur, lastMidi, x === 'mod' && t.wide); } }
+mMod.addEventListener('click', () => setMode('mod'));
+mPure.addEventListener('click', () => setMode('pure'));
+document.getElementById('belt').addEventListener('change', e => { belt = e.target.checked; render(); renderTable(); centerPiano(); });
+
+/* ---------- sound: sawtooth through three formant filters ---------- */
+let ctx = null, live = null;
+function play(k, midi, wide){
+  try {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    const t0 = ctx.currentTime, f0 = N(midi), dur = 1.0;
+    if (live){ try { live.g.gain.cancelScheduledValues(t0); live.g.gain.setTargetAtTime(0, t0, 0.02); live.o.stop(t0 + 0.1); } catch(e){} }
+    const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f0;
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5.3;
+    lg.gain.setValueAtTime(0, t0); lg.gain.linearRampToValueAtTime(f0 * 0.007, t0 + 0.6);
+    lfo.connect(lg); lg.connect(o.frequency);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0, t0);
+    g.gain.linearRampToValueAtTime(0.9, t0 + 0.05); g.gain.setValueAtTime(0.9, t0 + dur); g.gain.linearRampToValueAtTime(0, t0 + dur + 0.2);
+    const f = V[k].f.slice(); if (wide) f[0] = Math.max(f[0], f0 * (belt ? 2 : 1));
+    const bw = [80, 100, 140], amp = [1, 0.55, 0.3];
+    f.forEach((fc, i) => {
+      const b = ctx.createBiquadFilter(); b.type = 'bandpass'; b.frequency.value = fc; b.Q.value = fc / bw[i];
+      const a = ctx.createGain(); a.gain.value = amp[i] * 2.2;
+      o.connect(b); b.connect(a); a.connect(g);
+    });
+    const comp = ctx.createDynamicsCompressor(); g.connect(comp); comp.connect(ctx.destination);
+    o.start(t0); lfo.start(t0); o.stop(t0 + dur + 0.3); lfo.stop(t0 + dur + 0.3);
+    live = {o, g};
+  } catch (e) { /* audio refused: the page still works silently */ }
+}
+
+render(); renderTable();
+requestAnimationFrame(centerPiano);
+</script>
+</body>
+</html>
