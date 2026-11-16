@@ -384,6 +384,35 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
   .hero-badge { width: 92px; }
 }
 
+/* Emblème du blog : le livre aux schémas, pages qui tournent */
+.bk .bk-cover, .bk .bk-spB, .bk .bk-spC, .bk .bk-flip { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .bk .bk-cover { animation: bkCover 9s ease-in-out infinite; }
+  .bk .bk-open { animation: bkOpenBook 9s ease-in-out infinite; }
+  .bk .bk-spA { animation: bkA 9s linear infinite; }
+  .bk .bk-spB { animation: bkB 9s linear infinite; }
+  .bk .bk-spC { animation: bkC 9s linear infinite; }
+  .bk .bk-flip { animation: bkFlip 9s ease-in-out infinite; }
+}
+@keyframes bkCover { 0%, 10% { opacity: 1; } 14%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes bkOpenBook { 0%, 10% { opacity: 0; } 14%, 96% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bkA { 0%, 40.9% { opacity: 1; } 41%, 100% { opacity: 0; } }
+@keyframes bkB { 0%, 40.9% { opacity: 0; } 41%, 67.9% { opacity: 1; } 68%, 100% { opacity: 0; } }
+@keyframes bkC { 0%, 67.9% { opacity: 0; } 68%, 100% { opacity: 1; } }
+@keyframes bkFlip {
+  0%, 37.5% { opacity: 0; transform: scaleX(1); } 38% { opacity: 1; transform: scaleX(1); }
+  44% { opacity: 1; transform: scaleX(-1); } 45% { opacity: 0; transform: scaleX(-1); }
+  64.5% { opacity: 0; transform: scaleX(1); } 65% { opacity: 1; transform: scaleX(1); }
+  71% { opacity: 1; transform: scaleX(-1); } 72%, 100% { opacity: 0; transform: scaleX(-1); }
+}
+.blog-head { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+.blog-head .art-sm { width: 190px; }
+@media (max-width: 640px) { .blog-head { grid-template-columns: 1fr; } .blog-head .art-sm { width: 150px; } }
+
+.stack{display:grid;gap:1rem;align-content:start}
+@media (prefers-reduced-motion: no-preference) { .bk .bk-scarab { animation: bkBob 9s ease-in-out infinite; } }
+@keyframes bkBob { 0%, 9%, 16%, 100% { translate: 0 0; } 12.5% { translate: 0 -5px; } }
+
 /* Chœur : le chef chante, les quatre pupitres le rejoignent tour à tour, puis tout le bassin pulse (18s) */
 .pupitre { transform-origin: 200px 200px; opacity: 0; }
 .chef-onde { transform-box: fill-box; transform-origin: 50% 50%; animation: chefOnde 4s ease-out infinite; }
@@ -424,3 +453,55 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 .grand { transform-box: fill-box; transform-origin: 50% 50%; stroke-opacity: 0; animation: grand 18s ease-out infinite; } .grand.g2 { animation-delay: 1.2s; } .grand.g3 { animation-delay: 2.4s; }
 @keyframes grand { 0%, 61.11% { transform: scale(0.14); stroke-opacity: 0; } 62.50% { stroke-opacity: 0.85; } 70.00%, 100% { transform: scale(1); stroke-opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .pupitre { opacity: 1; animation: none; } .choir-art, .chef-onde, .soleil, .p-onde, .grand, .pupitre .wl, .pupitre .wr, .chef .wl, .chef .wr { animation: none; } .p-onde { stroke-opacity: 0.3; } }
+
+/* ---------- Version claire (aperçu) ---------- */
+.carnet { --bg: #eef1f5; --surface: #fbfcfd; --ink: #14213a; --muted: #4d5a70; --line: #cfd6e1;
+  --emerald: #17704f; --lapis: #24508f; --gold: #8f7436; --danger: #b4553a;
+  --night: #101f3d; --night-2: #1a2f57; --on-night: #eef1f6; --on-night-muted: #b7c3d8; --night-gold: #cdb27a;
+  --night-line: rgba(238, 241, 246, 0.16); --f-hand: "La Belle Aurore", "Segoe Script", "Bradley Hand", cursive;
+  background: var(--bg); color: var(--ink); color-scheme: light; }
+.carnet .stars { display: none; }
+.carnet .night::before { background: radial-gradient(ellipse 70% 50% at 8% 95%, rgba(23, 112, 79, 0.2), transparent 60%); }
+.carnet .reveal { opacity: 1 !important; transform: none !important; }
+.carnet .eyebrow { font-family: var(--f-display); font-style: italic; font-size: 1.05rem; letter-spacing: 0; text-transform: none; color: var(--lapis); margin-bottom: 8px; }
+.carnet .night .eyebrow { color: var(--night-gold); }
+.carnet .photo figcaption { font-family: var(--f-body); font-size: 0.88rem; letter-spacing: 0; text-transform: none; }
+.carnet .card .tag { font-family: var(--f-body); font-size: 0.85rem; letter-spacing: 0; text-transform: none; font-weight: 700; }
+
+.sheet { background: var(--surface); border-bottom: 1px solid var(--line); }
+.sheet .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 7vw, 96px); }
+.sheet .wrap > * { min-width: 0; }
+.sheet h1 { color: var(--ink); font-size: clamp(2.5rem, 6.6vw, 4.6rem); }
+.sheet .hand { font-family: var(--f-display); font-style: italic; font-size: clamp(1.5rem, 3.8vw, 2.4rem); line-height: 1.15; color: var(--emerald); margin: 16px 0 0; max-width: none; }
+.sheet .roles { font-size: 1.12rem; color: var(--muted); margin: 24px 0 0; max-width: 44ch; }
+.sheet .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; align-items: center; }
+.listen { display: inline-flex; align-items: center; gap: 12px; font: inherit; font-weight: 700; color: var(--ink); background: none; border: 0; padding: 6px 0; margin-top: 24px; cursor: pointer; text-align: left; }
+.listen .disc { flex: none; width: 54px; height: 54px; border-radius: 50%; background: var(--lapis); display: grid; place-items: center; }
+.listen .disc::after { content: ""; border-left: 16px solid #fff; border-block: 10px solid transparent; margin-left: 4px; }
+.listen small { display: block; font-weight: 400; font-size: 0.9rem; color: var(--muted); }
+.portrait { position: relative; max-width: 420px; margin: 0 auto; }
+.portrait .photo img { border-radius: 10px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 30% 20%; }
+.stamp { position: absolute; left: -26px; bottom: -26px; width: 104px; }
+.stamp svg { display: block; width: 100%; height: auto; }
+
+.ways { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.ways a { display: grid; grid-template-columns: 11rem 1fr auto; gap: 8px 28px; align-items: baseline; padding: 22px 4px; border-bottom: 1px solid var(--line); text-decoration: none; }
+.ways a:hover h3 { color: var(--emerald); }
+.ways .note { font-family: var(--f-display); font-style: italic; font-size: 1.05rem; color: var(--lapis); }
+.ways h3 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); font-weight: 500; font-style: italic; }
+.ways p { margin: 6px 0 0; color: var(--muted); }
+.ways .go { font-weight: 700; color: var(--emerald); white-space: nowrap; }
+@media (max-width: 760px) { .sheet .wrap { grid-template-columns: 1fr; } .portrait { max-width: 320px; } .stamp { left: -10px; width: 84px; } .ways a { grid-template-columns: 1fr; gap: 2px; } }
+
+/* La note de carnet : le seul endroit manuscrit */
+.notebook { position: relative; background: #fffdf6; padding: 30px 26px 26px 54px; border-radius: 3px 10px 10px 3px; transform: rotate(-1deg);
+  box-shadow: 0 18px 34px -22px rgba(16, 31, 61, 0.6), 0 1px 2px rgba(16, 31, 61, 0.2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='72'%3E%3Cg stroke='%2324508f' stroke-opacity='.13' stroke-width='1'%3E%3Cpath d='M0 20.5h8M0 27.5h8M0 34.5h8M0 41.5h8M0 48.5h8'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat; background-position: 0 6px; }
+.notebook::before { content: ""; position: absolute; left: 14px; top: 18px; bottom: 18px; width: 10px; background: radial-gradient(circle, rgba(16, 31, 61, 0.28) 4px, transparent 4.6px) 0 0 / 10px 36px repeat-y; }
+.notebook h3, .notebook li, .notebook p { font-family: var(--f-hand); color: #1c2e52; }
+.notebook h3 { font-size: 1.7rem; font-weight: 400; line-height: 36px; margin: 0; text-decoration: underline; text-decoration-color: rgba(28, 46, 82, 0.5); text-underline-offset: 5px; }
+.notebook ul { list-style: none; margin: 0; padding: 0; }
+.notebook li { font-size: 1.32rem; line-height: 36px; padding-left: 26px; position: relative; }
+.notebook li::before { content: ""; position: absolute; left: 0; top: 11px; width: 14px; height: 14px; border: 1.5px solid #1c2e52; border-radius: 2px; }
+.notebook .aside { font-size: 1.2rem; line-height: 36px; margin: 36px 0 0; max-width: none; color: var(--emerald); }
+.bio p { font-size: 1.08rem; }

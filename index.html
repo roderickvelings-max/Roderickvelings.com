@@ -21,12 +21,13 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;700&family=La+Belle+Aurore&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "@id": "https://roderickvelings.com/#roderick", "name": "Roderick Vélings", "alternateName": ["Roderick Velings", "Roderik Vélings", "Roderik Velings", "Rodrick Velings", "Roderic Velings", "Rodéric Vélings", "Rodrigue Vélings", "Roderick Veling", "Roderick Vellings", "Roderick Vélins", "roderickvelings"], "givenName": "Roderick", "familyName": "Vélings", "url": "https://roderickvelings.com/", "image": "https://roderickvelings.com/og.png", "email": "mailto:roderickvelings@gmail.com", "jobTitle": ["Chanteur de jazz", "Coach vocal", "Chef de chœur"], "description": "Chanteur de jazz, coach vocal et chef de chœur adjoint de la chorale gospel Bloom For Love. Cours de chant à Braives et en ligne.", "address": {"@type": "PostalAddress", "addressLocality": "Braives", "addressRegion": "Province de Liège", "addressCountry": "BE"}, "knowsAbout": ["Chant", "Technique vocale", "Jazz vocal", "Gospel", "Direction de chœur"], "memberOf": [{"@type": "MusicGroup", "name": "Bloom For Love"}, {"@type": "MusicGroup", "name": "Brussels Groove Collective"}], "sameAs": ["https://www.instagram.com/roderickvelings/", "https://www.tiktok.com/@roderickvelings"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Roderick Vélings", "alternateName": ["Roderick Velings", "roderickvelings.com", "Roderik Velings"], "url": "https://roderickvelings.com/", "inLanguage": "fr-BE"}</script>
 </head>
 <body>
+<div class="carnet">
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="/"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#22488a"/><path d="M20 6C30 14 30 28 20 35C10 28 10 14 20 6Z" fill="none" stroke="#d8b46a" stroke-width="1.6"/><path d="M20 8V36" stroke="#d8b46a" stroke-width="1.2"/><ellipse cx="24" cy="20" rx="2.6" ry="3.6" fill="#3cc08d" stroke="#d8b46a" stroke-width="0.8" transform="rotate(-28 24 20)"/></svg><span>Roderick Vélings</span></a>
@@ -35,19 +36,20 @@
   </div>
 </header>
 <main>
-<section class="night hero">
-  <canvas class="stars" aria-hidden="true"></canvas>
+<section class="sheet">
   <div class="wrap">
     <div>
-      <p class="name">Roderick Vélings · chanteur, coach vocal, chef de chœur adjoint. Et toujours élève.</p>
-      <h1>Hey, moi c'est Roderick. <em>On fait un bout de chemin ensemble ?</em></h1>
-      <p class="roles">Cours de chant à Braives et en ligne, pour comprendre sa voix, la libérer et chanter ce qu'on aime : jazz, gospel, blues, pop, comédie musicale.</p>
+      <h1>Hey, moi c'est Roderick.</h1>
+      <p class="hand">On fait un bout de chemin ensemble&nbsp;?</p>
+      <button class="listen" type="button" aria-disabled="true"><span class="disc" aria-hidden="true"></span><span>Je me présente, en trente secondes<small>(ma vidéo arrive ici)</small></span></button>
+      <p class="roles">Chanteur, coach vocal, chef de chœur. Et toujours élève. Je donne cours de chant à Braives et en ligne : jazz, gospel, blues, pop, comédie musicale.</p>
       <div class="ctas">
-        <a class="btn primary" href="/cours">Prendre un cours de chant <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn primary" href="/cours">Prendre un cours de chant</a>
         <a class="btn" href="/choeur#rejoindre">Rejoindre la chorale</a>
       </div>
+      <p class="mt"><a class="more" href="/a-propos">En savoir plus sur moi →</a></p>
     </div>
-    <div class="hero-photo"><figure class="photo frame"><img src="/img/roderick-concert.jpg" alt="Roderick Vélings en concert, micro en main, les yeux fermés" width="1100" height="1264"></figure><div class="hero-badge" aria-hidden="true">      <svg class="emblem" viewBox="0 0 400 400" role="img" aria-label="Une feuille dorée sur une pierre de lapis-lazuli, entourée d'ondes sonores">
+    <div class="portrait"><figure class="photo "><img src="/img/roderick-concert.jpg" alt="Roderick Vélings en concert, micro en main, les yeux fermés" width="1100" height="1264"></figure><div class="stamp" aria-hidden="true">      <svg class="emblem" viewBox="0 0 400 400" role="img" aria-label="Une feuille dorée sur une pierre de lapis-lazuli, entourée d'ondes sonores">
         <defs>
           <radialGradient id="lapis" cx="38%" cy="34%" r="75%">
             <stop offset="0" stop-color="#3a6fc4"/>
@@ -97,30 +99,29 @@
 </section>
 
 <section class="sec">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">Si tu es arrivé ici</p>
-      <h2>Ce n'est peut-être pas anodin</h2>
-      <p class="lede mt">Tu t'interroges sur ta voix, comme tout le monde d'ailleurs. Que tu sois arrivé ici à dessein ou par hasard, il est peut-être temps de creuser la question, avec moi ou avec quelqu'un d'autre.</p>
-      <p>La voix est à mes yeux un miroir. Un miroir qui peut nous faire avancer, et devenir une source de bonheur profond, d'accomplissement, dans un monde parfois insensé.</p>
-    </div>
-    <div class="reveal">
-      <p class="quote" style="font-size:clamp(1.2rem,2.6vw,1.6rem)">« Je n'aurais pas cru pouvoir simplement crier, monter le ton sans retenue. Ça me fait un bien fou. »</p>
-      <p class="muted">Une élève</p>
-    </div>
+  <div class="wrap narrow">
+    <p class="eyebrow">Si tu es arrivé ici</p>
+    <h2>Ce n'est peut-être pas anodin</h2>
+    <p class="lede mt">Tu t'interroges sur ta voix, comme tout le monde d'ailleurs. Que tu sois arrivé ici à dessein ou par hasard, il est peut-être temps de creuser la question.</p>
   </div>
 </section>
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><p class="eyebrow">Avis d'élèves</p><h2>Ce qu'ils en disent</h2></div>
+    <div class="grid4"><figure class="card avis reveal"><blockquote>«&nbsp;Je n'aurais pas cru pouvoir simplement crier, monter le ton sans retenue. Ça me fait un bien fou.&nbsp;»</blockquote><figcaption>Une élève</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Excellent cours basé sur le souffle, exactement ce que je demande. Accueil agréable. Professeur sympathique.&nbsp;»</blockquote><figcaption>Patrick · 2020</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Très chouette ! Roderick est très pédagogue. Il met très à l'aise.&nbsp;»</blockquote><figcaption>Nathalie · 2024</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Mr Roderick est super gentil, très patient, super bon contact avec mon fils. Je le recommande vivement.&nbsp;»</blockquote><figcaption>Laurent · 2023</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Très arrangeant et patient pour expliquer les choses.&nbsp;»</blockquote><figcaption>Janine Patricia · 2020</figcaption></figure></div>
+  </div>
+</section>
+
 
 <section class="sec">
   <div class="wrap">
-    <div class="doors">
-      <a class="door reveal" href="/cours"><span class="n">01 · Apprendre</span><h3>Cours de chant</h3><p>Un bilan de ta voix, puis un travail sur mesure. Débutants bienvenus, chanteurs confirmés aussi.</p><span class="go">Découvrir les cours →</span></a>
-      <a class="door reveal" href="/choeur"><span class="n">02 · Chanter ensemble</span><h3>Bloom For Love</h3><p>Une chorale gospel contemporaine à Namur, des scènes comme le Dinant Jazz Festival, et de la place pour de nouvelles voix.</p><span class="go">Rejoindre la chorale →</span></a>
-      <a class="door reveal" href="/agenda"><span class="n">03 · Écouter</span><h3>Concerts</h3><p>Gospel avec Bloom For Love, jazz vocal avec le Brussels Groove Collective. Les prochaines dates sont ici.</p><span class="go">Voir l'agenda →</span></a>
-    </div>
+    <ul class="ways">
+      <li><a href="/cours"><span class="note">pour apprendre</span><div><h3>Cours de chant</h3><p>Un bilan de ta voix, puis un travail sur mesure. Débutants bienvenus, chanteurs confirmés aussi.</p></div><span class="go">Les cours</span></a></li>
+      <li><a href="/choeur"><span class="note">pour chanter ensemble</span><div><h3>Bloom For Love</h3><p>Une chorale gospel née pour redonner confiance aux voix, qui s'améliore d'année en année. À Namur, sur des scènes comme le Dinant Jazz Festival, avec de la place pour de nouvelles voix.</p></div><span class="go">La chorale</span></a></li>
+      <li><a href="/agenda"><span class="note">pour écouter</span><div><h3>Concerts</h3><p>Gospel for Life, le Brussels Groove Collective, ou mes propres concerts : les prochaines dates sont ici.</p></div><span class="go">L'agenda</span></a></li>
+    </ul>
   </div>
 </section>
-
 <section class="night sec bloom-band">
   <div class="wrap">
     <div class="sec-head reveal"><p class="eyebrow">Chorale gospel · Namur</p><h2>L'aventure Bloom For Love</h2></div>
@@ -128,7 +129,8 @@
     <div class="split mt" style="align-items:start">
       <div class="reveal">
         <p class="lede">Une chorale gospel contemporaine née autour de la chanteuse Anna Winkin. J'y suis chef de chœur adjoint, coach vocal et soliste.</p>
-        <p class="muted">Quatre messes gospel au Dinant Jazz Festival, un concert à Londres, des invités comme Lizz Wright, Rhoda Scott, David Linx ou Till Brönner. Et une envie simple : chanter ensemble, pour de vrai.</p>
+        <p>À ses débuts, Bloom For Love se définissait comme un groupe qui redonne confiance aux voix meurtries par la vie : une chorale familiale, où chacun pouvait se sentir grandir et se libérer de la peur. Guidée par Anna Winkin, de répétitions en retraites, jusque dans le Sahara, elle progresse d'année en année. Le haut niveau, c'est notre ambition.</p>
+        <p class="muted">Quatre messes gospel au Dinant Jazz Festival, un concert à Londres, des invités comme Lizz Wright, Rhoda Scott, David Linx, Till Brönner, Grégoire Maret, Stéphane Mercier ou Sarah Lancman. Et une envie simple : chanter ensemble, pour de vrai.</p>
       </div>
       <div class="reveal">
         <p class="quote" style="font-size:clamp(1.3rem,3vw,1.8rem)">Et si la prochaine voix, c'était la tienne ?</p>
@@ -146,14 +148,14 @@
     <div class="reveal">
       <p class="eyebrow">L'approche</p>
       <h2>Comprendre, sentir, chanter</h2>
-      <p class="lede mt">Ce que je déteste dans la manière d'enseigner le chant, c'est le mystère qui l'entoure. Les connaissances existent, mais elles sont difficiles d'accès, et chacun y va de son discours. Trop de gens en sortent perdus.</p>
-      <p>Alors j'explique tout. Une approche nourrie par la science de la voix et par la sophrologie : on comprend ce qui se passe dans le corps, et on apprend à chanter détendu, ancré, à l'écoute de soi.</p>
+      <p class="lede mt">Ce que je constate souvent dans l'enseignement du chant, c'est le mystère qui l'entoure. Les connaissances existent, mais elles sont difficiles d'accès, et chacun y va de son discours. Trop de gens en sortent perdus.</p>
+      <p>Alors j'explique tout. Je propose un enseignement nourri par ma propre expérience du chant et par les formations que j'ai reçues. Une approche basée sur les recherches éprouvées en technique vocale, et sur un travail sensoriel et corporel inspiré de la sophrologie dynamique et du Chant synergique.</p>
       <ul class="list-check">
         <li><strong>Comprendre.</strong> Souffle, cordes vocales, résonance : des explications claires, des schémas, pas de jargon ni d'images floues.</li>
         <li><strong>Sentir.</strong> Relâcher ce qui retient la voix, trouver ses propres repères dans le corps.</li>
         <li><strong>Chanter.</strong> Chaque outil est mis tout de suite au service d'une chanson que tu aimes.</li>
       </ul>
-      <p><a class="more" href="/cours">Comment se passe un cours →</a></p>
+      <p><a class="more" href="/cours#approche">Mon approche et mes cours →</a></p>
     </div>
     <div class="reveal"><figure class="photo "><img src="/img/studio.jpg" alt="Roderick Vélings en studio d'enregistrement, casque sur les oreilles" width="1000" height="1333" loading="lazy"><figcaption>En studio</figcaption></figure></div>
   </div>
@@ -162,18 +164,11 @@
 <section class="night sec">
   <div class="wrap">
     <div class="sec-head reveal"><p class="eyebrow">Sur scène</p><h2>Prochaines dates</h2></div>
-    <ul class="gigs reveal" id="upcoming" data-next="3"><li class="gig" data-date="2026-11-08"><div class="d"><b>08</b><span>nov. 2026</span></div><div class="t"><strong>Gospel for Life</strong><span>Dinant</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2026-11-14"><div class="d"><b>14</b><span>nov. 2026</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Concert de solidarité, Bruxelles</span></div><span class="w">Jazz vocal</span></li><li class="gig" data-date="2026-11-22"><div class="d"><b>22</b><span>nov. 2026</span></div><div class="t"><strong>Bloom For Love</strong><span>Profondeville</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2026-12-03"><div class="d"><b>03</b><span>déc. 2026</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Music Village, Bruxelles</span></div><span class="w">Jazz vocal</span></li><li class="gig" data-date="2026-12-27"><div class="d"><b>27</b><span>déc. 2026</span></div><div class="t"><strong>Bloom For Love</strong><span>Concert caritatif à trois chorales, église Saint-Loup, Namur</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2027-03-11"><div class="d"><b>11</b><span>mars 2027</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Théâtre Marni, Ixelles</span></div><span class="w">Jazz vocal</span></li></ul>
+    <ul class="gigs reveal" id="upcoming" data-next="3"><li class="gig" data-date="2026-11-08"><div class="d"><b>08</b><span>nov. 2026</span></div><div class="t"><strong>Gospel for Life</strong><span>Dinant</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2026-11-14"><div class="d"><b>14</b><span>nov. 2026</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Sous la direction de Pete Churchill, salle Dublin, Ixelles</span></div><span class="w">Jazz vocal</span></li><li class="gig" data-date="2026-11-22"><div class="d"><b>22</b><span>nov. 2026</span></div><div class="t"><strong>Bloom For Love</strong><span>Profondeville</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2026-12-03"><div class="d"><b>03</b><span>déc. 2026</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Music Village, Bruxelles</span></div><span class="w">Jazz vocal</span></li><li class="gig" data-date="2026-12-27"><div class="d"><b>27</b><span>déc. 2026</span></div><div class="t"><strong>Bloom For Love</strong><span>Concert caritatif à trois chorales, église Saint-Loup, Namur</span></div><span class="w">Gospel</span></li><li class="gig" data-date="2027-03-11"><div class="d"><b>11</b><span>mars 2027</span></div><div class="t"><strong>Brussels Groove Collective</strong><span>Théâtre Marni, Ixelles</span></div><span class="w">Jazz vocal</span></li></ul>
     <p class="mt"><a class="more" href="/agenda">Tout l'agenda →</a></p>
   </div>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head reveal"><p class="eyebrow">Avis d'élèves</p><h2>Ce qu'ils en disent</h2></div>
-    <div class="grid4"><figure class="card avis reveal"><blockquote>«&nbsp;Excellent cours basé sur le souffle, exactement ce que je demande. Accueil agréable. Professeur sympathique.&nbsp;»</blockquote><figcaption>Patrick · 2020</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Très chouette ! Roderick est très pédagogue. Il met très à l'aise.&nbsp;»</blockquote><figcaption>Nathalie · 2024</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Mr Roderick est super gentil, très patient, super bon contact avec mon fils. Je le recommande vivement.&nbsp;»</blockquote><figcaption>Laurent · 2023</figcaption></figure><figure class="card avis reveal"><blockquote>«&nbsp;Très arrangeant et patient pour expliquer les choses.&nbsp;»</blockquote><figcaption>Janine Patricia · 2020</figcaption></figure></div>
-    <p class="muted mt" style="font-size:0.9rem">Avis publiés par des élèves sur la plateforme Apprentus.</p>
-  </div>
-</section>
 
 <section class="night sec">
   <canvas class="stars" aria-hidden="true"></canvas>
@@ -226,8 +221,8 @@
 </div>
     <div class="reveal">
       <p class="eyebrow">L'esprit du petit scarabée</p>
-      <p class="quote">Chaque voix porte <em style="color:var(--night-gold)">son soleil.</em></p>
-      <p class="muted" style="margin-top:16px;max-width:52ch">Petit, patient, et capable de déplacer bien plus lourd que lui : c'est ainsi que je vois chaque élève, et que je me vois moi-même, toujours en chemin.</p>
+      <p class="quote">Chaque voix porte <em style="color:var(--night-gold)">un grand potentiel.</em></p>
+      <p class="muted" style="margin-top:16px;max-width:52ch">À la manière du scarabée, tel que le voyaient les Égyptiens de l'Antiquité, notre voix peut nous sembler petite, insignifiante, quand nous commençons à la découvrir. Mais avec patience, régularité, et certainement avec courage, nous pouvons tous la faire grandir. La voix, c'est le chemin d'une vie. Et il suffit d'un pas pour commencer à l'arpenter.</p>
       <p class="mt"><a class="more" href="/a-propos">Mon parcours et ma philosophie →</a></p>
     </div>
   </div>
@@ -249,8 +244,8 @@
   <canvas class="stars" aria-hidden="true"></canvas>
   <div class="wrap reveal">
     <p class="eyebrow">Contact</p>
-    <h2>On commence par un premier cours ?</h2>
-    <p>Dis-moi en deux lignes ce que tu aimerais chanter et où tu en es. Je te réponds personnellement.</p>
+    <h2>Le premier cours !</h2>
+    <p>C'est par ici que ça se passe. Parfois, tout commence simplement par l'envie de chanter, le besoin de libérer sa voix. Ce fut mon cas. Je t'invite tout de même à réfléchir à tes envies, aux styles que tu aimes et que tu écoutes. Si tu as des projets ou des besoins particuliers, parle-m'en dans ta demande.</p>
     <div class="ctas"><a class="btn primary" href="mailto:roderickvelings@gmail.com?subject=Premier%20cours%20de%20chant">Écrire pour un premier cours <span class="arr" aria-hidden="true">→</span></a><a class="btn" href="https://www.powr.io/form-builder/i/32941224%23page?brid=YWdncwFaIfZjWjQqWbRD8_sSeG9i">Rejoindre la chorale <span class="arr" aria-hidden="true">→</span></a></div>
     <p class="mail">roderickvelings@gmail.com</p>
   </div>
@@ -261,9 +256,10 @@
     <span>© 2026 Roderick Vélings · Braives, Belgique</span>
     <a href="https://www.instagram.com/roderickvelings/" rel="me noopener" target="_blank">Instagram @roderickvelings</a>
     <a href="https://www.tiktok.com/@roderickvelings" rel="me noopener" target="_blank">TikTok @roderickvelings</a>
-    <a href="mailto:roderickvelings@gmail.com">E-mail</a>
+    <a href="mailto:roderickvelings@gmail.com">roderickvelings@gmail.com</a>
   </div>
 </footer>
 <script src="/site.js" defer></script>
+</div>
 </body>
 </html>
