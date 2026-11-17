@@ -1,3 +1,14 @@
+/* Nouvelle page sans ancre : toujours partir du haut (certains navigateurs ou aperçus gardent la position) */
+(function () {
+  try {
+    var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    if (!location.hash && (!nav || nav.type === "navigate")) {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+      window.addEventListener("load", function () { window.scrollTo(0, 0); });
+    }
+  } catch (e) {}
+})();
 (function () {
   var doc = document, root = doc.documentElement;
   root.classList.add('js');
