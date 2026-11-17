@@ -412,6 +412,8 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 .stack{display:grid;gap:1rem;align-content:start}
 @media (prefers-reduced-motion: no-preference) { .bk .bk-scarab { animation: bkBob 9s ease-in-out infinite; } }
 @keyframes bkBob { 0%, 9%, 16%, 100% { translate: 0 0; } 12.5% { translate: 0 -5px; } }
+.night .avis blockquote { color: var(--on-night); }
+.night .avis figcaption { border-top-color: var(--night-line); color: var(--night-gold); }
 
 /* Chœur : le chef chante, les quatre pupitres le rejoignent tour à tour, puis tout le bassin pulse (18s) */
 .pupitre { transform-origin: 200px 200px; opacity: 0; }
