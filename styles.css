@@ -80,6 +80,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .site-head .wrap { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-display); font-style: italic; font-size: 1.2rem; margin-right: auto; white-space: nowrap; }
 .brand svg { width: 34px; height: 34px; flex: none; }
+.brand-name { font-family: "Fraunces", Georgia, serif; font-style: normal; font-weight: 600; font-size: 1.3rem; font-variation-settings: "opsz" 72; letter-spacing: -.005em; }
+.brand-name .cap { font-family: "Cinzel Decorative", "Fraunces", Georgia, serif; font-weight: 700; font-size: 1.2em; line-height: 0; }
 .nav { display: flex; align-items: center; gap: 4px 20px; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
 .nav a { text-decoration: none; color: var(--on-night-muted); padding: 6px 0; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--on-night); }

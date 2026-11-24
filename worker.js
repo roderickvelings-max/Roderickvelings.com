@@ -30,6 +30,7 @@ button{margin-top:18px;width:100%;padding:15px;border:0;border-radius:999px;back
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/rouevoyelles" || url.pathname === "/rouevoyelles.html") return Response.redirect(url.origin + "/blog-roue-des-voyelles", 301);
     if (!isBlog(url.pathname)) return env.ASSETS.fetch(request);
     const token = await sha256(PASS_HASH + ":acces-blog");
     if (request.method === "POST") {

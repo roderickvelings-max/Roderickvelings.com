@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Roue des voyelles chantées</title>
+<title>Roue des voyelles chantées · Roderick Vélings</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=IBM+Plex+Sans:wght@400;500;600&family=Karla:wght@400;700&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
-main{max-width:560px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
+main{max-width:760px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:16px}
 h1{font-family:var(--display);font-size:1.7rem;line-height:1.1;margin:0;text-wrap:balance}
 .lede{margin:0;color:var(--muted)}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -55,15 +55,22 @@ svg{display:block;max-width:100%}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .seg button:focus-visible, label:focus-within{outline:2px solid var(--sel);outline-offset:2px}
 label.chk{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;cursor:pointer}
-.pianoscroll{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--panel)}
-#piano{height:150px;touch-action:pan-x}
+.pianoscroll{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--panel);scrollbar-width:thin}
+.pnav{display:flex;align-items:center;gap:10px;margin-top:10px}
+.pnav[hidden]{display:none}
+.pnav button{flex:none;width:44px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:1rem;cursor:pointer}
+.pnav input{flex:1;accent-color:var(--sel);height:28px}
+#piano{height:176px;max-width:none;touch-action:pan-x;display:block;margin:0 auto}
 .wk{fill:#fdfdfb;stroke:#4a5361;stroke-width:1;cursor:pointer}
 .wk.z1{fill:#fbe7b0} .wk.z2{fill:#f6c453} .wk.z3{fill:#ec9f3a}
 .bk{fill:#1c222c;stroke:#000;cursor:pointer}
 .bk.z1{fill:#7b6420} .bk.z2{fill:#93711a} .bk.z3{fill:#a8641a}
+.wk.c1{fill:#cdd8f7} .bk.c1{fill:#34508f}
 .wk.play,.bk.play{fill:var(--sel)}
 .klab{font-size:10px;fill:#3d4653;text-anchor:middle;pointer-events:none}
 .kvow{font-family:"IBM Plex Sans","Noto Sans",sans-serif;font-size:13px;font-weight:600;fill:#16202e;text-anchor:middle;pointer-events:none}
+.band{font-size:10px;font-weight:600;fill:#16202e;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+select{font:inherit;font-size:.9rem;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
 .thr{font-size:10px;font-weight:600;fill:#b3261e;text-anchor:middle;pointer-events:none}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted);margin:8px 0 0}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid #4a5361;vertical-align:-1px;margin-right:5px}
@@ -74,13 +81,15 @@ th{color:var(--muted);font-weight:500}
 td.s{font-size:1.05rem}
 .note{font-size:.85rem;color:var(--muted);margin:0}
 .note + .note{margin-top:8px}
+.back{margin:0 0 10px;font-size:.9rem}.back a{color:var(--sel);text-decoration:none;font-weight:700}
 </style>
 </head>
 <body>
 <main>
   <header>
+    <p class="back"><a href="/blog">← Le blog</a></p>
     <h1>Roue des voyelles chantées</h1>
-    <p class="lede">Touche une voyelle pour l'entendre, puis une note du piano. Le clavier montre où la voyelle reste pure et où il faut l'ouvrir.</p>
+    <p class="lede">Touche une voyelle pour l'entendre, puis une note du piano. Le clavier montre où la voyelle reste pure, où la fermer dans le passage et où la rouvrir dans l'aigu.</p>
   </header>
 
   <section class="panel wheelwrap" aria-label="Roue des voyelles">
@@ -100,13 +109,21 @@ td.s{font-size:1.05rem}
       <button id="mMod" aria-pressed="true">Voyelle modifiée</button>
       <button id="mPure" aria-pressed="false">Voyelle pure</button>
     </div>
-    <label class="chk"><input type="checkbox" id="belt"> Son poitriné dans l'aigu</label>
+    <div class="seg" role="group" aria-label="Façon de chanter l'aigu"><button id="sMix" aria-pressed="true">Voix mixte, tête</button><button id="sBelt" aria-pressed="false">Son poitriné (belt)</button></div>
+    <label class="chk">Ma voix
+      <select id="voice">
+        <optgroup label="Homme"><option value="basse">Basse</option><option value="baryton" selected>Baryton</option><option value="tenor">Ténor</option></optgroup>
+        <optgroup label="Femme"><option value="mezzo">Mezzo</option><option value="soprano">Soprano</option></optgroup>
+      </select></label>
   </section>
 
   <section>
-    <div class="pianoscroll" id="pscroll"><svg id="piano" role="group" aria-label="Piano, do2 à do5"></svg></div>
+    <div class="pianoscroll" id="pscroll"><svg id="piano" role="group" aria-label="Piano, mi1 à sol5"></svg></div>
+    <div class="pnav" id="pnav" hidden><button id="pl" aria-label="Vers le grave">◀</button><input type="range" id="prange" min="0" max="1000" value="0" aria-label="Faire défiler le piano"><button id="pr" aria-label="Vers l'aigu">▶</button></div>
     <div class="legend">
       <span><i style="background:#fdfdfb"></i>voyelle pure</span>
+      <span><i style="background:#e3d4f5"></i>bandeau du haut : 1er et 2e passage de ta voix</span>
+      <span><i style="background:#cdd8f7"></i>passage de la voyelle : fermer d'un cran</span>
       <span><i style="background:#fbe7b0"></i>ouvrir d'un cran</span>
       <span><i style="background:#f6c453"></i>de deux crans</span>
       <span><i style="background:#ec9f3a"></i>de trois ou plus</span>
@@ -115,12 +132,13 @@ td.s{font-size:1.05rem}
 
   <section class="panel">
     <h2>Quand changer, voyelle par voyelle</h2>
-    <table id="tbl"><thead><tr><th>Voyelle</th><th>Comme dans</th><th>Pure jusqu'à</th><th>Ensuite</th></tr></thead><tbody></tbody></table>
+    <table id="tbl"><thead></thead><tbody></tbody></table>
   </section>
 
   <section class="panel">
     <p class="note">Notes en notation française : do3 est le do du milieu du piano (262 Hz). Les repères varient un peu selon la voix et le style. Garde la modification aussi discrète que possible.</p>
-    <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. « Son poitriné » applique un repère théorique, une octave plus bas, quand le deuxième harmonique rejoint la résonance de la voyelle. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
+    <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. En « Voix mixte, tête », la voyelle reste pure tant que le deuxième harmonique de la note reste sous la première résonance de la voyelle. Dans le passage (l'octave sous le repère d'Allan Wright), on la ferme d'un cran : le son « tourne » vers la voix mixte au lieu de crier (Kenneth Bozeman), et les voyelles fermées donnent un mixte plus léger. Au-dessus du repère, on la rouvre. En « Son poitriné », on ouvre dès le passage pour garder la couleur de poitrine. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
+    <p class="note">Deux sortes de passages se superposent. Le 1er et le 2e passage (bandeau du haut) sont ceux de la voix, selon sa catégorie : repères habituels d'après Richard Miller, à ajuster à ta voix. Le passage de la voyelle (en bleu sur les touches) dépend de la voyelle : il commence quand le 2e harmonique de la note atteint sa première résonance, et se termine quand la note elle-même (1er harmonique) l'atteint. Chez l'homme, c'est souvent là que tombe le 2e passage ; chez la femme, le passage des voyelles se trouve plutôt dans le médium. Les résonances des voyelles varient un peu d'une voix à l'autre, un peu plus hautes en moyenne chez les femmes.</p>
   </section>
 </main>
 
@@ -143,15 +161,27 @@ const V = {
   schwa:{sym:'ə', fr:'e', word:'le', f:[N(71),1500,2500], side:'C', row:-1, chain:['schwa','a'], ext:true}
 };
 const ORDER = ['i','e','E','a','u','o','O','A','schwa'];
+// Fermer d'un cran = la voyelle voisine, vers le haut de la roue, du même côté.
+const CLOSE = {i:'i', e:'i', E:'e', a:'E', u:'u', o:'u', O:'o', A:'O', schwa:'schwa'};
 let cur = 'i', lastMidi = null, mode = 'mod', belt = false;
 
-function eff(m){ return N(m) * (belt ? 2 : 1); }
-function target(v, m){
-  const fe = eff(m), ch = V[v].chain;
-  for (let k = 0; k < ch.length; k++) if (V[ch[k]].f[0] * 1.03 >= fe) return {v:ch[k], step:k, wide:false};
-  return {v:ch[ch.length-1], step:ch.length, wide:true};
+function openChain(v, fe){
+  const ch = V[v].chain;
+  for (let k = 0; k < ch.length; k++) if (V[ch[k]].f[0] * 1.03 >= fe) return {v:ch[k], step:k, wide:false, dir: k ? 'open' : 'pure'};
+  return {v:ch[ch.length-1], step:ch.length, wide:true, dir:'open'};
 }
-function thrMidi(v){ return midiOf(V[v].f[0] / (belt ? 2 : 1)); }
+// Voix mixte : pure tant que le 2e harmonique reste sous F1 ; dans le passage, fermer d'un cran ; quand la fondamentale dépasse F1, rouvrir.
+// Son poitriné : le 2e harmonique suit F1, on ouvre dès le passage.
+function target(v, m){
+  if (belt) return openChain(v, 2 * N(m));
+  const f1 = V[v].f[0] * 1.03, f0 = N(m);
+  if (2 * f0 <= f1) return {v, step:0, wide:false, dir:'pure'};
+  if (f0 <= f1) return {v:CLOSE[v], step:CLOSE[v] === v ? 0 : 1, wide:false, dir:'close'};
+  return openChain(v, f0);
+}
+function lastWhere(ok){ let r = null; for (let m = 24; m <= 108; m++){ if (ok(m)) r = m; else if (r != null) break; } return r; }
+function pureTo(v){ const f1 = V[v].f[0] * 1.03; return lastWhere(m => 2 * N(m) <= f1); }
+function thrMidi(v){ return belt ? pureTo(v) : lastWhere(m => N(m) <= V[v].f[0] * 1.03); }
 
 /* ---------- wheel ---------- */
 const SVG = 'http://www.w3.org/2000/svg';
@@ -189,7 +219,7 @@ function defaultMidi(k){ return Math.min(thrMidi(k) - 5, 60); }
 
 /* ---------- piano ---------- */
 const piano = document.getElementById('piano');
-const LO = 48, HI = 84, WW = 32, WH = 150, BW = 20, BH = 92;
+const LO = 40, HI = 91, WW = 23, WH = 176, BW = 14, BH = 112, TOP = 26;
 const isBlack = m => [1,3,6,8,10].includes(m % 12);
 const whites = []; for (let m = LO; m <= HI; m++) if (!isBlack(m)) whites.push(m);
 piano.setAttribute('viewBox', `0 0 ${whites.length * WW} ${WH}`);
@@ -197,15 +227,31 @@ piano.style.width = whites.length * WW + 'px';
 const keyEl = {}, vowEl = {}, xOf = {};
 whites.forEach((m, i) => {
   const x = i * WW; xOf[m] = x + WW / 2;
-  const r = el('rect', {x, y:0, width:WW, height:WH, rx:3, class:'wk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
+  const r = el('rect', {x, y:TOP, width:WW, height:WH - TOP, rx:3, class:'wk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
   vowEl[m] = el('text', {class:'kvow', x:x + WW / 2, y:WH - 30}); piano.appendChild(vowEl[m]);
   if (m % 12 === 0) piano.appendChild(el('text', {class:'klab', x:x + WW / 2, y:WH - 8}, noteName(m)));
 });
 for (let m = LO; m <= HI; m++) if (isBlack(m)){
   const x = (whites.indexOf(m - 1) + 1) * WW - BW / 2; xOf[m] = x + BW / 2;
-  const r = el('rect', {x, y:0, width:BW, height:BH, rx:2, class:'bk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
+  const r = el('rect', {x, y:TOP, width:BW, height:BH, rx:2, class:'bk'}); r.dataset.m = m; piano.appendChild(r); keyEl[m] = r;
 }
 const thrLab = el('text', {class:'thr', y:WH - 46}); piano.appendChild(thrLab);
+
+/* ---------- 1er et 2e passage selon la voix (repères habituels d'après Richard Miller) ---------- */
+const VOICES = {
+  basse:{p1:[56,57], p2:[61,62]}, baryton:{p1:[58,59], p2:[63,64]}, tenor:{p1:[60,62], p2:[65,67]},
+  mezzo:{p1:[64,65], p2:[76,77]}, soprano:{p1:[65,66], p2:[77,79]}
+};
+const bandG = el('g', {}); piano.appendChild(bandG);
+function drawBands(){
+  bandG.innerHTML = '';
+  const vt = VOICES[document.getElementById('voice').value];
+  [['1er passage', vt.p1, '#e3d4f5'], ['2e passage', vt.p2, '#c9b3ee']].forEach(([lab, [a, b], col]) => {
+    const x0 = xOf[a] - (isBlack(a) ? BW : WW) / 2, x1 = xOf[b] + (isBlack(b) ? BW : WW) / 2;
+    bandG.appendChild(el('rect', {x:x0, y:3, width:x1 - x0, height:TOP - 7, rx:4, fill:col}));
+    bandG.appendChild(el('text', {class:'band', x:(x0 + x1) / 2, y:TOP / 2}, lab));
+  });
+}
 piano.addEventListener('click', e => {
   const m = +e.target.dataset.m; if (!m) return;
   lastMidi = m; render();
@@ -228,37 +274,60 @@ function render(){
   document.querySelectorAll('.sector').forEach(s => { s.classList.toggle('on', s.dataset.v === cur); s.classList.remove('target'); });
   for (let m = LO; m <= HI; m++){
     const t = target(cur, m), k = keyEl[m];
-    k.classList.remove('z1','z2','z3');
-    if (t.step > 0) k.classList.add('z' + Math.min(3, t.step));
+    k.classList.remove('z1','z2','z3','c1');
+    if (t.dir === 'close') k.classList.add('c1');
+    else if (t.step > 0) k.classList.add('z' + Math.min(3, t.step));
     if (vowEl[m]) vowEl[m].textContent = V[t.v].sym + (t.wide ? '+' : '');
   }
   const tm = thrMidi(cur);
   if (tm >= LO && tm <= HI){ thrLab.setAttribute('x', xOf[tm]); thrLab.textContent = isBlack(tm) ? '' : '▼'; } else thrLab.textContent = '';
   const v = V[cur], ans = document.getElementById('answer'), det = document.getElementById('detail');
+  const pt0 = pureTo(cur), cv = V[CLOSE[cur]];
   if (lastMidi == null){
-    ans.innerHTML = `[${v.sym}] « ${v.fr} » de ${v.word} : pure jusqu'à environ <b>${noteName(tm)}</b>.`;
-    det.textContent = `Au-dessus, ${chainText(cur)}.` + (v.ext ? ' Repère déduit par symétrie.' : '');
+    if (belt){
+      ans.innerHTML = `[${v.sym}] « ${v.fr} » de ${v.word}, son poitriné : pur jusqu'à environ <b>${noteName(pt0)}</b>.`;
+      det.textContent = `Au-dessus, ${chainText(cur)}.` + (v.ext ? ' Repère déduit par symétrie.' : '');
+    } else {
+      ans.innerHTML = `[${v.sym}] « ${v.fr} » de ${v.word} : pur jusqu'à environ <b>${noteName(pt0)}</b>, puis passage jusqu'à <b>${noteName(tm)}</b>.`;
+      det.textContent = (CLOSE[cur] === cur
+        ? `Dans le passage, garde la forme du [${v.sym}] : c'est déjà une voyelle fermée, laisse le son s'alléger.`
+        : `Dans le passage, ferme d'un cran, vers [${cv.sym}] comme dans ${cv.word}.`)
+        + ` Au-dessus de ${noteName(tm)}, rouvre : ${chainText(cur)}.` + (v.ext ? ' Repères déduits par symétrie.' : '');
+    }
   } else {
     const t = target(cur, lastMidi);
-    if (t.step === 0){
+    if (t.dir === 'pure'){
       ans.innerHTML = `Sur <b>${noteName(lastMidi)}</b>, le [${v.sym}] reste pur.`;
-      det.textContent = `Il tient jusqu'à environ ${noteName(tm)}.`;
+      det.textContent = `Il tient jusqu'à environ ${noteName(pt0)}.`;
+    } else if (t.dir === 'close'){
+      ans.innerHTML = t.v === cur
+        ? `Sur <b>${noteName(lastMidi)}</b>, tu es dans le passage : garde la forme du [${v.sym}] et laisse le son s'alléger.`
+        : `Sur <b>${noteName(lastMidi)}</b>, tu es dans le passage : pense [${v.sym}] mais ferme d'un cran, vers <b>[${V[t.v].sym}]</b> comme dans ${V[t.v].word}.`;
+      det.textContent = `Une voyelle un peu plus fermée aide à passer en voix mixte sans crier. Au-dessus de ${noteName(tm)}, tu pourras rouvrir.`;
+      if (t.v !== cur) { const s = document.querySelector(`.sector[data-v="${t.v}"]`); if (s) s.classList.add('target'); }
     } else {
       const tv = V[t.v];
       ans.innerHTML = t.wide
         ? `Sur <b>${noteName(lastMidi)}</b>, chante [${tv.sym}] et ouvre encore la bouche.`
         : `Sur <b>${noteName(lastMidi)}</b>, pense [${v.sym}] mais chante vers <b>[${tv.sym}]</b>, comme dans ${tv.word}.`;
-      det.textContent = `Le [${v.sym}] pur s'arrête vers ${noteName(tm)}. Compare avec le bouton « Voyelle pure ».`;
+      det.textContent = (belt ? `En son poitriné, le [${v.sym}] pur s'arrête vers ${noteName(pt0)}.` : `Tu es au-dessus du passage du [${v.sym}] (${noteName(tm)}) : en voix de tête, on rouvre.`) + ' Compare avec le bouton « Voyelle pure ».';
       if (t.v !== cur) { const s = document.querySelector(`.sector[data-v="${t.v}"]`); if (s) s.classList.add('target'); }
     }
   }
 }
 const tb = document.querySelector('#tbl tbody');
 function renderTable(){
+  document.querySelector('#tbl thead').innerHTML = belt
+    ? '<tr><th>Voyelle</th><th>Pure jusqu\'à</th><th>Ensuite, ouvrir</th></tr>'
+    : '<tr><th>Voyelle</th><th>Pure jusqu\'à</th><th>Dans le passage</th><th>Dans l\'aigu, rouvrir</th></tr>';
   tb.innerHTML = '';
   ORDER.forEach(k => {
     const v = V[k], tr = document.createElement('tr');
-    tr.innerHTML = `<td class="s">[${v.sym}] ${v.fr}</td><td>${v.word}</td><td>${noteName(thrMidi(k))}${v.ext ? ' *' : ''}</td><td>${v.chain.slice(1).map(c => '[' + V[c].sym + ']').join(' → ') || 'ouvrir plus'}</td>`;
+    const op = v.chain.slice(1).map(c => '[' + V[c].sym + ']').join(' → ') || 'ouvrir plus';
+    const cl = CLOSE[k] === k ? 'garder la forme' : 'fermer vers [' + V[CLOSE[k]].sym + ']';
+    tr.innerHTML = belt
+      ? `<td class="s">[${v.sym}] ${v.fr}</td><td>${noteName(pureTo(k))}${v.ext ? ' *' : ''}</td><td>${op}</td>`
+      : `<td class="s">[${v.sym}] ${v.fr}</td><td>${noteName(pureTo(k))}${v.ext ? ' *' : ''}</td><td>${cl}</td><td>dès ${noteName(thrMidi(k) + 1)} : ${op}</td>`;
     tb.appendChild(tr);
   });
   const tr = document.createElement('tr');
@@ -272,7 +341,10 @@ function setMode(x){ mode = x; mMod.setAttribute('aria-pressed', x === 'mod'); m
   if (lastMidi != null){ const t = target(cur, lastMidi); play(x === 'mod' ? t.v : cur, lastMidi, x === 'mod' && t.wide); } }
 mMod.addEventListener('click', () => setMode('mod'));
 mPure.addEventListener('click', () => setMode('pure'));
-document.getElementById('belt').addEventListener('change', e => { belt = e.target.checked; render(); renderTable(); centerPiano(); });
+const sMix = document.getElementById('sMix'), sBelt = document.getElementById('sBelt');
+function setStyle(b){ belt = b; sMix.setAttribute('aria-pressed', !b); sBelt.setAttribute('aria-pressed', b); lastMidi = null; render(); renderTable(); centerPiano(); }
+sMix.addEventListener('click', () => setStyle(false));
+sBelt.addEventListener('click', () => setStyle(true));
 
 /* ---------- sound: sawtooth through three formant filters ---------- */
 let ctx = null, live = null;
@@ -301,8 +373,19 @@ function play(k, midi, wide){
   } catch (e) { /* audio refused: the page still works silently */ }
 }
 
-render(); renderTable();
-requestAnimationFrame(centerPiano);
+/* ---------- défilement du piano : curseur et flèches quand le clavier dépasse l'écran ---------- */
+const pscroll = document.getElementById('pscroll'), pnav = document.getElementById('pnav'), prange = document.getElementById('prange');
+const pmax = () => Math.max(0, pscroll.scrollWidth - pscroll.clientWidth);
+function syncNav(){ const mx = pmax(); pnav.hidden = mx < 4; if (mx) prange.value = Math.round(pscroll.scrollLeft / mx * 1000); }
+prange.addEventListener('input', () => { pscroll.scrollLeft = prange.value / 1000 * pmax(); });
+pscroll.addEventListener('scroll', syncNav, {passive:true});
+window.addEventListener('resize', syncNav);
+document.getElementById('pl').addEventListener('click', () => pscroll.scrollBy({left:-pscroll.clientWidth * 0.6, behavior:'smooth'}));
+document.getElementById('pr').addEventListener('click', () => pscroll.scrollBy({left: pscroll.clientWidth * 0.6, behavior:'smooth'}));
+document.getElementById('voice').addEventListener('change', () => { drawBands(); const vt = VOICES[document.getElementById('voice').value]; const x = xOf[vt.p1[0]]; pscroll.scrollTo({left: Math.max(0, x - pscroll.clientWidth / 3), behavior:'smooth'}); });
+
+drawBands(); render(); renderTable();
+requestAnimationFrame(() => { centerPiano(); syncNav(); });
 </script>
 </body>
 </html>
