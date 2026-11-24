@@ -82,6 +82,51 @@ td.s{font-size:1.05rem}
 .note{font-size:.85rem;color:var(--muted);margin:0}
 .note + .note{margin-top:8px}
 .back{margin:0 0 10px;font-size:.9rem}.back a{color:var(--sel);text-decoration:none;font-weight:700}
+
+.jump{margin:8px 0 0;font-size:.95rem}.jump a{color:var(--sel);font-weight:700;text-decoration:none}
+.learn{display:flex;flex-direction:column;gap:18px;margin-top:18px;padding-top:22px;border-top:2px solid var(--line);scroll-margin-top:12px}
+.ltitle{font-family:var(--display);font-size:1.6rem;line-height:1.15;margin:0;text-wrap:balance}
+.lintro{margin:0;font-size:1.05rem;max-width:65ch}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{display:inline-flex;gap:6px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);text-decoration:none;font-size:.88rem}
+.toc a b{color:var(--sel)}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;scroll-margin-top:12px}
+.step h3{font-family:var(--display);font-size:1.25rem;line-height:1.2;margin:0 0 10px;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+.step p,.step li{max-width:65ch;line-height:1.6}
+.step p{margin:0 0 10px}
+.step ul,.step ol{margin:0 0 10px;padding-left:20px}
+.num{flex:none;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--sel);color:#fff;font-family:var(--body);font-size:.95rem;font-weight:700;transform:translateY(-2px)}
+.aside{background:color-mix(in srgb,var(--sel) 9%,var(--panel));border-left:3px solid var(--sel);padding:10px 12px;border-radius:0 10px 10px 0;font-size:.95rem}
+figure{margin:12px 0}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:6px;max-width:65ch}
+.fig{width:100%;height:auto;background:var(--bg);border-radius:10px}
+.fig text{font-family:var(--body);fill:var(--ink)}
+.fig .lab{font-size:13px;fill:var(--muted)} .fig .lab.b{fill:var(--ink);font-weight:700}
+.fig .ax{stroke:var(--muted);stroke-width:1.2}
+.fig .grid{stroke:var(--line);stroke-width:1}
+.tube{fill:color-mix(in srgb,var(--round) 22%,transparent);stroke:var(--round);stroke-width:2.5}
+.folds{fill:var(--spread)} .wave{fill:none;stroke:var(--sel);stroke-width:2.5;stroke-linecap:round}
+.hbar{fill:var(--muted)} .hbar.h1{fill:var(--round)} .hbar.h2{fill:var(--spread)}
+.res{fill:color-mix(in srgb,var(--sel) 22%,transparent);stroke:var(--sel);stroke-width:2}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 12px}
+@media (max-width:560px){.duo{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg)}
+.card h4{margin:0 0 6px;font-size:1rem}.card p{margin:0;font-size:.93rem}
+.card.h2c{border-top:4px solid var(--spread)} .card.h1c{border-top:4px solid var(--round)}
+.lab-box{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:10px}
+.lab-box .fig{background:var(--panel)}
+.lab-vows{display:flex;flex-wrap:wrap;gap:6px}
+.lab-vows button{font:inherit;font-family:"IBM Plex Sans","Noto Sans",sans-serif;min-width:44px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.lab-vows button[aria-pressed="true"]{background:var(--sel);color:#fff;border-color:var(--sel)}
+.lab-ctrl{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;font-size:.92rem}
+.lab-ctrl input{accent-color:var(--sel);width:100%}
+.lab-ctrl output{font-weight:700;color:var(--sel);margin-left:4px}
+.labplay{grid-column:1/-1;justify-self:start;font:inherit;padding:8px 16px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);cursor:pointer}
+.lab-state{margin:0;font-size:.98rem;line-height:1.5}
+.lab-state b{color:var(--sel)}
+.recap{border-color:var(--sel)} .recap ol li{margin-bottom:6px}
+.srcs ul{padding-left:18px;margin:0}.srcs li{margin-bottom:8px}
+.lab-vows button:focus-visible,.labplay:focus-visible,.toc a:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -90,6 +135,7 @@ td.s{font-size:1.05rem}
     <p class="back"><a href="/blog">← Le blog</a></p>
     <h1>Roue des voyelles chantées</h1>
     <p class="lede">Touche une voyelle pour l'entendre, puis une note du piano. Le clavier montre où la voyelle reste pure, où la fermer dans le passage et où la rouvrir dans l'aigu.</p>
+    <p class="jump"><a href="#comprendre">Comment comprendre tout ça ↓</a></p>
   </header>
 
   <section class="panel wheelwrap" aria-label="Roue des voyelles">
@@ -139,6 +185,162 @@ td.s{font-size:1.05rem}
     <p class="note">Notes en notation française : do3 est le do du milieu du piano (262 Hz). Les repères varient un peu selon la voix et le style. Garde la modification aussi discrète que possible.</p>
     <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. En « Voix mixte, tête », la voyelle reste pure tant que le deuxième harmonique de la note reste sous la première résonance de la voyelle. Dans le passage (l'octave sous le repère d'Allan Wright), on la ferme d'un cran : le son « tourne » vers la voix mixte au lieu de crier (Kenneth Bozeman), et les voyelles fermées donnent un mixte plus léger. Au-dessus du repère, on la rouvre. En « Son poitriné », on ouvre dès le passage pour garder la couleur de poitrine. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
     <p class="note">Deux sortes de passages se superposent. Le 1er et le 2e passage (bandeau du haut) sont ceux de la voix, selon sa catégorie : repères habituels d'après Richard Miller, à ajuster à ta voix. Le passage de la voyelle (en bleu sur les touches) dépend de la voyelle : il commence quand le 2e harmonique de la note atteint sa première résonance, et se termine quand la note elle-même (1er harmonique) l'atteint. Chez l'homme, c'est souvent là que tombe le 2e passage ; chez la femme, le passage des voyelles se trouve plutôt dans le médium. Les résonances des voyelles varient un peu d'une voix à l'autre, un peu plus hautes en moyenne chez les femmes.</p>
+  </section>
+
+  <section id="comprendre" class="learn" aria-labelledby="c-title">
+    <h2 class="ltitle" id="c-title">Comment comprendre tout ça</h2>
+    <p class="lintro">Pourquoi faut-il changer les voyelles en montant ? La réponse tient en trois idées : une note est faite de plusieurs sons, ta bouche est un filtre, et quand les deux se croisent, la voix change. On les prend une par une.</p>
+    <nav class="toc" aria-label="Étapes">
+      <a href="#c1"><b>1</b> Une note, une famille de sons</a>
+      <a href="#c2"><b>2</b> Ta bouche, un filtre</a>
+      <a href="#c3"><b>3</b> Chaque voyelle a sa résonance</a>
+      <a href="#c4"><b>4</b> Le croisement</a>
+      <a href="#c5"><b>5</b> Le laboratoire</a>
+      <a href="#c6"><b>6</b> Les deux sortes de passages</a>
+      <a href="#c7"><b>7</b> Hommes et femmes</a>
+      <a href="#c8"><b>8</b> Belt ou voix mixte</a>
+    </nav>
+
+    <article class="step" id="c1">
+      <h3><span class="num">1</span>Une note, c'est une famille de sons</h3>
+      <p>Quand tu chantes un la, tu n'entends pas un seul son. Tes cordes vocales en produisent toute une série, empilés les uns sur les autres : les <strong>harmoniques</strong>. Le plus grave donne son nom à la note : c'est le <strong>fondamental</strong>, qu'on appelle aussi <strong>1er harmonique (H1)</strong>. Les autres sont ses multiples : deux fois plus aigu, trois fois, quatre fois…</p>
+      <figure>
+        <svg viewBox="0 0 640 250" class="fig" role="img" aria-label="Les six premiers harmoniques d'un la2 à 220 Hz">
+          <line class="ax" x1="40" y1="200" x2="620" y2="200"/>
+          <g id="fig1bars"></g>
+        </svg>
+        <figcaption>Un la2 (220 Hz). H2 est à l'octave, H3 à la quinte au-dessus, H4 à la double octave. Plus les harmoniques sont nombreux et forts, plus le son est riche.</figcaption>
+      </figure>
+      <p class="aside"><b>Image :</b> pense à une famille. Le parent donne son nom (la note), les enfants (les harmoniques) suivent toujours, chacun à sa place. En voix de poitrine, les enfants sont nombreux et bruyants, surtout H2. En voix de tête, le parent (H1) parle presque seul.</p>
+    </article>
+
+    <article class="step" id="c2">
+      <h3><span class="num">2</span>Ta bouche est un filtre</h3>
+      <p>Le son des cordes vocales est brut, comme un bourdonnement. Il traverse ensuite un tube : la gorge et la bouche, le <strong>conduit vocal</strong>. Ce tube ne laisse pas tout passer pareil : il renforce certaines zones de fréquences et en étouffe d'autres. Ces zones renforcées sont ses <strong>résonances</strong>. On les numérote : <strong>R1</strong> (la plus grave), R2, R3… On parle aussi de formants.</p>
+      <figure>
+        <svg viewBox="0 0 640 230" class="fig" role="img" aria-label="Le conduit vocal, un tube qui va des cordes vocales aux lèvres">
+          <path class="tube" d="M150 205 L150 110 Q150 70 190 70 L420 70 Q440 70 448 85 L455 98 L448 111 Q440 126 420 126 L215 126 Q206 126 206 135 L206 205 Z"/>
+          <rect class="folds" x="156" y="194" width="44" height="8" rx="3"/>
+          <path class="wave" d="M470 98 q8 -14 0 -28 M486 98 q14 -22 0 -46 M470 98 q8 14 0 28 M486 98 q14 22 0 46"/>
+          <text class="lab" x="100" y="222">cordes vocales : la source</text>
+          <text class="lab" x="300" y="56" text-anchor="middle">bouche</text>
+          <text class="lab" x="236" y="170">gorge</text>
+          <text class="lab" x="452" y="150">lèvres</text>
+          <text class="lab b" x="520" y="102">le son qui sort</text>
+        </svg>
+        <figcaption>Ton seul résonateur : le tube qui va des cordes vocales aux lèvres. Ni le nez ni les sinus ne fabriquent le timbre.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 640 200" class="fig" id="fig2b" role="img" aria-label="Source, filtre, résultat"></svg>
+        <figcaption>À gauche, la source : tous les harmoniques, de plus en plus faibles. Au milieu, le filtre et ses bosses de résonance. À droite, ce qui sort : les harmoniques qui tombent sur une bosse sont renforcés.</figcaption>
+      </figure>
+      <p class="aside"><b>Image :</b> souffle sur le goulot d'une bouteille. Plus elle est vide, plus le son est grave : la forme du creux décide de la note qui résonne. Ta bouche fait pareil, mais tu changes sa forme à chaque voyelle.</p>
+    </article>
+
+    <article class="step" id="c3">
+      <h3><span class="num">3</span>Chaque voyelle a sa propre résonance</h3>
+      <p>Une voyelle, c'est une forme de bouche, donc une recette de résonances. C'est ce qui permet de reconnaître un « i » d'un « a ». Deux réglages comptent surtout :</p>
+      <ul>
+        <li><strong>R1 suit l'ouverture</strong> de la bouche et de la mâchoire. Bouche peu ouverte (i, ou) : R1 bas, vers 300 Hz. Bouche grande ouverte (a) : R1 haut, vers 700 Hz.</li>
+        <li><strong>R2 suit la langue</strong>, en avant ou en arrière. Langue en avant (i, é) : R2 très haut. Langue en arrière (ou, ô) : R2 plus bas.</li>
+      </ul>
+      <figure>
+        <svg viewBox="0 0 640 260" class="fig" id="fig3" role="img" aria-label="Première résonance de chaque voyelle"></svg>
+        <figcaption>La première résonance (R1) de chaque voyelle, et la note qui lui correspond sur le piano. Plus la bouche s'ouvre, plus R1 monte. Ce sont les repères de la roue : i ré3, é sol3, è do4, a fa4. Ils sont espacés d'une quarte.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step" id="c4">
+      <h3><span class="num">4</span>Le croisement : là où tout se joue</h3>
+      <p>Quand tu montes, tous les harmoniques montent avec la note. Mais la résonance R1 de la voyelle, elle, reste à sa place tant que tu ne bouges pas la bouche. Tôt ou tard, un harmonique important va <strong>traverser R1</strong>. Ce harmonique perd alors son renfort : le son change de couleur, devient instable, ou se serre. C'est un <strong>passage acoustique</strong>.</p>
+      <p>Il y a deux croisements à connaître :</p>
+      <div class="duo">
+        <div class="card h2c"><h4>H2 croise R1</h4><p>Le premier qui arrive, une octave sous le repère de la voyelle. Il compte beaucoup quand H2 est fort : voix de poitrine, belt, voix d'homme. C'est là que la voix « tourne » ou se met à crier.</p></div>
+        <div class="card h1c"><h4>H1 croise R1</h4><p>La note elle-même atteint la résonance : c'est le repère de la roue. Au-dessus, plus rien n'est soutenu par R1 si la bouche ne s'ouvre pas : la voix se serre. On ouvre pour faire monter R1.</p></div>
+      </div>
+      <p>Les deux croisements dessinent trois zones pour chaque voyelle : <strong>pure</strong> (sous le croisement de H2), <strong>passage</strong> (entre les deux), <strong>aigu</strong> (au-dessus du croisement de H1). Ce sont exactement les couleurs du piano, plus haut.</p>
+    </article>
+
+    <article class="step" id="c5">
+      <h3><span class="num">5</span>Le laboratoire</h3>
+      <p>Choisis une voyelle et une note, et regarde où tombent H1 et H2 par rapport à la bosse R1. Puis ouvre la bouche avec le curseur : R1 monte et vient rattraper les harmoniques. Ce laboratoire suit aussi la roue et le piano du haut.</p>
+      <div class="lab-box">
+        <div class="lab-vows" id="labVows" role="group" aria-label="Voyelle"></div>
+        <svg viewBox="0 0 640 250" class="fig" id="labSvg" role="img" aria-label="Harmoniques de la note et résonance de la voyelle"></svg>
+        <div class="lab-ctrl">
+          <label for="labNote">Note <output id="labNoteOut"></output></label>
+          <input type="range" id="labNote" min="40" max="91" value="55">
+          <label for="labOpen">Ouverture de la bouche <output id="labOpenOut"></output></label>
+          <input type="range" id="labOpen" min="0" max="100" value="0">
+          <button type="button" id="labPlay" class="labplay">Écouter</button>
+        </div>
+        <p class="lab-state" id="labState" aria-live="polite"></p>
+      </div>
+      <p class="aside"><b>À essayer :</b> prends [i] et monte la note jusqu'à sol3. H1 a dépassé la bosse. Ouvre maintenant la bouche : quand R1 rattrape H1, le son se libère. C'est ce que font les sopranos dans l'aigu.</p>
+    </article>
+
+    <article class="step" id="c6">
+      <h3><span class="num">6</span>Deux sortes de passages qui se superposent</h3>
+      <p>On appelle « passage » deux choses différentes, et c'est souvent ce qui embrouille.</p>
+      <div class="duo">
+        <div class="card"><h4>Le passage du larynx</h4><p>Le changement de mécanisme des cordes vocales : poitrine (M1) vers tête (M2). Il se situe autour de mi3/fa3 pour la plupart des gens. Il ne dépend pas de la voyelle.</p></div>
+        <div class="card"><h4>Les passages des voyelles</h4><p>Les croisements entre harmoniques et résonance. Ils dépendent de la voyelle : environ une quarte plus haut à chaque cran d'ouverture. Ce sont eux qui reviennent « toutes les quartes ».</p></div>
+      </div>
+      <figure>
+        <svg viewBox="0 0 640 230" class="fig" id="fig6" role="img" aria-label="Zones pure, passage et aigu pour i et a, et passage du larynx"></svg>
+        <figcaption>Pour [i] et [a] : zone pure, zone de passage, zone aiguë. La ligne pointillée marque le passage du larynx, le même pour toutes les voyelles.</figcaption>
+      </figure>
+    </article>
+
+    <article class="step" id="c7">
+      <h3><span class="num">7</span>Hommes et femmes : même physique, autres zones</h3>
+      <p>Les lois sont les mêmes pour tout le monde. Ce qui change, c'est où l'on chante et quel harmonique domine.</p>
+      <figure>
+        <svg viewBox="0 0 640 220" class="fig" id="fig7" role="img" aria-label="Tessitures typiques d'homme et de femme, et croisement dominant"></svg>
+        <figcaption>Tessitures habituelles, en gros. Le chant des hommes se fait surtout sous le passage du larynx ; celui des femmes en voix de tête, au-dessus.</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Chez l'homme</strong>, la voix chantée reste surtout en poitrine, où H2 est fort. Le passage qu'on sent vers ré3–sol3 est surtout le moment où H2 traverse R1 de la voyelle.</li>
+        <li><strong>Chez la femme en voix de tête</strong>, H1 domine. Le croisement important est celui de la note avec R1, dans le médium et l'aigu. D'où la bouche qui s'ouvre dans l'aigu des sopranos.</li>
+        <li><strong>Chez la femme en belt ou en poitrine</strong>, H2 redevient fort : on retrouve la logique des hommes.</li>
+      </ul>
+    </article>
+
+    <article class="step" id="c8">
+      <h3><span class="num">8</span>Au croisement, deux choix : belt ou voix mixte</h3>
+      <p>Quand H2 arrive sur R1, tu peux faire deux choses, et chacune donne un son différent.</p>
+      <figure>
+        <svg viewBox="0 0 640 220" class="fig" id="fig8" role="img" aria-label="Deux stratégies : suivre H2 en ouvrant, ou laisser H2 passer au-dessus"></svg>
+        <figcaption>À gauche, on ouvre pour que R1 reste sur H2 : son éclatant, poitriné. À droite, on garde la forme (voire on ferme un peu) et H2 passe au-dessus : le son tourne, plus rond.</figcaption>
+      </figure>
+      <div class="duo">
+        <div class="card h2c"><h4>Suivre H2 : le belt</h4><p>On ouvre la voyelle en montant pour garder R1 sur H2. Le son reste brillant et « poitriné ». Bien dosé, c'est le belt ; poussé sans contrôle, c'est le cri.</p></div>
+        <div class="card h1c"><h4>Laisser passer : la voix mixte</h4><p>On garde la forme, ou on ferme d'un cran. H2 passe au-dessus de R1, le son « tourne » et s'arrondit. C'est la porte vers la voix mixte et la voix de tête.</p></div>
+      </div>
+    </article>
+
+    <article class="step recap">
+      <h3>En résumé</h3>
+      <ol>
+        <li>Une note = un fondamental (H1) + ses harmoniques (H2 à l'octave, H3…).</li>
+        <li>Ta bouche filtre ce son : ses résonances, R1 en tête, renforcent certains harmoniques.</li>
+        <li>Chaque voyelle a son R1 : bas pour i et ou, haut pour a. Plus tu ouvres, plus R1 monte.</li>
+        <li>Quand H2 puis H1 traversent R1, la voix change : ce sont les passages des voyelles.</li>
+        <li>Pour continuer à monter librement, on modifie la voyelle : fermer un peu pour tourner vers la voix mixte, ouvrir pour rester poitriné ou pour monter dans l'aigu.</li>
+      </ol>
+      <p class="note">Ces repères sont des moyennes. Les mesures montrent de grandes différences d'un chanteur à l'autre, surtout dans les voix graves : fie-toi d'abord à ton oreille.</p>
+    </article>
+
+    <section class="panel srcs">
+      <h2>Pour aller plus loin</h2>
+      <ul class="note">
+        <li>Allan Wright, fondateur de la technique Chanteur Moderne : roue des voyelles, repères de i, é, è et a, passage du larynx autour de mi3/fa3.</li>
+        <li>N. Henrich, J. Smith, J. Wolfe, « Vocal tract resonances in singing: Strategies used by sopranos, altos, tenors, and baritones », <em>JASA</em> 129(2), 2011. 22 chanteurs classiques : les sopranos accordent R1 sur la note dans l'aigu ; ténors et barytons accordent R1 sur H2 ou H3 sur une partie de leur tessiture ; grandes différences individuelles.</li>
+        <li>K. Bozeman, « The Role of the First Formant in Training the Male Singing Voice », <em>Journal of Singing</em>, 2010, et <em>Practical Vocal Acoustics</em>, 2013 : la voix d'homme tourne quand H2 traverse R1.</li>
+        <li>J. Wolfe, M. Garnier, J. Smith, « Vocal tract resonances in speech, singing, and playing musical instruments », <em>HFSP Journal</em> 3(1), 2009.</li>
+        <li>J. Sundberg, <em>The Science of the Singing Voice</em>, 1987.</li>
+      </ul>
+    </section>
   </section>
 </main>
 
@@ -314,6 +516,7 @@ function render(){
       if (t.v !== cur) { const s = document.querySelector(`.sector[data-v="${t.v}"]`); if (s) s.classList.add('target'); }
     }
   }
+  if (typeof labSync === 'function') labSync();
 }
 const tb = document.querySelector('#tbl tbody');
 function renderTable(){
@@ -383,6 +586,187 @@ window.addEventListener('resize', syncNav);
 document.getElementById('pl').addEventListener('click', () => pscroll.scrollBy({left:-pscroll.clientWidth * 0.6, behavior:'smooth'}));
 document.getElementById('pr').addEventListener('click', () => pscroll.scrollBy({left: pscroll.clientWidth * 0.6, behavior:'smooth'}));
 document.getElementById('voice').addEventListener('change', () => { drawBands(); const vt = VOICES[document.getElementById('voice').value]; const x = xOf[vt.p1[0]]; pscroll.scrollTo({left: Math.max(0, x - pscroll.clientWidth / 3), behavior:'smooth'}); });
+
+/* ---------- « Comment comprendre tout ça » : dessins et laboratoire ---------- */
+const svgNS = id => document.getElementById(id);
+const add = (p, n, a, t) => { const e = el(n, a, t); p.appendChild(e); return e; };
+const hz = f => Math.round(f) + ' Hz';
+const R1of = k => V[k].f[0];
+const lastBelow = f => { let r = null; for (let m = 24; m <= 108; m++){ if (N(m) <= f * 1.03) r = m; else if (r != null) break; } return r; };
+const hill = (f, c, w) => Math.exp(-Math.pow(Math.log2(f / c) / w, 2));
+
+/* Figure 1 : les harmoniques d'un la2 */
+(function(){
+  const g = svgNS('fig1bars'), f0 = 220, hs = [150, 112, 88, 70, 57, 47];
+  hs.forEach((h, i) => {
+    const k = i + 1, x = 70 + i * 92, f = f0 * k;
+    add(g, 'rect', {x: x, y: 200 - h, width: 40, height: h, rx: 4, class: 'hbar' + (k === 1 ? ' h1' : k === 2 ? ' h2' : '')});
+    add(g, 'text', {x: x + 20, y: 192 - h, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 700}, 'H' + k);
+    add(g, 'text', {x: x + 20, y: 220, 'text-anchor': 'middle', 'font-size': 13}, noteName(midiOf(f)));
+    add(g, 'text', {x: x + 20, y: 238, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, hz(f));
+  });
+  add(g, 'text', {x: 90, y: 30, 'font-size': 13, class: 'lab'}, 'H1 = la note chantée');
+  add(g, 'text', {x: 182, y: 50, 'font-size': 13, class: 'lab'}, 'H2 = son octave');
+})();
+
+/* Figure 2b : source → filtre → résultat */
+(function(){
+  const s = svgNS('fig2b'), f0 = 150, W = 175, base = 160, H = 110, fmax = 3000;
+  const res = f => hill(f, 700, .35) + .75 * hill(f, 1250, .3) + .4 * hill(f, 2600, .25);
+  const panel = (ox, title, kind) => {
+    add(s, 'text', {x: ox + W / 2, y: 26, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700}, title);
+    add(s, 'line', {x1: ox, y1: base, x2: ox + W, y2: base, class: 'ax'});
+    if (kind !== 'src'){
+      let d = '';
+      for (let i = 0; i <= 60; i++){ const f = 60 + i * (fmax - 60) / 60, x = ox + f / fmax * W, y = base - res(f) * H; d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); }
+      add(s, 'path', {d: d + ` L${ox + W} ${base} L${ox} ${base} Z`, class: 'res', opacity: kind === 'out' ? .45 : 1});
+    }
+    if (kind !== 'filt') for (let k = 1; k * f0 <= fmax; k++){
+      const f = k * f0, a = Math.pow(k, -.8) * (kind === 'out' ? (.2 + res(f)) : 1), x = ox + f / fmax * W;
+      add(s, 'rect', {x: x - 2.5, y: base - a * H, width: 5, height: a * H, class: 'hbar' + (k === 1 ? ' h1' : k === 2 ? ' h2' : '')});
+    }
+    if (kind === 'filt'){
+      [['R1', 700], ['R2', 1250]].forEach(([l, f]) => add(s, 'text', {x: ox + f / fmax * W, y: base - res(f) * H - 8, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700}, l));
+    }
+    add(s, 'text', {x: ox, y: base + 20, 'font-size': 11, class: 'lab'}, 'grave');
+    add(s, 'text', {x: ox + W, y: base + 20, 'font-size': 11, class: 'lab', 'text-anchor': 'end'}, 'aigu');
+  };
+  panel(15, 'Source : les cordes', 'src');
+  panel(232, 'Filtre : la bouche (a)', 'filt');
+  panel(449, 'Résultat : le son', 'out');
+  [212, 429].forEach(x => add(s, 'text', {x: x, y: 112, 'text-anchor': 'middle', 'font-size': 22, fill: 'var(--sel)'}, '→'));
+})();
+
+/* Figure 3 : R1 de chaque voyelle */
+(function(){
+  const s = svgNS('fig3'), x0 = 200, x1 = 610, fmin = 200, fmax = 800, X = f => x0 + (f - fmin) / (fmax - fmin) * (x1 - x0);
+  [200, 300, 400, 500, 600, 700, 800].forEach(f => { add(s, 'line', {x1: X(f), y1: 20, x2: X(f), y2: 222, class: 'grid'}); add(s, 'text', {x: X(f), y: 244, 'text-anchor': 'middle', 'font-size': 11, class: 'lab'}, f + ' Hz'); });
+  [['i', 'u', 'pile, poule'], ['e', 'o', 'blé, pôle'], ['E', 'O', 'bête, port'], ['a', 'A', 'balle, pâte']].forEach(([a, b, w], i) => {
+    const y = 45 + i * 52, f = R1of(a), open = 3 + i * 5;
+    add(s, 'text', {x: 14, y: y + 5, 'font-size': 17, 'font-family': 'IBM Plex Sans, Noto Sans, sans-serif'}, `[${V[a].sym}] [${V[b].sym}]`);
+    add(s, 'text', {x: 14, y: y + 22, 'font-size': 11, class: 'lab'}, w);
+    add(s, 'ellipse', {cx: 160, cy: y, rx: 16, ry: open, fill: 'var(--spread)', opacity: .85});
+    add(s, 'ellipse', {cx: 160, cy: y, rx: 19, ry: open + 4, fill: 'none', stroke: 'var(--spread)', 'stroke-width': 2});
+    add(s, 'line', {x1: x0, y1: y, x2: X(f), y2: y, stroke: 'var(--sel)', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: .35});
+    add(s, 'circle', {cx: X(f), cy: y, r: 8, fill: 'var(--sel)'});
+    add(s, 'text', {x: X(f) + 14, y: y + 5, 'font-size': 13, 'font-weight': 700}, `≈ ${noteName(midiOf(f))}`);
+  });
+  add(s, 'text', {x: 160, y: 18, 'text-anchor': 'middle', 'font-size': 11, class: 'lab'}, 'bouche');
+})();
+
+/* Figure 6 : zones pure / passage / aigu pour i et a */
+(function(){
+  const s = svgNS('fig6'), m0 = 38, m1 = 84, x0 = 70, x1 = 620, X = m => x0 + (m - m0) / (m1 - m0) * (x1 - x0);
+  for (let m = m0; m <= m1; m++) if (m % 12 === 0){ add(s, 'line', {x1: X(m), y1: 30, x2: X(m), y2: 170, class: 'grid'}); add(s, 'text', {x: X(m), y: 190, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, noteName(m)); }
+  [['i', 55], ['a', 115]].forEach(([k, y]) => {
+    const f = R1of(k), a = lastBelow(f / 2), b = lastBelow(f);
+    add(s, 'text', {x: 20, y: y + 22, 'font-size': 18, 'font-family': 'IBM Plex Sans, Noto Sans, sans-serif'}, `[${V[k].sym}]`);
+    add(s, 'rect', {x: X(m0), y: y, width: X(a + .5) - X(m0), height: 34, rx: 6, fill: 'var(--panel)', stroke: 'var(--line)'});
+    add(s, 'rect', {x: X(a + .5), y: y, width: X(b + .5) - X(a + .5), height: 34, rx: 6, fill: '#cdd8f7'});
+    add(s, 'rect', {x: X(b + .5), y: y, width: X(m1) - X(b + .5), height: 34, rx: 6, fill: '#f6c453'});
+    add(s, 'text', {x: (X(m0) + X(a + .5)) / 2, y: y + 22, 'text-anchor': 'middle', 'font-size': 12}, 'pure');
+    add(s, 'text', {x: (X(a + .5) + X(b + .5)) / 2, y: y + 22, 'text-anchor': 'middle', 'font-size': 12, fill: '#16202e'}, 'passage');
+    add(s, 'text', {x: (X(b + .5) + X(m1)) / 2, y: y + 22, 'text-anchor': 'middle', 'font-size': 12, fill: '#16202e'}, 'aigu : ouvrir');
+    add(s, 'text', {x: X(a + .5), y: y - 5, 'text-anchor': 'middle', 'font-size': 10, class: 'lab'}, 'H2 = R1');
+    add(s, 'text', {x: X(b + .5), y: y - 5, 'text-anchor': 'middle', 'font-size': 10, class: 'lab'}, 'H1 = R1');
+  });
+  const xl = X(64.5);
+  add(s, 'line', {x1: xl, y1: 22, x2: xl, y2: 172, stroke: 'var(--round)', 'stroke-width': 2.5, 'stroke-dasharray': '6 5'});
+  add(s, 'text', {x: xl, y: 215, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: 'var(--round)'}, 'passage du larynx (mi3/fa3)');
+})();
+
+/* Figure 7 : hommes et femmes */
+(function(){
+  const s = svgNS('fig7'), m0 = 36, m1 = 88, x0 = 80, x1 = 620, X = m => x0 + (m - m0) / (m1 - m0) * (x1 - x0);
+  for (let m = m0; m <= m1; m++) if (m % 12 === 0){ add(s, 'line', {x1: X(m), y1: 26, x2: X(m), y2: 160, class: 'grid'}); add(s, 'text', {x: X(m), y: 180, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, noteName(m)); }
+  const row = (lab, a, b, y, txt, col, tx) => {
+    add(s, 'text', {x: 14, y: y + 21, 'font-size': 14, 'font-weight': 700}, lab);
+    add(s, 'rect', {x: X(a), y: y, width: X(b) - X(a), height: 32, rx: 16, fill: col, opacity: .3});
+    add(s, 'rect', {x: X(a), y: y, width: X(b) - X(a), height: 32, rx: 16, fill: 'none', stroke: col, 'stroke-width': 2});
+    add(s, 'text', {x: tx, y: y + 21, 'text-anchor': 'middle', 'font-size': 12}, txt);
+  };
+  row('Homme', 43, 69, 40, 'surtout en poitrine : H2 domine', 'var(--spread)', X(52.5));
+  row('Femme', 55, 84, 105, 'surtout en tête : H1 domine', 'var(--round)', X(75));
+  add(s, 'rect', {x: X(62), y: 34, width: X(67) - X(62), height: 44, rx: 6, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5, 'stroke-dasharray': '4 3'});
+  add(s, 'text', {x: X(64.5), y: 28, 'text-anchor': 'middle', 'font-size': 11, class: 'lab'}, 'passage ressenti ré3–sol3');
+  const xl = X(64.5);
+  add(s, 'line', {x1: xl, y1: 92, x2: xl, y2: 165, stroke: 'var(--round)', 'stroke-width': 2.5, 'stroke-dasharray': '6 5'});
+  add(s, 'text', {x: xl, y: 205, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: 'var(--round)'}, 'passage du larynx');
+})();
+
+/* Figure 8 : deux stratégies au croisement */
+(function(){
+  const s = svgNS('fig8'), fmin = 150, fmax = 1600, W = 270, base = 170, H = 110, f0 = 392;
+  const X = (ox, f) => ox + Math.log(f / fmin) / Math.log(fmax / fmin) * W;
+  const panel = (ox, r1, title) => {
+    add(s, 'text', {x: ox + W / 2, y: 24, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700}, title);
+    add(s, 'line', {x1: ox, y1: base, x2: ox + W, y2: base, class: 'ax'});
+    let d = '';
+    for (let i = 0; i <= 60; i++){ const f = fmin * Math.pow(fmax / fmin, i / 60), y = base - hill(f, r1, .32) * H; d += (i ? 'L' : 'M') + X(ox, f).toFixed(1) + ' ' + y.toFixed(1); }
+    add(s, 'path', {d: d + ` L${ox + W} ${base} L${ox} ${base} Z`, class: 'res'});
+    add(s, 'text', {x: X(ox, r1), y: base - H - 8, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700}, 'R1');
+    [1, 2, 3].forEach(k => {
+      const f = k * f0, a = Math.pow(k, -.8) * (.25 + hill(f, r1, .32)) * .85, x = X(ox, f);
+      add(s, 'rect', {x: x - 4, y: base - a * H, width: 8, height: a * H, class: 'hbar' + (k === 1 ? ' h1' : k === 2 ? ' h2' : '')});
+      add(s, 'text', {x: x, y: base + 18, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700}, 'H' + k);
+    });
+  };
+  panel(20, 2 * f0, 'Ouvrir : R1 suit H2');
+  panel(350, 560, 'Garder : H2 passe au-dessus');
+  add(s, 'text', {x: 155, y: 210, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, 'H2 très fort : belt, éclatant');
+  add(s, 'text', {x: 485, y: 210, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, 'son plus rond : vers la voix mixte');
+})();
+
+/* Le laboratoire */
+const labSvg = svgNS('labSvg'), labNote = svgNS('labNote'), labOpen = svgNS('labOpen');
+let labV = 'i', labM = 55;
+const LF0 = 80, LF1 = 2600, LX0 = 40, LX1 = 620, LBASE = 200, LH = 150;
+const LX = f => LX0 + Math.log(f / LF0) / Math.log(LF1 / LF0) * (LX1 - LX0);
+const labR1 = () => R1of(labV) * Math.pow(2, labOpen.value / 100 * 1.4);
+const labVows = svgNS('labVows');
+ORDER.forEach(k => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = '[' + V[k].sym + ']'; b.dataset.v = k;
+  b.setAttribute('aria-label', `Voyelle ${V[k].fr}`);
+  b.addEventListener('click', () => { cur = k; labOpen.value = 0; lastMidi = labM; render(); });
+  labVows.appendChild(b);
+});
+labNote.addEventListener('input', () => { lastMidi = +labNote.value; labM = lastMidi; render(); });
+labOpen.addEventListener('input', drawLab);
+svgNS('labPlay').addEventListener('click', () => { V.__lab = {f: [labR1(), V[labV].f[1], V[labV].f[2]]}; play('__lab', labM, false); });
+function labSync(){
+  labV = cur; if (lastMidi != null) labM = lastMidi;
+  labNote.value = labM;
+  labVows.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === labV));
+  drawLab();
+}
+function drawLab(){
+  const s = labSvg, f0 = N(labM), r1 = labR1(), r2 = V[labV].f[1];
+  s.innerHTML = '';
+  [100, 200, 300, 500, 700, 1000, 1500, 2000].forEach(f => { add(s, 'line', {x1: LX(f), y1: 30, x2: LX(f), y2: LBASE, class: 'grid'}); add(s, 'text', {x: LX(f), y: LBASE + 18, 'text-anchor': 'middle', 'font-size': 11, class: 'lab'}, f >= 1000 ? (f / 1000) + ' kHz' : f + ' Hz'); });
+  add(s, 'line', {x1: LX0, y1: LBASE, x2: LX1, y2: LBASE, class: 'ax'});
+  const resp = f => hill(f, r1, .3) + .55 * hill(f, r2, .22);
+  let d = '';
+  for (let i = 0; i <= 90; i++){ const f = LF0 * Math.pow(LF1 / LF0, i / 90), y = LBASE - resp(f) * LH * .85; d += (i ? 'L' : 'M') + LX(f).toFixed(1) + ' ' + y.toFixed(1); }
+  add(s, 'path', {d: d + ` L${LX1} ${LBASE} L${LX0} ${LBASE} Z`, class: 'res'});
+  add(s, 'text', {x: LX(r1), y: LBASE - LH * .85 - 10, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 700}, 'R1');
+  if (r2 < LF1) add(s, 'text', {x: LX(r2), y: LBASE - LH * .47 - 10, 'text-anchor': 'middle', 'font-size': 12, class: 'lab'}, 'R2');
+  for (let k = 1; k * f0 < LF1; k++){
+    const f = k * f0, a = Math.min(1, Math.pow(k, -.8) * (.2 + resp(f))), x = LX(f);
+    add(s, 'rect', {x: x - 3.5, y: LBASE - a * LH, width: 7, height: a * LH, rx: 2, class: 'hbar' + (k === 1 ? ' h1' : k === 2 ? ' h2' : ''), opacity: k > 2 ? .55 : 1});
+    if (k <= 2) add(s, 'text', {x: x, y: LBASE - a * LH - 6, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 700, fill: k === 1 ? 'var(--round)' : 'var(--spread)'}, 'H' + k);
+  }
+  svgNS('labNoteOut').textContent = `${noteName(labM)} · ${hz(f0)}`;
+  const op = +labOpen.value;
+  svgNS('labOpenOut').textContent = op === 0 ? `forme du [${V[labV].sym}]` : `R1 ≈ ${hz(r1)}`;
+  const near = (a, b) => Math.abs(Math.log2(a / b)) < .08, h2 = 2 * f0;
+  let t;
+  if (near(f0, r1)) t = `<b>H1 est sur R1</b> : la note elle-même touche la résonance. C'est le repère de la roue. Plus haut, il faudra ouvrir.`;
+  else if (f0 > r1) t = `<b>La note est au-dessus de R1.</b> Plus aucun harmonique n'est soutenu par la résonance : sans ouvrir, la voix se serre. Ouvre la bouche avec le curseur pour que R1 rattrape la note.`;
+  else if (near(h2, r1)) t = `<b>H2 est pile sur R1</b> : il est très renforcé. C'est le son le plus « poitriné », celui que cherche le belt. Un peu plus haut, si la bouche ne bouge pas, H2 passe au-dessus et le son tourne.`;
+  else if (h2 > r1) t = `<b>H2 a dépassé R1, H1 est encore dessous</b> : tu es dans le passage de la voyelle. Soit tu ouvres pour ramener R1 sur H2 (belt), soit tu laisses le son tourner vers la voix mixte.`;
+  else t = `<b>H1 et H2 sont sous R1</b> : la voyelle reste pure et confortable.`;
+  svgNS('labState').innerHTML = t;
+}
 
 drawBands(); render(); renderTable();
 requestAnimationFrame(() => { centerPiano(); syncNav(); });
