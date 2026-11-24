@@ -114,7 +114,7 @@ td.s{font-size:1.05rem}
     <label class="chk">Ma voix
       <select id="voice">
         <optgroup label="Homme"><option value="basse">Basse</option><option value="baryton" selected>Baryton</option><option value="tenor">Ténor</option></optgroup>
-        <optgroup label="Femme"><option value="mezzo">Mezzo</option><option value="soprano">Soprano</option></optgroup>
+        <optgroup label="Femme"><option value="alto">Alto</option><option value="mezzo">Mezzo</option><option value="soprano">Soprano</option></optgroup>
       </select></label>
   </section>
 
@@ -252,7 +252,7 @@ const thrLab = el('text', {class:'thr', y:WH - 46}); piano.appendChild(thrLab);
 /* ---------- 1er et 2e passage selon la voix (repères habituels d'après Richard Miller) ---------- */
 const VOICES = {
   basse:{p1:[56,57], p2:[61,62]}, baryton:{p1:[58,59], p2:[63,64]}, tenor:{p1:[60,62], p2:[65,67]},
-  mezzo:{p1:[64,65], p2:[76,77]}, soprano:{p1:[65,66], p2:[77,79]}
+  alto:{p1:[67,68], p2:[74,75]}, mezzo:{p1:[64,65], p2:[76,77]}, soprano:{p1:[65,66], p2:[77,79]}
 };
 const bandG = el('g', {}); piano.appendChild(bandG);
 function drawBands(){
