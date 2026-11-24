@@ -15,11 +15,11 @@ function loginPage(error) {
   const msg = error ? '<p class="err">Ce n\'est pas le bon mot de passe. Réessaie.</p>' : "";
   const html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow"><title>Blog réservé · Roderick Vélings</title><link rel="icon" href="/favicon.svg">
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#101f3d;color:#eef1f5;font:17px/1.5 Karla,system-ui,sans-serif}
-main{width:min(92vw,380px);background:#fff;color:#101f3d;border-radius:16px;padding:32px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
-h1{margin:0 0 8px;font:500 1.6rem/1.2 Georgia,serif}p{margin:0 0 18px;color:#4a5570}
-label{display:block;font-weight:700;margin-bottom:6px}input{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #c9d1de;border-radius:10px;font:inherit}
-button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:999px;background:#1a7a56;color:#fff;font:700 1rem Karla,system-ui,sans-serif;cursor:pointer}
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#101f3d;color:#eef1f5;font:19px/1.55 Karla,system-ui,sans-serif}
+main{width:min(92vw,520px);box-sizing:border-box;background:#fff;color:#101f3d;border-radius:20px;padding:clamp(28px,6vw,48px);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+h1{margin:0 0 12px;font:500 2.1rem/1.15 Georgia,serif}p{margin:0 0 24px;color:#4a5570}
+label{display:block;font-weight:700;margin-bottom:8px}input{width:100%;box-sizing:border-box;padding:15px 16px;border:1px solid #c9d1de;border-radius:12px;font:inherit}
+button{margin-top:18px;width:100%;padding:15px;border:0;border-radius:999px;background:#1a7a56;color:#fff;font:700 1.1rem Karla,system-ui,sans-serif;cursor:pointer}
 .err{color:#b4553a;font-weight:700}a{color:#22488a}</style></head>
 <body><main><h1>Le blog est réservé</h1><p>Les articles sont réservés à mes élèves. Entre le mot de passe que je t'ai donné.</p>${msg}
 <form method="post"><label for="mdp">Mot de passe</label><input id="mdp" name="motdepasse" type="password" autocomplete="current-password" required autofocus>
