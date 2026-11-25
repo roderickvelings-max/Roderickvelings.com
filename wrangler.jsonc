@@ -2,7 +2,7 @@
   "name": "roderickvelings-com",
   "compatibility_date": "2026-09-01",
   "main": "worker.js",
-  "kv_namespaces": [{ "binding": "NOTES_LOUIS" }],
+  "kv_namespaces": [{ "binding": "NOTES_LOUIS", "id": "b4d489e5f7c642988e2d65ca676312e0" }],
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
