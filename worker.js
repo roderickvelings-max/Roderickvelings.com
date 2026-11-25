@@ -27,9 +27,54 @@ button{margin-top:18px;width:100%;padding:15px;border:0;border-radius:999px;back
   return new Response(html, { status: 401, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
 }
 
+// Répertoire partagé avec Louis : page cachée (sans lien) + notes enregistrées dans KV (NOTES_LOUIS).
+const LOUIS_PAGE = new Set(["/standards-louis", "/standards-louis/", "/standards-louis.html"]);
+const LOUIS_API = "/api/notes-louis";
+const KV_KEY = "repertoire";
+
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
+}
+
+async function louisNotes(request, env, url) {
+  if (!env.NOTES_LOUIS) return json({ error: "stockage indisponible" }, 503);
+  const empty = { general: "", songs: {}, updated: null };
+  if (request.method === "GET") return json((await env.NOTES_LOUIS.get(KV_KEY, "json")) || empty);
+  if (request.method !== "POST") return json({ error: "méthode" }, 405);
+  const origin = request.headers.get("Origin");
+  if (origin && origin !== url.origin) return json({ error: "origine" }, 403);
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "format" }, 400); }
+  const { id, field, value } = body || {};
+  if (typeof id !== "string" || !/^[a-z0-9_-]{1,80}$/.test(id)) return json({ error: "id" }, 400);
+  const data = (await env.NOTES_LOUIS.get(KV_KEY, "json")) || empty;
+  if (id === "_general") {
+    if (typeof value !== "string" || value.length > 20000) return json({ error: "valeur" }, 400);
+    data.general = value;
+  } else {
+    if (field === "pick") { if (typeof value !== "boolean") return json({ error: "valeur" }, 400); }
+    else if (field === "key" || field === "note") { if (typeof value !== "string" || value.length > (field === "key" ? 40 : 5000)) return json({ error: "valeur" }, 400); }
+    else return json({ error: "champ" }, 400);
+    data.songs = data.songs || {};
+    data.songs[id] = data.songs[id] || {};
+    data.songs[id][field] = value;
+  }
+  data.updated = Date.now();
+  await env.NOTES_LOUIS.put(KV_KEY, JSON.stringify(data));
+  return json(data);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === LOUIS_API) return louisNotes(request, env, url);
+    if (LOUIS_PAGE.has(url.pathname)) {
+      const res = await env.ASSETS.fetch(request);
+      const headers = new Headers(res.headers);
+      headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+      headers.set("Cache-Control", "no-cache");
+      return new Response(res.body, { status: res.status, headers });
+    }
     if (url.pathname === "/rouevoyelles" || url.pathname === "/rouevoyelles.html") return Response.redirect(url.origin + "/blog-roue-des-voyelles", 301);
     if (!isBlog(url.pathname)) return env.ASSETS.fetch(request);
     const token = await sha256(PASS_HASH + ":acces-blog");
