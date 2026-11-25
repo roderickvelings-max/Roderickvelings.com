@@ -510,3 +510,7 @@ figure.fig svg { max-width: 520px; margin-inline: auto; }
 .notebook li::before { content: ""; position: absolute; left: 0; top: 11px; width: 14px; height: 14px; border: 1.5px solid #1c2e52; border-radius: 2px; }
 .notebook .aside { font-size: 1.2rem; line-height: 36px; margin: 36px 0 0; max-width: none; color: var(--emerald); }
 .bio p { font-size: 1.08rem; }
+
+.avalider { border: 1px dashed var(--gold); border-radius: 16px; padding: 4px 22px 8px; margin: 2.2em 0; }
+.avalider::before { content: "À valider · ajout du stage"; display: block; margin-top: 14px; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--gold); }
+.avalider h2 { margin-top: 0.4em; }
