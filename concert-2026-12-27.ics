@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//roderickvelings.com//agenda//FR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:2026-12-27-bloom-for-love@roderickvelings.com
+DTSTAMP:20261125T224547Z
+DTSTART;VALUE=DATE:20261227
+DTEND;VALUE=DATE:20261228
+SUMMARY:Bloom For Love · concert avec Roderick Vélings
+LOCATION:Concert caritatif à trois chorales\, église Saint-Loup\, Namur
+DESCRIPTION:Horaire et infos : https://roderickvelings.com/agenda
+URL:https://roderickvelings.com/agenda
+END:VEVENT
+END:VCALENDAR

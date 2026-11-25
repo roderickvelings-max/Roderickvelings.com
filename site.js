@@ -43,6 +43,12 @@
       if (past) past.insertBefore(g, past.firstChild); else g.remove();
     }
   });
+  doc.querySelectorAll('.gc[data-date]').forEach(function (g) {
+    if (new Date(g.getAttribute('data-date') + 'T23:59:59') < today) g.remove();
+  });
+  doc.querySelectorAll('.hero-gig[data-date]').forEach(function (g) {
+    if (new Date(g.getAttribute('data-date') + 'T23:59:59') < today) g.remove();
+  });
   var next = doc.querySelector('[data-next]');
   if (next) {
     var n = parseInt(next.getAttribute('data-next'), 10) || 3;

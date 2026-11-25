@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//roderickvelings.com//agenda//FR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:2027-03-11-brussels-groove-collective@roderickvelings.com
+DTSTAMP:20261125T224547Z
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:Brussels Groove Collective · concert avec Roderick Vélings
+LOCATION:Théâtre Marni\, Ixelles
+DESCRIPTION:Horaire et infos : https://roderickvelings.com/agenda
+URL:https://roderickvelings.com/agenda
+END:VEVENT
+END:VCALENDAR
