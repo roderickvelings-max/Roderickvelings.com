@@ -3,6 +3,9 @@
   "compatibility_date": "2026-09-01",
   "main": "worker.js",
   "kv_namespaces": [{ "binding": "NOTES_LOUIS", "id": "b4d489e5f7c642988e2d65ca676312e0" }],
+  "previews": {
+    "kv_namespaces": [{ "binding": "NOTES_LOUIS", "id": "47e8f5e884fc442388654ab745c40d55" }]
+  },
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
