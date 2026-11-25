@@ -28,7 +28,7 @@ button{margin-top:18px;width:100%;padding:15px;border:0;border-radius:999px;back
 }
 
 // Répertoire partagé avec Louis : page cachée (sans lien) + notes enregistrées dans KV (NOTES_LOUIS).
-const LOUIS_PAGE = new Set(["/standards-louis", "/standards-louis/", "/standards-louis.html"]);
+const LOUIS_PAGE = new Set(["/standards", "/standards/", "/standards.html"]);
 const LOUIS_API = "/api/notes-louis";
 const KV_KEY = "repertoire";
 
@@ -52,7 +52,7 @@ async function louisNotes(request, env, url) {
     if (typeof value !== "string" || value.length > 20000) return json({ error: "valeur" }, 400);
     data.general = value;
   } else {
-    if (field === "pick") { if (typeof value !== "boolean") return json({ error: "valeur" }, 400); }
+    if (field === "known" || field === "pick") { if (typeof value !== "boolean") return json({ error: "valeur" }, 400); }
     else if (field === "key" || field === "note") { if (typeof value !== "string" || value.length > (field === "key" ? 40 : 5000)) return json({ error: "valeur" }, 400); }
     else return json({ error: "champ" }, 400);
     data.songs = data.songs || {};

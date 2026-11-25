@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Standards · Roderick Vélings</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--ink:#f2f2f2;--muted:#9a9a9a;--line:#232323;--alt:#0e0e0e;--gold:#d8b46a;--head:#1b1460}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 "Karla",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1400px;margin:0 auto;padding:24px max(14px,env(safe-area-inset-left)) 60px max(14px,env(safe-area-inset-right))}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+h1{font:500 clamp(1.6rem,4vw,2.3rem)/1.1 "Oswald",sans-serif;letter-spacing:.04em;margin:0}
+h1 span{color:var(--gold)}
+.sub{color:var(--muted);margin:0 0 16px}
+button.print{font:500 .95rem "Oswald",sans-serif;letter-spacing:.06em;background:var(--gold);color:#111;border:0;border-radius:999px;padding:9px 20px;cursor:pointer}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:1000px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+thead th{position:sticky;top:0;background:var(--head);color:var(--gold);font:500 .78rem "Oswald",sans-serif;letter-spacing:.12em;text-transform:uppercase;z-index:2}
+tbody tr:nth-child(even){background:var(--alt)}
+td.t{font-weight:700;position:sticky;left:0;background:inherit;z-index:1}
+tbody tr td.t{background:var(--bg)} tbody tr:nth-child(even) td.t{background:var(--alt)}
+thead th.t{left:0;z-index:3}
+td.c,th.c{text-align:center;white-space:nowrap}
+td.a,td.v{color:#cfcfcf}
+.tbd{color:#e08a6c;font-size:.85em}
+td.louis input{width:70px;text-align:center;background:transparent;color:var(--gold);border:1px dashed rgba(216,180,106,.6);border-radius:6px;padding:5px;font:500 15px "Oswald",sans-serif}
+td.louis input:focus{outline:none;border-style:solid}
+td.known input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer}
+.status{position:fixed;right:14px;bottom:14px;font:.82rem "Oswald",sans-serif;letter-spacing:.05em;background:#111;border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:var(--muted);pointer-events:none;transition:opacity .4s}
+.status.ok{color:#8fd3a6}.status.err{color:#e08a6c}
+.general{margin:0 0 14px}.general label{display:block;font:500 .78rem "Oswald",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+textarea{width:100%;background:#0a0a0a;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:14px/1.4 "Karla",Arial,sans-serif;resize:vertical}
+textarea:focus,select:focus,input[type=search]:focus{outline:none;border-color:var(--gold)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tools input[type=search],.tools select{background:#0a0a0a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:15px "Karla",Arial,sans-serif}
+.tools input[type=search]{flex:1 1 200px}
+.toggle{font:500 .9rem "Oswald",sans-serif;letter-spacing:.05em;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer}
+.toggle[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.count{color:var(--muted);font:.9rem "Oswald",sans-serif}
+td.star button{width:32px;height:32px;border-radius:50%;border:1px solid #333;background:transparent;color:#666;font-size:1rem;cursor:pointer}
+td.star button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#111}
+tr.picked td{box-shadow:inset 0 0 0 9999px rgba(216,180,106,.07)}
+td.note{min-width:220px} td.note textarea{min-height:34px}
+@media (max-width:760px){
+ .scroll{border:0;overflow:visible} table{min-width:0} thead{display:none}
+ tbody,tr,td{display:block}
+ tr{display:grid;grid-template-columns:34px 1fr 1fr 1fr;gap:6px 8px;align-items:center;padding:12px 10px;border-bottom:1px solid var(--line)}
+ td{border:0;padding:0;position:static!important;background:transparent!important;min-width:0}
+ td.star{grid-area:1/1} td.t{grid-area:1/2/2/4;font-size:1.05rem} td.known{grid-area:1/4;justify-self:end;white-space:nowrap}
+ td.known::before{content:"Connu";font:.72rem "Oswald",sans-serif;letter-spacing:.08em;color:var(--muted);margin-right:6px;vertical-align:middle}
+ td.a{grid-area:2/2/3/5;font-size:.88rem;color:var(--muted)}
+ td.sty,td.p,td.v{grid-row:3;justify-self:start;font-size:.78rem;border:1px solid #333;border-radius:6px;padding:2px 7px;color:#cfcfcf;text-align:left}
+ td.sty{grid-column:2} td.p{grid-column:3} td.v{grid-column:4} td.p:empty,td.v:empty,td.sty:empty{display:none}
+ td.p::before{content:"Paroles : "} td.v::before{content:"Réf. : "}
+ td.o,td.r,td.louis{grid-row:4;text-align:left;background:#121212!important;border-radius:8px;padding:5px 8px;min-height:44px}
+ td.o{grid-column:2} td.r{grid-column:3} td.louis{grid-column:4;border:1px dashed rgba(216,180,106,.5)}
+ td.o::before,td.r::before,td.louis::before{content:attr(data-l);display:block;font:.66rem "Oswald",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+ td.o:empty::after,td.r:empty::after{content:"–";color:#555}
+ td.louis input{width:100%;border:0;padding:0;text-align:left}
+ td.note{grid-area:5/2/6/5}
+ tbody tr:nth-child(even){background:var(--alt)}
+}
+@media print{
+ .tools,.general:not(.has){display:none} td.star button{border:0;color:#000;background:none!important} td.star button[aria-pressed=false]{visibility:hidden}
+ textarea{border:0;padding:0;color:#000;background:#fff;resize:none} tr.picked td{box-shadow:none}
+ @page{size:A4 landscape;margin:10mm}
+ body{background:#fff;color:#000;font-size:10pt}
+ .print,.status,.sub{display:none}
+ .wrap{padding:0;max-width:none}
+ h1{font-size:16pt;margin-bottom:8px} h1 span{color:#000}
+ .scroll{overflow:visible;border:0}
+ table{min-width:0}
+ thead th{background:#eee !important;color:#000;position:static;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ th,td{padding:4px 6px;border-bottom:1px solid #bbb}
+ tbody tr,tbody tr td.t{background:#fff !important}
+ td.t{position:static}
+ td.a,td.v{color:#333}
+ td.louis input{color:#000;border:0;border-bottom:1px solid #999;border-radius:0;width:50px}
+ tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar"><h1>Standards <span>· Roderick</span></h1><button class="print" type="button" onclick="window.print()">Imprimer</button></div>
+<p class="sub">Louis : mets une étoile sur les morceaux qui te tentent, note ta tonalité, coche « Connu » et ajoute tes notes. Tout est enregistré automatiquement.</p>
+<div class="general"><label for="general">Notes et idées pour le set</label><textarea id="general" rows="2" placeholder="Ordre des morceaux, ambiance, dates de répète…"></textarea></div>
+<div class="tools"><input type="search" id="q" placeholder="Chercher…" aria-label="Chercher"><select id="style" aria-label="Style"><option value="">Tous les styles</option></select><button class="toggle" id="only" type="button" aria-pressed="false">★ Sélection</button><span class="count" id="count"></span></div>
+<div class="scroll"><table>
+<thead><tr><th class="c">★</th><th class="t">Titre</th><th>Auteur</th><th>Version de réf.</th><th class="c">Paroles</th><th>Style</th><th class="c">Tona. d'origine</th><th class="c">Tona. Roderick</th><th class="c">Tona. Louis</th><th class="c">Connu</th><th>Notes</th></tr></thead>
+<tbody id="rows"></tbody>
+</table></div>
+</div>
+<div class="status" id="status">Chargement…</div>
+<script>
+const SONGS = [{"id":"but-not-for-me","t":"But Not for Me","a":"George Gershwin / Ira Gershwin","v":"Chet Baker","p":"Oui","s":"Swing","o":"Eb","r":"Eb","i":""},{"id":"my-funny-valentine","t":"My Funny Valentine","a":"Richard Rodgers / Lorenz Hart","v":"Chet Baker","p":"Oui","s":"Ballade","o":"Cm","r":"","i":""},{"id":"it-s-a-lovely-day-today","t":"It's a Lovely Day Today","a":"Irving Berlin","v":"","p":"Oui","s":"Swing","o":"Eb","r":"Eb","i":""},{"id":"corcovado","t":"Corcovado","a":"Antônio Carlos Jobim","v":"","p":"Oui","s":"Bossa nova","o":"C","r":"","i":""},{"id":"over-the-rainbow","t":"Over the Rainbow","a":"Harold Arlen / E.Y. Harburg","v":"","p":"Oui","s":"Ballade","o":"Eb","r":"","i":""},{"id":"summertime","t":"Summertime","a":"George Gershwin / DuBose Heyward","v":"Ella Fitzgerald","p":"Oui","s":"Ballade / swing","o":"Am","r":"","i":""},{"id":"come-rain-or-come-shine","t":"Come Rain or Come Shine","a":"Harold Arlen / Johnny Mercer","v":"","p":"Oui","s":"Swing","o":"F","r":"","i":""},{"id":"alone-together","t":"Alone Together","a":"Arthur Schwartz / Howard Dietz","v":"","p":"Oui","s":"Swing","o":"Dm","r":"Dm","i":""},{"id":"nica-s-dream","t":"Nica's Dream","a":"Horace Silver","v":"","p":"Non","s":"Latin / swing","o":"Bbm","r":"Bbm","i":""},{"id":"autumn-leaves","t":"Autumn Leaves","a":"Joseph Kosma / Jacques Prévert (paroles anglaises : Johnny Mercer)","v":"","p":"Oui","s":"Swing","o":"Gm","r":"Gm","i":""},{"id":"that-s-life","t":"That's Life","a":"Dean Kay / Kelly Gordon","v":"Frank Sinatra","p":"Oui","s":"Swing","o":"G","r":"","i":""},{"id":"new-york-new-york","t":"New York, New York","a":"John Kander / Fred Ebb","v":"Frank Sinatra","p":"Oui","s":"Swing","o":"D","r":"","i":""},{"id":"my-way","t":"My Way","a":"Jacques Revaux / Claude François / Gilles Thibaut (paroles anglaises : Paul Anka)","v":"Michael Bublé","p":"Oui","s":"Ballade","o":"D","r":"","i":""},{"id":"lady-bird-half-nelson","t":"Lady Bird / Half Nelson","a":"Tadd Dameron / Miles Davis","v":"","p":"Non","s":"Swing (bebop)","o":"C","r":"C","i":""},{"id":"memories-of-tomorrow","t":"Memories of Tomorrow","a":"Keith Jarrett","v":"","p":"Non","s":"","o":"Am","r":"Am","i":""},{"id":"well-you-needn-t","t":"Well You Needn't","a":"Thelonious Monk","v":"","p":"Oui","s":"Swing","o":"F","r":"F","i":""},{"id":"love-me-or-leave-me","t":"Love Me or Leave Me","a":"Walter Donaldson","v":"Nina Simone / Ella Fitzgerald","p":"Oui","s":"Swing","o":"Fm","r":"Fm","i":""},{"id":"too-young-to-die","t":"Too Young to Die","a":"Jamiroquai","v":"","p":"Oui","s":"Acid jazz / funk","o":"E","r":"E","i":""},{"id":"twin","t":"Twin","a":"Christian Scott","v":"","p":"Non","s":"","o":"Ab","r":"Ab","i":""},{"id":"fables-of-faubus","t":"Fables of Faubus","a":"Charles Mingus","v":"","p":"Non","s":"Swing","o":"Am","r":"Am","i":""},{"id":"super-blue","t":"Super Blue","a":"Kurt Elling","v":"","p":"Oui","s":"Funk","o":"F","r":"F","i":""},{"id":"hit-the-road-jack","t":"Hit the Road Jack","a":"Percy Mayfield","v":"Ray Charles","p":"Oui","s":"R&B","o":"Abm","r":"","i":""},{"id":"sunny","t":"Sunny","a":"Bobby Hebb","v":"","p":"Oui","s":"Soul","o":"Em","r":"","i":""},{"id":"cry-me-a-river","t":"Cry Me a River","a":"Arthur Hamilton","v":"Dinah Washington","p":"Oui","s":"Ballade","o":"Fm","r":"à vérifier","i":""},{"id":"all-of-me","t":"All of Me","a":"Gerald Marks / Seymour Simons","v":"","p":"Oui","s":"Swing","o":"C","r":"","i":""},{"id":"you-ve-changed","t":"You've Changed","a":"Carl Fischer / Bill Carey","v":"","p":"Oui","s":"Ballade","o":"Eb","r":"","i":""},{"id":"the-thrill-is-gone","t":"The Thrill Is Gone","a":"Roy Hawkins / Rick Darnell","v":"","p":"Oui","s":"Blues","o":"Bm","r":"","i":""},{"id":"fly-me-to-the-moon","t":"Fly Me to the Moon","a":"Bart Howard","v":"","p":"Oui","s":"Swing","o":"C","r":"C","i":""},{"id":"unforgettable","t":"Unforgettable","a":"Irving Gordon","v":"","p":"Oui","s":"Medium swing","o":"G","r":"G","i":""},{"id":"killing-me-softly-with-his-song","t":"Killing Me Softly with His Song","a":"Charles Fox / Norman Gimbel","v":"Roberta Flack","p":"Oui","s":"Soul","o":"Fm / Ab","r":"","i":""},{"id":"cheek-to-cheek","t":"Cheek to Cheek","a":"Irving Berlin","v":"","p":"Oui","s":"Swing","o":"C","r":"","i":""},{"id":"bye-bye-blackbird","t":"Bye Bye Blackbird","a":"Ray Henderson / Mort Dixon","v":"","p":"Oui","s":"Swing","o":"F","r":"F","i":""},{"id":"the-lady-is-a-tramp","t":"The Lady Is a Tramp","a":"Richard Rodgers / Lorenz Hart","v":"","p":"Oui","s":"Swing","o":"C","r":"","i":""},{"id":"fine-little-mama","t":"Fine Little Mama","a":"Elmore James","v":"","p":"Oui","s":"Blues","o":"","r":"D","i":""},{"id":"hoochie-coochie-man","t":"Hoochie Coochie Man","a":"Willie Dixon","v":"","p":"Oui","s":"Blues","o":"A","r":"A","i":""},{"id":"killer-joe","t":"Killer Joe","a":"Benny Golson","v":"","p":"Non","s":"Swing","o":"C","r":"","i":""},{"id":"fever","t":"Fever","a":"Eddie Cooley / John Davenport","v":"","p":"Oui","s":"Swing","o":"Am","r":"","i":""},{"id":"smile","t":"Smile","a":"Charlie Chaplin (paroles : John Turner / Geoffrey Parsons)","v":"","p":"Oui","s":"Ballade","o":"F","r":"","i":""},{"id":"don-t-let-me-be-misunderstood","t":"Don't Let Me Be Misunderstood","a":"Bennie Benjamin / Gloria Caldwell / Sol Marcus","v":"Nina Simone","p":"Oui","s":"Soul","o":"Bm","r":"","i":""},{"id":"blue-bossa","t":"Blue Bossa","a":"Kenny Dorham","v":"","p":"Non","s":"Bossa nova","o":"Cm","r":"","i":""},{"id":"nature-boy","t":"Nature Boy","a":"eden ahbez","v":"","p":"Oui","s":"Ballade","o":"Dm","r":"","i":""},{"id":"l-o-v-e","t":"L-O-V-E","a":"Bert Kaempfert / Milt Gabler","v":"Nat King Cole","p":"Oui","s":"Swing","o":"G","r":"","i":""},{"id":"blue-monk","t":"Blue Monk","a":"Thelonious Monk","v":"","p":"Non","s":"Blues","o":"Bb","r":"","i":""},{"id":"solar","t":"Solar","a":"Miles Davis","v":"","p":"Non","s":"Swing","o":"Cm","r":"","i":""},{"id":"love-for-sale","t":"Love for Sale","a":"Cole Porter","v":"","p":"Oui","s":"Latin / swing","o":"Bbm","r":"","i":""},{"id":"social-call","t":"Social Call","a":"Gigi Gryce (paroles : Jon Hendricks)","v":"Benny Benack III","p":"Oui","s":"Swing","o":"Eb","r":"à vérifier","i":""},{"id":"i-love-you","t":"I Love You","a":"Cole Porter","v":"","p":"Oui","s":"Swing","o":"F","r":"","i":""},{"id":"night-and-day","t":"Night and Day","a":"Cole Porter","v":"","p":"Oui","s":"Swing","o":"Eb","r":"","i":""},{"id":"yardbird-suite","t":"Yardbird Suite","a":"Charlie Parker","v":"","p":"Non","s":"Swing (bebop)","o":"C","r":"","i":""},{"id":"i-wan-na-be-like-you","t":"I Wan'na Be Like You","a":"Richard M. Sherman / Robert B. Sherman","v":"","p":"Oui","s":"Swing","o":"Cm","r":"","i":""},{"id":"four","t":"Four","a":"Eddie Vinson / Miles Davis (texte de Mickaël Mayo)","v":"","p":"Oui","s":"Swing","o":"Eb","r":"","i":""},{"id":"gloria","t":"Gloria","a":"Shai Maestro","v":"","p":"Non","s":"","o":"","r":"","i":""},{"id":"when-it-rains","t":"When It Rains","a":"Brad Mehldau","v":"","p":"Non","s":"","o":"","r":"","i":""},{"id":"she-loves-him-canter-no-1","t":"She Loves Him (Canter No. 1)","a":"Kenny Wheeler (paroles : Norma Winstone)","v":"","p":"Oui","s":"","o":"","r":"","i":""},{"id":"misty","t":"Misty","a":"Erroll Garner (paroles : Johnny Burke)","v":"","p":"Oui","s":"Ballade","o":"Eb","r":"","i":""},{"id":"lullaby-of-birdland","t":"Lullaby of Birdland","a":"George Shearing (paroles : George David Weiss)","v":"","p":"Oui","s":"Swing","o":"Fm","r":"Fm","i":""},{"id":"skylark","t":"Skylark","a":"Hoagy Carmichael / Johnny Mercer","v":"","p":"Oui","s":"Ballade","o":"Eb","r":"à vérifier","i":""},{"id":"spain","t":"Spain","a":"Chick Corea","v":"","p":"Non","s":"Latin","o":"Bm","r":"","i":""},{"id":"i-ve-got-you-under-my-skin","t":"I've Got You Under My Skin","a":"Cole Porter","v":"","p":"Oui","s":"Swing","o":"Eb","r":"","i":""},{"id":"boplicity","t":"Boplicity","a":"Miles Davis / Gil Evans","v":"","p":"Non","s":"Swing (cool)","o":"F","r":"","i":""},{"id":"prelude-to-a-kiss","t":"Prelude to a Kiss","a":"Duke Ellington (paroles : Irving Gordon / Irving Mills)","v":"","p":"Oui","s":"Ballade","o":"C","r":"C","i":""},{"id":"the-way-you-look-tonight","t":"The Way You Look Tonight","a":"Jerome Kern / Dorothy Fields","v":"","p":"Oui","s":"Swing","o":"F","r":"F","i":""},{"id":"after-you-ve-gone","t":"After You've Gone","a":"Turner Layton / Henry Creamer","v":"","p":"Oui","s":"Swing","o":"Bb","r":"Bb","i":""},{"id":"caravan","t":"Caravan","a":"Juan Tizol / Duke Ellington (paroles : Irving Mills)","v":"","p":"Oui","s":"Latin / swing","o":"Fm","r":"Fm","i":""},{"id":"softly-as-in-a-morning-sunrise","t":"Softly, as in a Morning Sunrise","a":"Sigmund Romberg / Oscar Hammerstein II","v":"","p":"Oui","s":"Swing","o":"Cm","r":"Cm","i":""},{"id":"st-james-infirmary","t":"St. James Infirmary","a":"Traditionnel","v":"","p":"Oui","s":"New Orleans / blues","o":"Dm","r":"Dm","i":""},{"id":"doxy","t":"Doxy","a":"Sonny Rollins","v":"","p":"Non","s":"Swing","o":"Bb","r":"Bb","i":""},{"id":"st-thomas","t":"St. Thomas","a":"Sonny Rollins","v":"","p":"Non","s":"Calypso","o":"C","r":"C","i":""},{"id":"honeysuckle-rose","t":"Honeysuckle Rose","a":"Fats Waller / Andy Razaf","v":"","p":"Oui","s":"Swing","o":"F","r":"F","i":""},{"id":"bourbon-street-parade","t":"Bourbon Street Parade","a":"Paul Barbarin","v":"","p":"Oui","s":"New Orleans","o":"Bb","r":"Ab","i":""},{"id":"when-the-saints-go-marching-in","t":"When the Saints Go Marching In","a":"Traditionnel","v":"","p":"Oui","s":"New Orleans","o":"F","r":"F","i":""},{"id":"work-song","t":"Work Song","a":"Nat Adderley (paroles : Oscar Brown Jr.)","v":"","p":"Oui","s":"Swing (hard bop)","o":"Fm","r":"Fm","i":""},{"id":"just-the-two-of-us","t":"Just the Two of Us","a":"Bill Withers / William Salter / Ralph MacDonald","v":"","p":"Oui","s":"Soul / R&B","o":"Fm","r":"Fm","i":""},{"id":"maiden-voyage","t":"Maiden Voyage","a":"Herbie Hancock","v":"","p":"Non","s":"Modal","o":"D","r":"","i":""},{"id":"feel-like-going-home","t":"Feel Like Going Home","a":"Robert Lucas","v":"","p":"Oui","s":"Blues","o":"","r":"A","i":""},{"id":"strasbourg-st-denis","t":"Strasbourg / St. Denis","a":"Roy Hargrove","v":"","p":"Non","s":"Funk / soul jazz","o":"","r":"à vérifier","i":""},{"id":"halah","t":"Halah","a":"Avishai Cohen","v":"","p":"","s":"","o":"","r":"Dm","i":""},{"id":"cold-duck-time","t":"Cold Duck Time","a":"Eddie Harris","v":"","p":"Non","s":"Soul jazz / funk","o":"","r":"","i":""}];
+const SHOW_INC = false;
+const API = "/api/notes-louis", LS = "standards-louis-v1";
+let state = { songs: {} }, pending = {};
+try { const c = JSON.parse(localStorage.getItem(LS) || "null"); if (c) { state = c.state || state; pending = c.pending || {}; } } catch (e) {}
+const st = document.getElementById("status"); let stT;
+function setStatus(t, cls) { clearTimeout(stT); st.textContent = t; st.className = "status " + (cls || ""); st.style.opacity = 1; if (cls === "ok") stT = setTimeout(() => st.style.opacity = 0, 2000); }
+function save() { try { localStorage.setItem(LS, JSON.stringify({ state, pending })); } catch (e) {} }
+const esc = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const k = v => !v ? "" : /vérifier/i.test(v) ? '<span class="tbd">à vérifier</span>' : esc(v);
+document.getElementById("rows").innerHTML = SONGS.map(s => `<tr data-id="${s.id}">
+<td class="c star"><button type="button" aria-pressed="false" aria-label="Sélectionner ${esc(s.t)}">★</button></td><td class="t">${esc(s.t)}</td><td class="a">${esc(s.a)}</td><td class="v">${esc(s.v)}</td>
+<td class="c p">${s.p === "Oui" ? "Oui" : s.p === "Non" ? "Non" : ""}</td><td class="sty">${esc(s.s)}</td>
+<td class="c o" data-l="Orig.">${k(s.o)}</td><td class="c r" data-l="Rod.">${k(s.r)}</td>${SHOW_INC ? `<td class="c">${esc(s.i)}</td>` : ""}
+<td class="c louis" data-l="Louis"><input type="text" maxlength="12" data-f="key" aria-label="Tonalité de Louis pour ${esc(s.t)}"></td>
+<td class="c known"><input type="checkbox" data-f="known" aria-label="${esc(s.t)} connu"></td>
+<td class="note"><textarea rows="1" data-f="note" placeholder="Notes…" aria-label="Notes sur ${esc(s.t)}"></textarea></td></tr>`).join("");
+const styles = {}; SONGS.forEach(s => (s.s || "").split("/").map(x => x.trim().replace(/\s*\(.*\)/, "")).filter(Boolean).forEach(x => { x = x[0].toUpperCase() + x.slice(1); styles[x] = (styles[x] || 0) + 1; }));
+document.getElementById("style").insertAdjacentHTML("beforeend", Object.keys(styles).sort((a, b) => styles[b] - styles[a]).map(x => `<option>${esc(x)}</option>`).join(""));
+const grow = t => { t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight + 2, 300) + "px"; };
+let only = false;
+function filter() {
+  const q = document.getElementById("q").value.trim().toLowerCase(), sty = document.getElementById("style").value.toLowerCase();
+  let n = 0, picks = 0;
+  document.querySelectorAll("tr[data-id]").forEach(tr => { const s = SONGS.find(x => x.id === tr.dataset.id), pk = tr.classList.contains("picked"); if (pk) picks++;
+    const show = (!q || (s.t + " " + s.a + " " + s.v).toLowerCase().includes(q)) && (!sty || (s.s || "").toLowerCase().includes(sty)) && (!only || pk);
+    tr.hidden = !show; if (show) n++; });
+  document.getElementById("count").textContent = `${n} morceaux · ${picks} ★`;
+}
+function fill() {
+  const g = document.getElementById("general");
+  if (document.activeElement !== g && pending["_general|note"] === undefined) { g.value = state.general || ""; grow(g); }
+  g.parentElement.classList.toggle("has", !!g.value);
+  document.querySelectorAll("tr[data-id]").forEach(tr => {
+    const d = state.songs[tr.dataset.id] || {};
+    tr.classList.toggle("picked", !!d.pick); tr.querySelector(".star button").setAttribute("aria-pressed", !!d.pick);
+    tr.querySelectorAll("[data-f]").forEach(el => {
+      const f = el.dataset.f;
+      if (document.activeElement === el || pending[tr.dataset.id + "|" + f] !== undefined) return;
+      if (el.type === "checkbox") el.checked = !!d[f]; else el.value = d[f] || "";
+      if (el.tagName === "TEXTAREA") grow(el);
+    });
+  });
+  filter();
+}
+function setLocal(id, f, v) { if (id === "_general") { state.general = v; return; } state.songs[id] = state.songs[id] || {}; state.songs[id][f] = v; }
+function merge(data) { if (data && data.songs) { state.songs = data.songs; state.general = data.general || ""; } for (const key in pending) { const [id, f] = key.split("|"); setLocal(id, f, pending[key]); } }
+const timers = {}; let busy = false;
+function queue(id, f, v, ms) { setLocal(id, f, v); pending[id + "|" + f] = v; save(); setStatus("Enregistrement…"); clearTimeout(timers[id + f]); timers[id + f] = setTimeout(flush, ms); }
+async function flush() {
+  if (busy) return; busy = true;
+  try {
+    for (const key of Object.keys(pending)) {
+      const [id, f] = key.split("|"), v = pending[key];
+      const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, field: f, value: v }) });
+      if (!r.ok) throw 0;
+      const data = await r.json(); if (pending[key] === v) delete pending[key]; merge(data);
+    }
+    save(); setStatus("Enregistré ✓", "ok");
+  } catch (e) { save(); setStatus("Gardé sur cet appareil, pas encore en ligne", "err"); } finally { busy = false; }
+}
+async function pull() {
+  try { const r = await fetch(API, { cache: "no-store" }); if (!r.ok) throw 0; merge(await r.json()); save(); fill();
+    if (Object.keys(pending).length) flush(); else setStatus("Enregistré ✓", "ok");
+  } catch (e) { fill(); setStatus("Hors ligne : gardé sur cet appareil", "err"); }
+}
+document.addEventListener("input", e => { const el = e.target;
+  if (el.id === "general") { grow(el); el.parentElement.classList.toggle("has", !!el.value); return queue("_general", "note", el.value, 900); }
+  if (el.id === "q") return filter();
+  const tr = el.closest("tr[data-id]"); if (!tr || !el.dataset.f || el.type === "checkbox") return;
+  if (el.tagName === "TEXTAREA") grow(el); queue(tr.dataset.id, el.dataset.f, el.value, 800); });
+document.getElementById("style").addEventListener("change", filter);
+document.addEventListener("click", e => {
+  const b = e.target.closest(".star button");
+  if (b) { const tr = b.closest("tr"), v = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", v); tr.classList.toggle("picked", v); queue(tr.dataset.id, "pick", v, 50); return filter(); }
+  if (e.target.closest("#only")) { only = !only; document.getElementById("only").setAttribute("aria-pressed", only); filter(); } });
+document.addEventListener("change", e => { const el = e.target, tr = el.closest("tr[data-id]"); if (!tr || el.type !== "checkbox") return; queue(tr.dataset.id, "known", el.checked, 50); });
+window.addEventListener("online", flush);
+setInterval(() => Object.keys(pending).length ? flush() : pull(), 30000);
+fill(); pull();
+</script>
+</body>
+</html>
