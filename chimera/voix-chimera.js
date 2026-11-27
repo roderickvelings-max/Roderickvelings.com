@@ -7,13 +7,15 @@
  * window.ChimeraVoice.preload()                     charge le moteur à l'avance (sans son)
  * window.ChimeraVoice.sing(ipa, midi, opts) → bool  chante ; false si le moteur est indisponible
  *   opts : {female: 0..1, dur: secondes, onFail: () => …}  (onFail : le moteur n'a pas pu chanter)
+ * window.ChimeraVoice.attachCutaway(svg)            dessine dans ce <svg> la coupe du conduit vocal,
+ *   animée par la position réelle des articulateurs du moteur (comme la vue « Play » de CHIMERA)
  */
 (function () {
   const BASE = new URL('.', document.currentScript.src).href;
   const VIBRATO = 35; // cents, la valeur par défaut de CHIMERA
   let mod = null, x = null, loading = null, failed = false;
   let ctx = null, node = null, nodeReady = null;
-  let exhale = null, body = null, nextTag = 1, sounding = null, offTimer = null;
+  let cat = null, exhale = null, body = null, nextTag = 1, sounding = null, offTimer = null;
   const tails = [];
 
   const enc = new TextEncoder(), dec = new TextDecoder();
@@ -36,7 +38,8 @@
       if (!res.ok) throw new Error('moteur absent (HTTP ' + res.status + ')');
       mod = await WebAssembly.compile(await res.arrayBuffer());
       x = (await WebAssembly.instantiate(mod, {})).exports;
-      exhale = call('catalog').exhaleLabel;
+      cat = call('catalog');
+      exhale = cat.exhaleLabel;
     })();
     loading.catch(() => { failed = true; });
     return loading;
@@ -58,7 +61,10 @@
       await preload();
       await ctx.audioWorklet.addModule(BASE + 'worklet.js');
       node = new AudioWorkletNode(ctx, 'chimera-roue', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2], processorOptions: { module: mod } });
-      node.port.onmessage = (e) => { if (e.data.type === 'error') { failed = true; console.warn(e.data.message); } };
+      node.port.onmessage = (e) => {
+        if (e.data.type === 'error') { failed = true; console.warn(e.data.message); }
+        else if (e.data.type === 'artic') showArtic(e.data.artic);
+      };
       const gain = ctx.createGain(); gain.gain.value = 0.9;
       const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 4;
       node.connect(gain).connect(comp).connect(ctx.destination);
@@ -88,6 +94,7 @@
       if (sounding) { clearTimeout(offTimer); noteOff(); }
       body = { female, child: 0 };
       send({ type: 'body', female, child: 0 });
+      cutBody = female;
     }
     // la respiration de fin de la note d'avant ne doit pas rouvrir les plis sur cette attaque
     for (const t of tails.splice(0)) send({ type: 'release', tag: t + 1 });
@@ -112,5 +119,48 @@
     return true;
   }
 
-  window.ChimeraVoice = { preload, sing, get failed() { return failed; }, get loaded() { return !!x; } };
+  /* ---------- la coupe du conduit vocal (vue de profil, le visage tourné vers la droite) ---------- */
+  let cut = null, cutBody = 0, model = null, pending = null, raf = 0;
+  const VB = { x0: -2.6, x1: 8.8, y0: -0.7, y1: 11.7 }; // cm, glotte en (0, 0)
+  const pts = (a) => a.map((p) => p.x.toFixed(2) + ',' + (-p.y).toFixed(2)).join(' ');
+
+  function modelFor(female) {
+    const sr = ctx ? ctx.sampleRate : 48000, key = female + '/' + sr;
+    if (model && model.key === key) return model.id;
+    if (model) { try { call('dropModel', { model: model.id }); } catch (e) {} }
+    model = { key, id: call('model', { body: { female, child: 0 }, sampleRate: sr }).model };
+    return model.id;
+  }
+
+  function draw(artic) {
+    raf = 0;
+    if (!cut || !x) return;
+    const a = {};
+    cat.articKeys.forEach((k, i) => (a[k] = artic ? artic[i] : cat.neutral[k]));
+    const f = call('frame', { model: modelFor(cutBody), artic: a });
+    const air = pts(f.outer) + ' ' + pts(f.inner.slice().reverse());
+    cut.innerHTML =
+      `<defs><clipPath id="cpClip"><rect x="${VB.x0}" y="${-VB.y1}" width="${VB.x1 - VB.x0}" height="${VB.y1 - VB.y0}"/></clipPath></defs>` +
+      `<g clip-path="url(#cpClip)" stroke-linejoin="round" stroke-linecap="round">` +
+      `<polygon class="cp-air" points="${air}"/>` +
+      `<polygon class="cp-nose" points="${pts(f.nasalCavity)}"/>` +
+      `<polyline class="cp-jaw" points="${pts(f.jawBone)}"/>` +
+      `<polyline class="cp-wall" points="${pts(f.outer)}"/><polyline class="cp-wall" points="${pts(f.inner)}"/>` +
+      `<polygon class="cp-tongue" points="${pts(f.tongue)}"/>` +
+      `<polyline class="cp-velum" points="${pts(f.velum)}"/>` +
+      `<polyline class="cp-teeth" points="${pts(f.upperTeeth)}"/><polyline class="cp-teeth" points="${pts(f.lowerTeeth)}"/>` +
+      `<polygon class="cp-lip" points="${pts(f.upperLip)}"/><polygon class="cp-lip" points="${pts(f.lowerLip)}"/>` +
+      `<polyline class="cp-wall" points="${pts(f.epiglottis)}"/>` +
+      `<circle class="cp-glottis" cx="${f.glottis.x}" cy="${-f.glottis.y}" r="0.28"/></g>`;
+  }
+  function showArtic(artic) { pending = artic; if (cut && !raf) raf = requestAnimationFrame(() => draw(pending)); }
+
+  function attachCutaway(svg, female) {
+    cut = svg;
+    cut.setAttribute('viewBox', `${VB.x0} ${-VB.y1} ${VB.x1 - VB.x0} ${VB.y1 - VB.y0}`);
+    if (!sounding) cutBody = female ? 1 : 0;
+    return preload().then(() => draw(pending));
+  }
+
+  window.ChimeraVoice = { preload, sing, attachCutaway, get failed() { return failed; }, get loaded() { return !!x; } };
 })();

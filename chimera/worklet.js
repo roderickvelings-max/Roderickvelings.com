@@ -61,7 +61,19 @@ class ChimeraRoue extends AudioWorkletProcessor {
         } else if (m.type === "release") x.engine_release(h, m.tag);
       } catch (err) { this.fail(err); }
     };
+    this.blocks = 0;
+    this.lastArtic = null;
     this.port.postMessage({ type: "ready" });
+  }
+  // la position des articulateurs (langue, mâchoire, lèvres…) pour la coupe animée, ~47 fois par seconde quand elle bouge
+  postArtic() {
+    const x = this.x, p = x.engine_telemetry(this.h);
+    const n = new Float64Array(x.memory.buffer, p, 16)[11];
+    const a = Array.from(new Float64Array(x.memory.buffer, p + 16 * 8, n));
+    const last = this.lastArtic;
+    if (last && a.every((v, i) => Math.abs(v - last[i]) < 1e-4)) return;
+    this.lastArtic = a;
+    this.port.postMessage({ type: "artic", artic: a });
   }
   fail(err) {
     if (this.dead) return;
@@ -78,6 +90,7 @@ class ChimeraRoue extends AudioWorkletProcessor {
       ch0.set(new Float32Array(this.x.memory.buffer, p, ch0.length));
     } catch (err) { ch0.fill(0); this.fail(err); }
     for (let c = 1; c < out.length; c++) out[c].set(ch0);
+    if (++this.blocks % 8 === 0) { try { this.postArtic(); } catch (err) { this.fail(err); } }
     return true;
   }
 }
