@@ -59,7 +59,7 @@
       await ctx.audioWorklet.addModule(BASE + 'worklet.js');
       node = new AudioWorkletNode(ctx, 'chimera-roue', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2], processorOptions: { module: mod } });
       node.port.onmessage = (e) => { if (e.data.type === 'error') { failed = true; console.warn(e.data.message); } };
-      const gain = ctx.createGain(); gain.gain.value = 1.6;
+      const gain = ctx.createGain(); gain.gain.value = 0.9;
       const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 4;
       node.connect(gain).connect(comp).connect(ctx.destination);
     })();
