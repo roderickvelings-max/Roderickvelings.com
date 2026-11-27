@@ -53,6 +53,7 @@ svg{display:block;max-width:100%}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .seg button{font:inherit;font-size:.9rem;padding:8px 14px;border:0;background:transparent;color:var(--ink);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:disabled{opacity:.45;cursor:not-allowed}
 .seg button:focus-visible, label:focus-within{outline:2px solid var(--sel);outline-offset:2px}
 #regs{display:flex;flex-wrap:wrap;border-radius:14px}#regs button{flex:1 1 auto}
 label.chk{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;cursor:pointer}
@@ -162,6 +163,7 @@ figcaption{font-size:.86rem;color:var(--muted);margin-top:6px;max-width:65ch}
         <optgroup label="Homme"><option value="basse">Basse</option><option value="baryton" selected>Baryton</option><option value="tenor">Ténor</option></optgroup>
         <optgroup label="Femme"><option value="alto">Alto</option><option value="mezzo">Mezzo</option><option value="soprano">Soprano</option></optgroup>
       </select></label>
+    <div class="seg" id="snd" role="group" aria-label="Son"><button data-snd="chimera" aria-pressed="true">Voix CHIMERA</button><button data-snd="synthe" aria-pressed="false">Son simple</button></div>
   </section>
 
   <section>
@@ -185,6 +187,7 @@ figcaption{font-size:.86rem;color:var(--muted);margin-top:6px;max-width:65ch}
   <section class="panel">
     <p class="note">Notes en notation française : do3 est le do du milieu du piano (262 Hz). Les repères varient un peu selon la voix et le style. Garde la modification aussi discrète que possible.</p>
     <p class="note">Sources : Allan Wright, fondateur de la technique Chanteur Moderne, pour la disposition de la roue et pour les repères de i, é, è et a. Les repères de ou, ô, o ouvert, â et e sont déduits ici par symétrie d'ouverture, ils ne viennent pas de cette source. Quatre façons de chanter. Voix de tête : la voyelle reste pure jusqu'à ce que la note atteigne sa première résonance (le repère d'Allan Wright), puis on l'ouvre. Mix de poitrine : dans le passage (l'octave sous ce repère, quand le deuxième harmonique dépasse la résonance), on ferme d'un cran pour que le son « tourne » au lieu de crier (Kenneth Bozeman), puis on rouvre au-dessus du repère. Mix de tête : même principe, mais on ne ferme que les voyelles ouvertes, puisque le son est déjà plus léger. Belt : on ouvre dès le passage pour garder la couleur de poitrine. Les sons sont synthétisés : ils illustrent la couleur, pas une vraie voix.</p>
+    <p class="note">Voix CHIMERA : la voyelle est chantée par un conduit vocal simulé (poumons, plis vocaux, gorge, bouche, nez), et non par des enregistrements. Moteur libre de Jameson Hodge (<a href="https://github.com/jamesondh/chimera-vocal-synth" rel="noopener">CHIMERA</a>, licence MIT). Il prend une voix d'homme ou de femme selon « Ma voix », mais chante de la même façon dans les quatre modes : seule la voyelle change. Le premier son peut mettre quelques secondes à venir, le temps de charger le moteur. « Son simple » reprend l'ancien son de synthé, plus léger.</p>
     <p class="note">Deux sortes de passages se superposent. Le 1er et le 2e passage (bandeau du haut) sont ceux de la voix, selon sa catégorie : repères habituels d'après Richard Miller, à ajuster à ta voix. Le passage de la voyelle (en bleu sur les touches) dépend de la voyelle : il commence quand le 2e harmonique de la note atteint sa première résonance, et se termine quand la note elle-même (1er harmonique) l'atteint. Chez l'homme, c'est souvent là que tombe le 2e passage ; chez la femme, le passage des voyelles se trouve plutôt dans le médium. Les résonances des voyelles varient un peu d'une voix à l'autre, un peu plus hautes en moyenne chez les femmes.</p>
   </section>
   <section id="comprendre" class="learn" aria-labelledby="c-title">
@@ -349,6 +352,7 @@ figcaption{font-size:.86rem;color:var(--muted);margin-top:6px;max-width:65ch}
   </section>
 </main>
 
+<script src="/chimera/voix-chimera.js"></script>
 <script>
 const N = m => 440 * Math.pow(2, (m - 69) / 12);
 const NAMES = ['do','do♯','ré','ré♯','mi','fa','fa♯','sol','sol♯','la','la♯','si'];
@@ -564,9 +568,25 @@ const regBtns = [...document.querySelectorAll('#regs button')];
 function setReg(r){ reg = r; regBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.reg === r)); lastMidi = null; render(); renderTable(); centerPiano(); }
 regBtns.forEach(b => b.addEventListener('click', () => setReg(b.dataset.reg)));
 
-/* ---------- sound: sawtooth through three formant filters ---------- */
-let ctx = null, live = null;
+/* ---------- son : la voix CHIMERA (conduit vocal simulé), sinon le synthé simple ---------- */
+let snd = 'chimera';
+const sndBtns = [...document.querySelectorAll('#snd button')];
+function setSnd(x){ snd = x; sndBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.snd === x)); }
+sndBtns.forEach(b => b.addEventListener('click', () => setSnd(b.dataset.snd)));
+function chimeraOff(){ setSnd('synthe'); const b = sndBtns[0]; b.disabled = true; b.title = 'Moteur indisponible sur cet appareil'; }
+if (window.ChimeraVoice) ChimeraVoice.preload().catch(chimeraOff); else chimeraOff();
+const FEMALE = new Set(['alto', 'mezzo', 'soprano']);
 function play(k, midi, wide){
+  if (snd === 'chimera' && window.ChimeraVoice && V[k] && V[k].sym){
+    const female = FEMALE.has(document.getElementById('voice').value);
+    if (ChimeraVoice.sing(V[k].sym, midi, {female, dur: 1.2, onFail: () => { chimeraOff(); playSynth(k, midi, wide); }})) return;
+  }
+  playSynth(k, midi, wide);
+}
+
+/* ---------- synthé simple : dent de scie dans trois filtres de formants ---------- */
+let ctx = null, live = null;
+function playSynth(k, midi, wide){
   try {
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
     if (ctx.state === 'suspended') ctx.resume();

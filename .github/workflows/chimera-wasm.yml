@@ -1,0 +1,58 @@
+# Compile le moteur de voix CHIMERA (Jameson Hodge, licence MIT) en WebAssembly pour la roue des voyelles.
+# Le code de CHIMERA est figé sur un commit précis : pour passer à une version plus récente, change CHIMERA_REF.
+# Le build tourne sans droit d'écriture ; seule la seconde étape, qui n'exécute pas le code de CHIMERA, publie le fichier.
+name: Moteur de voix CHIMERA (wasm)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/chimera-wasm.yml']
+env:
+  CHIMERA_REPO: jamesondh/chimera-vocal-synth
+  CHIMERA_REF: 720b2412a8bd7bef329e9a6408f6fde0c2cab8b7
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CHIMERA_REPO }}
+          ref: ${{ env.CHIMERA_REF }}
+          persist-credentials: false
+      - name: Compiler le moteur
+        run: |
+          rustup toolchain install stable --profile minimal --target wasm32-unknown-unknown
+          rustup default stable
+          cargo build -p chimera-wasm --release --target wasm32-unknown-unknown --locked
+          mkdir out
+          cp target/wasm32-unknown-unknown/release/chimera_wasm.wasm out/chimera.wasm
+          cp LICENSE out/LICENSE-chimera.txt
+          echo "$CHIMERA_REPO@$CHIMERA_REF" > out/VERSION.txt
+          ls -l out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chimera-wasm
+          path: out/
+          retention-days: 3
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: chimera-wasm
+          path: chimera/
+      - name: Publier sur le site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add chimera/chimera.wasm chimera/LICENSE-chimera.txt chimera/VERSION.txt
+          git diff --cached --quiet && { echo "Rien de neuf"; exit 0; }
+          git commit -m "Roue des voyelles : moteur CHIMERA compilé ($(cat chimera/VERSION.txt))"
+          git pull --rebase origin main
+          git push origin HEAD:main
